@@ -110,7 +110,7 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E>{
 			size++;
 			E[] tempArray = (E[]) new Object[size];
 			
-			System.out.println("array is " + tempArray.length);
+			
 			//Flag for if the item has been added or not
 			int itemAdded = 0;
 			
@@ -133,7 +133,7 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E>{
 			}
 			//Set the array equal to the newly created tempArray.
 			array = tempArray;
-			System.out.println(array.length);
+			
 		}
 		
 	}
@@ -223,7 +223,7 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E>{
 		int high = size-1;
 		int mid = 0;
 		int low = 0;
-		System.out.println("Running");
+		
 		while(low <= high) {
 			
 			//Find the new mid index for each iteration
