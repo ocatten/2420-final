@@ -1,10 +1,4 @@
-package assignment04;
-/**
- * Tester class for LargestNumberSolver 
- * 
- * @author: Parker Catten @u0580588 & Everett Oglesby
- * @version 06:08:23 CS-2420_SP-2023
- */
+
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

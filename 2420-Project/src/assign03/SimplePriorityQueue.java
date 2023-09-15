@@ -15,7 +15,6 @@ import java.util.NoSuchElementException;
 public class SimplePriorityQueue<E> implements PriorityQueue<E>{
 
 	//The capacity of the backing array is doubled as needed for the Simple Priority Queue.
-	@SuppressWarnings("unchecked")
 	private E[] array;
 	private int size = 0;
 	private int startingSize = 8;
@@ -24,6 +23,7 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E>{
 	/*
 	 * This constructor orders objects using there natural ordering through comparable.
 	 */
+	@SuppressWarnings("unchecked")
 	public SimplePriorityQueue() {
 		array = (E[]) new Object[startingSize];
 	}
@@ -32,6 +32,7 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E>{
 	/*
 	 * This constructor orders objects using the given comparator.
 	 */
+	@SuppressWarnings("unchecked")
 	public SimplePriorityQueue(Comparator<? super E> cmp) {
 		this.cmp = cmp;
 		array = (E[]) new Object[startingSize];
@@ -216,7 +217,6 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E>{
 	/*
 	 * Finds the index at which an item should be placed at in the priority queue.
 	 */
-	@SuppressWarnings("unchecked")
 	public int binarySearch(E item) {
 		
 		//Fields for binary search

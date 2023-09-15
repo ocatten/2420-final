@@ -1,8 +1,6 @@
 package assign03;
 
-import java.util.Random;
-
-import assign02.CS2420ClassGeneric;
+import java.util.Random; 
 
 public class PriorityQueueTimer<Type> {
 	public static void main(String args[]) {

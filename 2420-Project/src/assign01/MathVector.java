@@ -72,7 +72,6 @@ public class MathVector {
 		if(!(other instanceof MathVector))
 			return false;
 		
-		@SuppressWarnings("unused")
 		MathVector otherVec = (MathVector)other;
 		
 		// For each row and column
