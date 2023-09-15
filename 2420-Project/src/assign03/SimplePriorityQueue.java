@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
  * from low to high using a binary search which sorts the objects as they're added
  * to the queue. Finding the max and min of the queue are O(1) operations.
  * 
- * @Author Everett Oglesby and Parker Catten 
+ * @author Everett Oglesby and Parker Catten 
  * September 12, 2023
  */
 public class SimplePriorityQueue<E> implements PriorityQueue<E>{

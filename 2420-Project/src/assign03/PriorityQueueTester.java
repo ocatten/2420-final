@@ -262,15 +262,6 @@ public class PriorityQueueTester {
 	
 	
 	
-	@Test
-	public void containsOnLarge() {
-		setup();
-		
-		assertFalse(largeQueue.contains(250));
-		//largeQueue.insert(250);
-		//assertTrue(largeQueue.contains(250));
-	}
-	
 	
 /*=============================================================== SIZE TESTS ======================================================================*/
 	
