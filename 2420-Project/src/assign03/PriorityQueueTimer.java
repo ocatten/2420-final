@@ -22,7 +22,7 @@ public class PriorityQueueTimer<Type> {
 
 
 
-			long startTime, midpointTime, stopTime;
+			long startTime, stopTime; //midpointTime,
 
 			// First, spin computing stuff until one second has gone by
 			// This allows this thread to stabilize
