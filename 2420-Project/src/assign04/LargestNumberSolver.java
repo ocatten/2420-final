@@ -17,7 +17,7 @@ import java.util.List;
 public class LargestNumberSolver {
 	
 	// Fields
-	static Comparator<Double> cmp = new Comparator<Double>() {
+	private static Comparator<Double> cmp = new Comparator<Double>() {
 		public int compare(Double o1, Double o2) { return o1.compareTo(o2); }
 	};
 	
@@ -240,8 +240,6 @@ public class LargestNumberSolver {
 	 * @throws IllegalArgumentException: Thrown if k is not a valid position in the list
 	 */
 	public static Integer[] findKthLargest (List<Integer[]> list, int k) throws IllegalArgumentException {
-		
-		return null;
 		
 	}
 	
