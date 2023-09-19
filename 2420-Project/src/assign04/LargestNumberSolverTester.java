@@ -19,8 +19,34 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 public class LargestNumberSolverTester {
+	
+	
+	// Fields
+	Integer[] emptyArray;
+	Integer[] smallArray;
+	Integer[] largeArray;
+	
+	
+	public void setup () {
+		
+		Random rand = new Random();
+		
+		emptyArray = new Integer[0];
+		smallArray = new Integer[10];
+		largeArray = new Integer[10000];
+		
+		for(int i = 0; i < 10; i++) {
+			smallArray[i] = i;
+		}
+		
+		for(int i = 0; i < 10000; i++) {
+			smallArray[i] = i;
+		}
+	}
+	
 	
 /*=========================================================== INSERTION_SORT TESTS ==================================================================*/
 	
