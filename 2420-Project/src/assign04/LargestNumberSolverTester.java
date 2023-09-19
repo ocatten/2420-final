@@ -80,6 +80,14 @@ public class LargestNumberSolverTester {
 	@Test
 	public static void insertionSortLarge () {
 		setup();
+		
+		Integer[] newArray = new Integer[10000];
+		for(int i = 1; i < 10000; i++) {
+			newArray[i-1] = i;
+		}
+		
+		LargestNumberSolver.insertionSort(largeArray, cmp);
+		assertTrue(largeArray.equals(newArray));
 	}
 	
 	
@@ -89,6 +97,8 @@ public class LargestNumberSolverTester {
 	@Test
 	public static void findLargestNumberEmpty () {
 		setup();
+		
+		assertEquals(LargestNumberSolver.findLargestNumber(smallArray), new BigInteger("98765432110"));
 	}
 
 	
