@@ -10,9 +10,11 @@ package assign04;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
 
@@ -20,9 +22,10 @@ public class LargestNumberSolverTester {
 	
 	
 	// Fields
-	private Integer[] emptyArray;
-	private Integer[] smallArray;
-	private Integer[] largeArray;
+	private Integer[] emptyNumArr;
+	private Integer[] tinyNumArr;
+	private Integer[] smallNumArr;
+	private Integer[] largeNumArr;
 	private Comparator<Integer> cmp;
 	
 	private LargestNumberSolver numberSolver;
@@ -35,29 +38,17 @@ public class LargestNumberSolverTester {
 			public int compare(Integer o1, Integer o2) { return o1.compareTo(o2); }
 		};
 		
-		emptyArray = new Integer[0];
-		smallArray = new Integer[10];
-		largeArray = new Integer[10000];
-		
-		/*smallArray[0] = 7;
-		smallArray[1] = 5;
-		smallArray[2] = 8;
-		smallArray[3] = 2;
-		smallArray[4] = 1;
-		smallArray[5] = 3;
-		smallArray[6] = 4;
-		smallArray[7] = 6;
-		smallArray[8] = 10;
-		smallArray[9] = 9;*/
+		emptyNumArr = new Integer[0];
+		tinyNumArr = new Integer[] {5,2,1,4,3};
+		smallNumArr = new Integer[]{4,2,3,8,6,1,9,7,5};
+		largeNumArr = new Integer[1000];
 		
 		Random rand = new Random();
-		for(int i = 0; i < 10; i++) {
-			smallArray[i] = rand.nextInt(10);
-		}
+
 		
 		rand = new Random();
-		for(int i = 0; i < 10000; i++) {
-			largeArray[i] = rand.nextInt(10000);
+		for(int i = 0; i < 1000; i++) {
+			largeNumArr[i] = rand.nextInt(1000);
 		}
 	}
 	
@@ -70,9 +61,9 @@ public class LargestNumberSolverTester {
 	public  void insertionSortEmpty () {
 		setup();
 		
-		Integer[] newArray = new Integer[]{1};
-		numberSolver.insertionSort(newArray, cmp);
-		assertEquals(newArray, new Integer[]{1});
+		numberSolver.insertionSort(emptyNumArr, cmp);
+		
+		assertEquals(0,emptyNumArr.length);
 	}
 
 	
@@ -82,32 +73,38 @@ public class LargestNumberSolverTester {
 	public  void insertionSortSmall () {
 		setup();
 		
-		System.out.println(smallArray[0]);
-		System.out.println(smallArray[1]);
-		System.out.println(smallArray[2]);
-		System.out.println(smallArray[3]);
-		System.out.println(smallArray[4]);
-		System.out.println(smallArray[5]);
-		System.out.println(smallArray[6]);
-		System.out.println(smallArray[7]);
-		System.out.println(smallArray[8]);
-		System.out.println(smallArray[9]);
-		System.out.println();
+//		System.out.println(smallArray[0]);
+//		System.out.println(smallArray[1]);
+//		System.out.println(smallArray[2]);
+//		System.out.println(smallArray[3]);
+//		System.out.println(smallArray[4]);
+//		System.out.println(smallArray[5]);
+//		System.out.println(smallArray[6]);
+//		System.out.println(smallArray[7]);
+//		System.out.println(smallArray[8]);
+//		System.out.println(smallArray[9]);
+//		System.out.println();
+//		
+//		numberSolver.insertionSort(smallArray, cmp);
+//		
+//		System.out.println(smallArray[0]);
+//		System.out.println(smallArray[1]);
+//		System.out.println(smallArray[2]);
+//		System.out.println(smallArray[3]);
+//		System.out.println(smallArray[4]);
+//		System.out.println(smallArray[5]);
+//		System.out.println(smallArray[6]);
+//		System.out.println(smallArray[7]);
+//		System.out.println(smallArray[8]);
+//		System.out.println(smallArray[9]);
+//		
+//		assertEquals(smallArray, new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
 		
-		numberSolver.insertionSort(smallArray, cmp);
+		numberSolver.insertionSort(smallNumArr, cmp);
 		
-		System.out.println(smallArray[0]);
-		System.out.println(smallArray[1]);
-		System.out.println(smallArray[2]);
-		System.out.println(smallArray[3]);
-		System.out.println(smallArray[4]);
-		System.out.println(smallArray[5]);
-		System.out.println(smallArray[6]);
-		System.out.println(smallArray[7]);
-		System.out.println(smallArray[8]);
-		System.out.println(smallArray[9]);
-		
-		assertEquals(smallArray, new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+		for(Integer i = 1; i > 10; i++) {
+			assertEquals(i,smallNumArr[i]);
+		}
 	}
 
 
@@ -116,14 +113,17 @@ public class LargestNumberSolverTester {
 	public  void insertionSortLarge () {
 		setup();
 		
-		//numberSolver.insertionSort(largeArray, cmp);
+		numberSolver.insertionSort(largeNumArr, cmp);
 		
-		/*Integer[] newArray = new Integer[10000];
-		for(int i = 1; i < 10000; i++) {
-			newArray[i-1] = i;
+
+		for(Integer i = 1; i < 999; i++) {
+			Integer current = largeNumArr[i];
+			Integer next = largeNumArr[i+1];
+			
+			assertEquals(true, current <= next);
 		}
 		
-		assertTrue(largeArray.equals(newArray));*/
+
 	}
 	
 	
@@ -134,16 +134,19 @@ public class LargestNumberSolverTester {
 	public  void findLargestNumberEmpty () {
 		setup();
 		
-		//assertTrue(numberSolver.findLargestNumber(emptyArray).equals(new BigInteger("0")));
+		BigInteger expected = BigInteger.valueOf(0);
+		BigInteger result = numberSolver.findLargestNumber(emptyNumArr);
+		assertEquals(expected,result);
 	}
-
 	
 	
 	@Test
 	public  void findLargestNumberSmall () {
 		setup();
 		
-		//assertTrue(numberSolver.findLargestNumber(smallArray).equals(new BigInteger("98765432110")));
+		BigInteger expected = BigInteger.valueOf(987654321);
+		BigInteger result = numberSolver.findLargestNumber(smallNumArr);
+		assertEquals(expected,result);
 	}
 
 
@@ -152,7 +155,10 @@ public class LargestNumberSolverTester {
 	public  void findLargestNumberLarge () {
 		setup();
 		
-		//assertTrue(numberSolver.findLargestNumber(largeArray).toString(). );
+		BigInteger expected = BigInteger.valueOf(987654321);
+		BigInteger result = numberSolver.findLargestNumber(largeNumArr);
+		
+		assertEquals(expected,result);
 	}
 	
 	
@@ -206,22 +212,81 @@ public class LargestNumberSolverTester {
 	
 	
 	@Test
-	public  void sumEmpty () {
+	public  void sumOnEmpty () {
 		setup();
+		
+		ArrayList<Integer[]> empty = new ArrayList<Integer[]>();
+		empty.add(emptyNumArr);
+		
+		BigInteger expected = BigInteger.valueOf(0);
+		BigInteger result = numberSolver.sum(empty);
+		
+		assertEquals(expected,result);
 	}
 
 	
 	
 	@Test
-	public  void sumSmall () {
+	public  void sumOnSmall () {
 		setup();
+		
+		ArrayList<Integer[]> small = new ArrayList<Integer[]>();
+		small.add(tinyNumArr);
+		small.add(smallNumArr);
+		
+		int sum = 987654321 + 54321;
+		
+		BigInteger expected = BigInteger.valueOf(sum);
+		BigInteger result = numberSolver.sum(small);
+		
+		assertEquals(expected,result);
 	}
 
 
 	
 	@Test
-	public  void sumLarge () {
+	public  void sumOnLarge () {
 		setup();
+		
+		ArrayList<Integer[]> large = new ArrayList<Integer[]>();
+		large.add(largeNumArr);
+		large.add(largeNumArr);
+		
+		BigInteger expected = BigInteger.valueOf(1);
+		BigInteger result = numberSolver.sum(large);
+		
+		assertEquals(expected,result);
+	}
+	
+	public void sumWithAddingSameThingMultipleTimes() {
+		setup();
+		
+		ArrayList<Integer[]> multiple = new ArrayList<Integer[]>();
+		multiple.add(tinyNumArr);
+		
+		int sum = 54321*5;
+		
+		BigInteger expected = BigInteger.valueOf(sum);
+		BigInteger result = numberSolver.sum(multiple);
+		
+		assertEquals(expected,result);
+	}
+	
+	public void sumWithMultipleAddends() {
+		setup();
+		
+		ArrayList<Integer[]> multiple = new ArrayList<Integer[]>();
+		multiple.add(tinyNumArr);
+		multiple.add(smallNumArr);
+		multiple.add(new Integer[] {8,7,6});
+		multiple.add(new Integer[] {4,7,6,2});
+		
+		int sum = 987654321 + 54321 + 876 + 7642;
+		
+		BigInteger expected = BigInteger.valueOf(sum);
+		BigInteger result = numberSolver.sum(multiple);
+		
+		assertEquals(expected,result);
 	}
 	
 	
