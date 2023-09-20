@@ -1,38 +1,36 @@
 package assign04;
 
 /**
- * Tester class for LargestNumberSolver  
+ * Tester class for LargestNumberSolver
  * 
  * @author: Parker Catten & Everett Oglesby
  * @version 09:17:23 CS-2420_020 FA-2023
  */
 
-import static org.junit.Assert.assertEquals; 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Random;
 
 public class LargestNumberSolverTester {
 	
 	
 	// Fields
-	private static Integer[] emptyArray;
-	private static Integer[] smallArray;
-	private static Integer[] largeArray;
-	private static Comparator<Integer> cmp;
+	private Integer[] emptyArray;
+	private Integer[] smallArray;
+	private Integer[] largeArray;
+	private Comparator<Integer> cmp;
+	
+	private LargestNumberSolver numberSolver;
 	
 	
-	public static void setup () {
+	public  void setup () {
 		
+		numberSolver = new LargestNumberSolver();
 		cmp = new Comparator<Integer>() {
 			public int compare(Integer o1, Integer o2) { return o1.compareTo(o2); }
 		};
@@ -41,14 +39,25 @@ public class LargestNumberSolverTester {
 		smallArray = new Integer[10];
 		largeArray = new Integer[10000];
 		
-		Random rand = new Random();
+		smallArray[0] = 7;
+		smallArray[1] = 5;
+		smallArray[2] = 8;
+		smallArray[3] = 2;
+		smallArray[4] = 1;
+		smallArray[5] = 3;
+		smallArray[6] = 4;
+		smallArray[7] = 6;
+		smallArray[8] = 10;
+		smallArray[9] = 9;
+		
+		/*Random rand = new Random();
 		for(int i = 0; i < 10; i++) {
 			smallArray[i] = rand.nextInt(10);
-		}
+		}*/
 		
-		rand = new Random();
+		Random rand = new Random();
 		for(int i = 0; i < 10000; i++) {
-			smallArray[i] = rand.nextInt(10000);
+			largeArray[i] = rand.nextInt(10000);
 		}
 	}
 	
@@ -57,37 +66,65 @@ public class LargestNumberSolverTester {
 	
 	
 	@Test
-	public static void insertionSortEmpty () {
+	@SuppressWarnings("deprecation")
+	public  void insertionSortEmpty () {
 		setup();
 		
 		Integer[] newArray = new Integer[]{1};
-		LargestNumberSolver.insertionSort(newArray, cmp);
-		assertTrue(newArray.equals(new Integer[]{1}));
+		numberSolver.insertionSort(newArray, cmp);
+		System.out.println(newArray[0]);
+		assertEquals(newArray, new Integer[]{1});
 	}
 
 	
 	
 	@Test
-	public static void insertionSortSmall () {
+	@SuppressWarnings("deprecation")
+	public  void insertionSortSmall () {
 		setup();
 		
-		LargestNumberSolver.insertionSort(smallArray, cmp);
-		assertTrue(smallArray.equals(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}));
+		System.out.println(smallArray[0]);
+		System.out.println(smallArray[1]);
+		System.out.println(smallArray[2]);
+		System.out.println(smallArray[3]);
+		System.out.println(smallArray[4]);
+		System.out.println(smallArray[5]);
+		System.out.println(smallArray[6]);
+		System.out.println(smallArray[7]);
+		System.out.println(smallArray[8]);
+		System.out.println(smallArray[9]);
+		System.out.println();
+		
+		numberSolver.insertionSort(smallArray, cmp);
+		
+		System.out.println(smallArray[0]);
+		System.out.println(smallArray[1]);
+		System.out.println(smallArray[2]);
+		System.out.println(smallArray[3]);
+		System.out.println(smallArray[4]);
+		System.out.println(smallArray[5]);
+		System.out.println(smallArray[6]);
+		System.out.println(smallArray[7]);
+		System.out.println(smallArray[8]);
+		System.out.println(smallArray[9]);
+		
+		assertEquals(smallArray, new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
 	}
 
 
 	
 	@Test
-	public static void insertionSortLarge () {
+	public  void insertionSortLarge () {
 		setup();
 		
-		Integer[] newArray = new Integer[10000];
+		//numberSolver.insertionSort(largeArray, cmp);
+		
+		/*Integer[] newArray = new Integer[10000];
 		for(int i = 1; i < 10000; i++) {
 			newArray[i-1] = i;
 		}
 		
-		LargestNumberSolver.insertionSort(largeArray, cmp);
-		assertTrue(largeArray.equals(newArray));
+		assertTrue(largeArray.equals(newArray));*/
 	}
 	
 	
@@ -95,24 +132,28 @@ public class LargestNumberSolverTester {
 	
 	
 	@Test
-	public static void findLargestNumberEmpty () {
+	public  void findLargestNumberEmpty () {
 		setup();
 		
-		assertEquals(LargestNumberSolver.findLargestNumber(smallArray), new BigInteger("98765432110"));
+		//assertTrue(numberSolver.findLargestNumber(emptyArray).equals(new BigInteger("0")));
 	}
 
 	
 	
 	@Test
-	public static void findLargestNumberSmall () {
+	public  void findLargestNumberSmall () {
 		setup();
+		
+		//assertTrue(numberSolver.findLargestNumber(smallArray).equals(new BigInteger("98765432110")));
 	}
 
 
 	
 	@Test
-	public static void findLargestNumberLarge () {
+	public  void findLargestNumberLarge () {
 		setup();
+		
+		//assertTrue(numberSolver.findLargestNumber(largeArray).toString(). );
 	}
 	
 	
@@ -120,21 +161,21 @@ public class LargestNumberSolverTester {
 	
 	
 	@Test
-	public static void findLargestIntEmpty () {
+	public  void findLargestIntEmpty () {
 		setup();
 	}
 
 	
 	
 	@Test
-	public static void findLargestIntSmall () {
+	public  void findLargestIntSmall () {
 		setup();
 	}
 
 
 	
 	@Test
-	public static void findLargestIntLarge () {
+	public  void findLargestIntLarge () {
 		setup();
 	}
 	
@@ -143,21 +184,21 @@ public class LargestNumberSolverTester {
 	
 	
 	@Test
-	public static void findLargestLongEmpty () {
+	public  void findLargestLongEmpty () {
 		setup();
 	}
 
 	
 	
 	@Test
-	public static void findLargestLongSmall () {
+	public  void findLargestLongSmall () {
 		setup();
 	}
 
 
 	
 	@Test
-	public static void findLargestLongLarge () {
+	public  void findLargestLongLarge () {
 		setup();
 	}
 	
@@ -166,21 +207,21 @@ public class LargestNumberSolverTester {
 	
 	
 	@Test
-	public static void sumEmpty () {
+	public  void sumEmpty () {
 		setup();
 	}
 
 	
 	
 	@Test
-	public static void sumSmall () {
+	public  void sumSmall () {
 		setup();
 	}
 
 
 	
 	@Test
-	public static void sumLarge () {
+	public  void sumLarge () {
 		setup();
 	}
 	
@@ -189,21 +230,21 @@ public class LargestNumberSolverTester {
 	
 	
 	@Test
-	public static void findKthLargestEmpty () {
+	public void findKthLargestEmpty () {
 		setup();
 	}
 
 	
 	
 	@Test
-	public static void findKthLargestSmall () {
+	public void findKthLargestSmall () {
 		setup();
 	}
 
 
 	
 	@Test
-	public static void findKthLargestLarge () {
+	public void findKthLargestLarge () {
 		setup();
 	}
 	
@@ -212,21 +253,21 @@ public class LargestNumberSolverTester {
 	
 	
 	@Test
-	public static void readFileEmpty () {
+	public void readFileEmpty () {
 		setup();
 	}
 
 	
 	
 	@Test
-	public static void readFileSmall () {
+	public void readFileSmall () {
 		setup();
 	}
 
 
 	
 	@Test
-	public static void readFileLarge () {
+	public void readFileLarge () {
 		setup();
 	}
 
