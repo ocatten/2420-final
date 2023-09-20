@@ -39,7 +39,7 @@ public class LargestNumberSolverTester {
 		smallArray = new Integer[10];
 		largeArray = new Integer[10000];
 		
-		smallArray[0] = 7;
+		/*smallArray[0] = 7;
 		smallArray[1] = 5;
 		smallArray[2] = 8;
 		smallArray[3] = 2;
@@ -48,14 +48,14 @@ public class LargestNumberSolverTester {
 		smallArray[6] = 4;
 		smallArray[7] = 6;
 		smallArray[8] = 10;
-		smallArray[9] = 9;
-		
-		/*Random rand = new Random();
-		for(int i = 0; i < 10; i++) {
-			smallArray[i] = rand.nextInt(10);
-		}*/
+		smallArray[9] = 9;*/
 		
 		Random rand = new Random();
+		for(int i = 0; i < 10; i++) {
+			smallArray[i] = rand.nextInt(10);
+		}
+		
+		rand = new Random();
 		for(int i = 0; i < 10000; i++) {
 			largeArray[i] = rand.nextInt(10000);
 		}
@@ -72,7 +72,6 @@ public class LargestNumberSolverTester {
 		
 		Integer[] newArray = new Integer[]{1};
 		numberSolver.insertionSort(newArray, cmp);
-		System.out.println(newArray[0]);
 		assertEquals(newArray, new Integer[]{1});
 	}
 

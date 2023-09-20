@@ -17,7 +17,7 @@ import java.util.List;
 public class LargestNumberSolver {
 	
 	// Fields
-	private static Comparator<Double> cmp = new Comparator<Double>() {
+	private Comparator<Double> cmp = new Comparator<Double>() {
 		public int compare(Double o1, Double o2) { return o1.compareTo(o2); }
 	};
 	
@@ -28,26 +28,31 @@ public class LargestNumberSolver {
 	 * @param arr: Array of generic objects that is sorted.
 	 * @param cmp: Comparator object that's used to sort the generic objects
 	 */
-	public static <T> void insertionSort (T[] arr, Comparator<? super T> cmp) {
+	public <T> void insertionSort (T[] arr, Comparator<? super T> cmp) {
+		
+		// Catch case for empty array
 		
 		// Loop through the given array
 		for (int i = 0; i < arr.length; ++i) {
 			
 			int j = i + 1; // j is the next element in the set
 			
-		    while (j < arr.length  && cmp.compare(arr[j], arr[i]) > 0) {
+		    if (j < arr.length && cmp.compare(arr[j], arr[i]) < 0) {
 		           
 		    	int current = i, next = j; // Take current point at the array to iterate down with
-		    	T inserted = arr[i];
+		    	while (cmp.compare(arr[next], arr[current]) < 0) {
+		    		T inserted = arr[current];
 		    	
-		    	// Swap the current and the next(inserted) positions and decrement both until each element is sorted from i & j
-		        arr[current] = arr[next];
-		        arr[next] = inserted;
+		    	
+		    		// Swap the current and the next(inserted) positions and decrement both until each element is sorted from i & j
+		    		arr[current] = arr[next];
+		    		arr[next] = inserted;
 		        
-		        // If there's still a valid index to move down to, decrement trackers.
-		        if (current > 0) {
-		        	current--; next--;
-		        }
+		    		// If there's still a valid index to move down to, decrement trackers.
+		    		if (current > 0) {
+		    			current--; next--;
+		    		}
+		    	}
 			}
 		} 
 		
@@ -63,7 +68,7 @@ public class LargestNumberSolver {
 	 * @param arr: Basic array of Integer objects to be combined
 	 * @return largestNumber: Largest possible combination of the elements in the parameter as a BigInteger object
 	 */
-	public static BigInteger findLargestNumber (Integer[] arr) {
+	public BigInteger findLargestNumber (Integer[] arr) {
 		
 		// First, we need to sort by the first number each element in the array possesses.
 		Double[] newArr = new Double[arr.length];
@@ -113,7 +118,7 @@ public class LargestNumberSolver {
 	 * @return: Largest possible int combination created from elements in the parameter's array
 	 * @throws OutOfRangeException: Thrown if the smallest combination within the array is out of range for an integer
 	 */
-	public static int findLargestInt (Integer[] arr) throws OutOfRangeException {
+	public int findLargestInt (Integer[] arr) throws OutOfRangeException {
 		
 		// This method will follow the same logic as findLargestNumber, but will tweak the final product until it can be an int
 		
@@ -170,7 +175,7 @@ public class LargestNumberSolver {
 		// If it is in range, keep making the kth largest value different to get smaller and smaller
 		int k = 0; // Counter for number of iterations
 		while (k < totalPermutations) {
-			Integer arr
+			//Integer arr
 			if(new BigInteger(bigNumber.toString()).compareTo(new BigInteger("2147483647")) > 0) {
 				
 				  
@@ -210,7 +215,7 @@ public class LargestNumberSolver {
 	 * @return: Largest possible long combination created from elements in the parameter's array
 	 * @throws OutOfRangeException: Thrown if the smallest combination within the array is out of range for a long
 	 */
-	public static long findLargestLong (Integer[] arr) throws OutOfRangeException {
+	public long findLargestLong (Integer[] arr) throws OutOfRangeException {
 		
 		return 0;
 	}
@@ -224,7 +229,7 @@ public class LargestNumberSolver {
 	 * @param list: List of basic arrays to make the biggest numbers out of
 	 * @return: BigInteger sum of each array's BigInteger
 	 */
-	public static BigInteger sum (List<Integer[]> list) {
+	public BigInteger sum (List<Integer[]> list) {
 		return null;
 	}
 	
@@ -239,8 +244,8 @@ public class LargestNumberSolver {
 	 * @param k: Which rank of the largest number will be found and returned
 	 * @throws IllegalArgumentException: Thrown if k is not a valid position in the list
 	 */
-	public static Integer[] findKthLargest (List<Integer[]> list, int k) throws IllegalArgumentException {
-		
+	public Integer[] findKthLargest (List<Integer[]> list, int k) throws IllegalArgumentException {
+		return null;
 	}
 	
 	
@@ -252,7 +257,7 @@ public class LargestNumberSolver {
 	 * @param filename: Name of the file (inluding .txt) to be read
 	 * @return: List of integer arrays from an input file, or an empty list if the file does not exist.
 	 */
-	public static List<Integer[]> readFile (String filename) {
+	public List<Integer[]> readFile (String filename) {
 		return null;
 	}
 	
