@@ -39,6 +39,7 @@ public class LargestNumberSolver {
 			System.out.println("Error. Empty array given");
 			return;
 		}
+		
 		if(arr.length == 1) {
 			System.out.println("Array with length of 1 given. No sorting"
 					+ " can be done.");
@@ -65,8 +66,7 @@ public class LargestNumberSolver {
             // This makes sure elements aren't overwritten by the while loop if they're in order.
             //  It resets the loop for the next key.
             arr[j + 1] = inserted;
-	     } 
-		
+	     }
 	}
 	
 	
@@ -79,7 +79,7 @@ public class LargestNumberSolver {
 	 * @param arr: Basic array of Integer objects to be combined
 	 * @return largestNumber: Largest possible combination of the elements in the parameter as a BigInteger object
 	 */
-	public BigInteger findLargestNumber(Integer[] arr) {
+	public BigInteger findLargestNumber (Integer[] arr) {
 		
 		Integer[] largestNumArr = findLargestNum(arr);
 		
@@ -241,6 +241,7 @@ public class LargestNumberSolver {
 	 * @throws IllegalArgumentException: Thrown if k is not a valid position in the list
 	 */
 	public  Integer[] findKthLargest (List<Integer[]> list, int k) throws IllegalArgumentException {
+		return null;
 		
 	}
 	
