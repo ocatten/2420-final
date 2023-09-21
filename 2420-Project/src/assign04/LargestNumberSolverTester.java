@@ -139,6 +139,8 @@ public class LargestNumberSolverTester {
 	@Test
 	public  void findLargestIntEmpty () {
 		setup();
+		
+		numberSolver.findLargestInt(emptyNumArr);
 	}
 
 	
@@ -146,6 +148,10 @@ public class LargestNumberSolverTester {
 	@Test
 	public  void findLargestIntSmall () {
 		setup();
+		
+		Integer[] testCase = new Integer[] {3, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+		
+		assertEquals(numberSolver.findLargestInt(testCase), 1311111111);
 	}
 
 

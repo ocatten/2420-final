@@ -1,7 +1,5 @@
 package assign04;
 
-import java.math.BigInteger;
-
 /**
  * This class takes an array of integers and sorts them into a BigInteger number as the largest combination, the kth largest combination,
  * largest int, largest long, etc. Uses StringBuilder to create large numbers. Used Canvas page for some of the method contracts, used
@@ -11,18 +9,46 @@ import java.math.BigInteger;
  * @version 09:14:03 2420_020 FA-2023
  */
 
+import java.math.BigInteger;
 import java.util.Comparator;
 import java.util.List;
 
 public class LargestNumberSolver {
 	
 	// Fields
-	private  Comparator<Double> cmpDouble = new Comparator<Double>() {
-		public int compare(Double o1, Double o2) { return o2.compareTo(o1); }
+	private  Comparator<String> cmp = new Comparator<String>() {
+		
+		// For this compare method, we essentially want to sort each number alphabetically. Single digits
+		//  go first for their respective "leading number", as second ones do, and so on
+		
+		@SuppressWarnings("removal")
+		public int compare(String o1, String o2) { 
+			
+			// Convert both to character arrays of the strings
+			char[] lhs = o1.toCharArray(), rhs = o2.toCharArray();
+			
+			// Loop through all the numbers until one ends or a greater value is found in any given position
+			int index = 0;
+			while (index < lhs.length && index < rhs.length) {
+				
+				// If a greater value is found:
+				if(lhs[index] > rhs[index]) {
+					
+					return -1; // Greater than
+				
+				} else if (lhs[index] < rhs[index]) {
+					
+					return 1; // Less than
+				
+				} 
+				
+				index++; // Equal to
+			}
+			
+			// If the two Strings are equal up to this point, return the shorter one.
+			return new Integer(lhs.length).compareTo(new Integer (rhs.length))*-1; // Inverted for insertionSort
+		}
 	};
-	private  Comparator<Integer> cmpInteger = new Comparator<Integer>() {
-		public int compare(Integer o1, Integer o2) { return o2.compareTo(o1); }
-	}; 
 	
 	
 	/**
@@ -33,32 +59,27 @@ public class LargestNumberSolver {
 	 */
 	public  <T> void insertionSort (T[] arr, Comparator<? super T> cmp) {
 		
-		//If empty array or array with length of 1 given, then do nothing and
-		//print out warning message.
+		// Catch case for an empty array or an array with 1 element
 		if(arr.length <= 1) {
 			return;
 		}
 		
-		
-		// Loop through every element of the array in the parameter
+		// Loop through the given list
 		for (int i = 1; i < arr.length; i++) {
 	        
-			// Takes the ith element and uses it as an insertion key to make comparisons with
+			// Takes the current element to make comparisons with
 			T inserted = arr[i];
-			// j is essentially a position before the insertion key to make comparisons with
-			int j = i - 1;
+			int j = i - 1; // Find index before this one
             
-			// Loops through every item from the insertion key downward, checks to see if the jth element is greater than the key
+			// Checks the ith element from the insertion key to the beginning and swaps around
             while (j >= 0 && cmp.compare(arr[j], inserted) > 0) {
             	
-            	// If the key is less than the jth element, the element after it is the new value.
-            	// After it's looped once, it's only checking if the jth element is still above 0
+            	// Swap elements around the inserted component
             	arr[j + 1] = arr[j];
             	j = j - 1;
 	        }
             
-            // This makes sure elements aren't overwritten by the while loop if they're in order.
-            //  It resets the loop for the next key.
+            // Resets the loop for the next key
             arr[j + 1] = inserted;
 	     }
 	}
@@ -75,16 +96,8 @@ public class LargestNumberSolver {
 	 */
 	public BigInteger findLargestNumber (Integer[] arr) {
 		
-		Integer[] largestNumArr = findLargestNumberHelper (arr);
-		
-		String largestNum = "";//String to store the largest number.
-		
-		for(int i = 0; i < largestNumArr.length; i++) {
-			largestNum += largestNumArr[i];
-		}
-		
-		// Return the built String into a BigInteger.
-		return new BigInteger(largestNum);
+		// Use helper for sorting the Strings and getting the built list
+		return stringsToBigInt( getSortedStrings(arr) );
 	}
 	
 	
@@ -99,72 +112,142 @@ public class LargestNumberSolver {
 	 */
 	public int findLargestInt (Integer[] arr) throws OutOfRangeException {
 		
-		// This method will follow the same logic as findLargestNumber, but will tweak the final product until it can be an int
+		String[] newArr = getSortedStrings(arr); // Use helper method to find the largest combination in Strings
 		
-		// First, we need to sort by the first number each element in the array possesses.
-		/*Double[] newArr = new Double[arr.length];
-		
-		// Take the empty double array and simplify each integer into scientific notation.
-		for (int i = 0; i < arr.length; i++) {
+		// Now uses a while loop to keep looping under smaller versions until an int is found
+		int permutation = 1;
+		while (permutation <= factorial(newArr.length)) {
 			
-			Double castedInt = arr[i].doubleValue() + .1; // Convert int to double and add tracker to the end
-			while (castedInt > 10) { // While double isn't in scientific notation, keep dividing by 10.				
-				castedInt /= 10;
-			}
+			// Create an array to store the current permutation
+			String[] ithLargest = new String[newArr.length];
 			
-			// Add this element to the new array.
-			newArr[i] = castedInt;
-		}
-		
-		// Sort the new array of doubles.
-		insertionSort(newArr, cmp);
-		
-		
-		// Make the BigInteger String out of the array
-		StringBuilder bigNumber = new StringBuilder();
-		Integer[] intArr = new Integer[newArr.length];
-		
-		// Convert doubles back into bigIntegers and remove tracker placed earlier
-		for (int i = 0; i < newArr.length; i++) {
+			// Check the ith version and take the leading number out first. We find this by determining that each number's
+			//  position in an ith largest combination is determined by i. Each number will remain unchanged during the
+			//  first interval of its position! (factorial). After exceeding that threshold, the second largest number 
+			//  swaps with it, then the third, and so on. We'll search the possible combinations and remove elements as we
+			//  clarify their position recursively
 			
-			// While the current number hasn't been taken out of scientific notation (denoted by .1 tail)
-			while (newArr[i] % 1 != .1) {
-				newArr[i] *= 10;
-			}
+			int currentPermutation = permutation;
 			
-			// Truncate tail from the end once scientific notation is undone and add it to the array of integers
-			bigNumber.append( newArr[i].intValue() );
-			intArr[i] = newArr[i].intValue();
-			
-		}
-		
-		// Check the length of the final product to see if its in range
-		if (bigNumber.toString().length() > 10) {
-			throw new OutOfRangeException("integer");
-		}
-		
-		int totalPermutations = 1;
-		// Find the maximum number of combination for the array, length!
-		for(int i = newArr.length; i > 0; i--) {
-			totalPermutations *= i;
-		}
-		
-		// Make 
-		
-		// If it is in range, keep making the kth largest value different to get smaller and smaller
-		int k = 0; // Counter for number of iterations
-		while (k < totalPermutations) {
-			Integer arr
-			if(new BigInteger(bigNumber.toString()).compareTo(new BigInteger("2147483647")) > 0) {
+			int position = 1;
+			while (position < ithLargest.length) {
 				
-				  
+				// Test statements
+				//System.out.println(factorial(index++));
+				//System.out.println(currentPermutation + " p");
+				//System.out.println("newValue: " + newValue);
+				
+				if (currentPermutation == 0) {
+					for(int j = position; j <= ithLargest.length; j++) {
+						
+						
+						ithLargest[j-1] = newArr[j-1];
+					}
+					break;
+					
+				}
+				
+				String newValue = newArr[currentPermutation / factorial(position)];
+				
+				while (newValue == null) {
+					
+					System.out.println("null value found");
+					position++;
+					newValue = newArr[currentPermutation / factorial(position)];
+				}
+				
+				newArr[currentPermutation / factorial(position)] = null;
+				ithLargest[position-1] = newValue;
+				
+				currentPermutation %= factorial(position);
+								
 			}
 			
-			k++;
+			newArr = ithLargest.clone();
+			
+			// Test statements
+			for (String s : newArr) {
+				System.out.println(s);
+			}
+			
+			if (stringsToBigInt(newArr).compareTo(new BigInteger("2147483647")) < 1) {
+				return stringsToBigInt(newArr).intValue();
+			}
+			
+			permutation++;
 		}
-		return 0;*/
 		
 		return 0;
+	}
+	
+	
+	
+	/**
+	 * Helper method that calculates a factorial
+	 * 
+	 * @param x: Number to take factorial of
+	 * @return: Factorial of x
+	 */
+	public int factorial  (int x) {
+		
+		int xFactorial = 1;
+		
+		// Keep multiplying the result by the current iteration to get the factorial
+		for (int i = 1; i <= x; i++) {     
+		      xFactorial *= i; 
+		}
+		
+		return xFactorial;
+	}
+		
+		
+		
+	/**
+	 * Helper method to avoid repeating logic from FindLargestNumber. 
+	 * 
+	 * @param arr: Array of Integers to combine
+	 * @return: array of Strings
+	 */
+	public String[] getSortedStrings (Integer[] arr) throws OutOfRangeException {
+		
+		// Follows same process as largestNumber but uses a helper method to get smaller versions
+		
+		// First, convert each Integer to Strings for better length comparisons and charArrays
+		String[] newArr = new String[arr.length];
+		
+		for (int i = 0; i < arr.length; i++) {
+			newArr[i] = arr[i].toString();
+		}
+
+		// Use the custom lambda expression to sort each array in the list
+		insertionSort(newArr, cmp);
+		
+		return newArr;
+	}
+	
+	
+	
+	/**
+	 * Helper method to turn String arrays into BigIntegers while preserving order
+	 * 
+	 * @param arr: Array of Strings to be combined into a BigInteger
+	 * @return: BigInteger of each concatenated element in the array
+	 */
+	public BigInteger stringsToBigInt (String[] arr) {
+		
+		// Build the String for each sorted array
+		StringBuilder builder = new StringBuilder();
+		
+		for(String s : arr) {
+			builder.append(s);
+		}
+		
+		// Return the built String as a BigInteger if the String exists, otherwise return 0
+		if(builder.toString().length() > 0) {
+			return new BigInteger(builder.toString());
+		} else {
+			return new BigInteger("0");
+		}
 	}
 	
 	
@@ -252,146 +335,5 @@ public class LargestNumberSolver {
 	public  List<Integer[]> readFile (String filename) {
 		return null;
 	}
-	
-	
-	
-	/**
-	 * Helper method which takes in an array and returns the a new array in the form 
-	 * to find the BigInteger.
-	 * 
-	 * @param arr: Array of Integers to be modified
-	 * @return: Sorted array for the largest number
-	 */
-	public Integer[] findLargestNumberHelper (Integer[] arr) {
-
-		// If the list is empty, then return an array with a single value of zero.
-		if(arr.length == 0) {
-			return new Integer[] {0};
-		}
 		
-		
-		// Create a new array with each number converted to a double, so the character of each Integer
-		//  is followed by a ".". For example, 425 would be 4.25 and 9584 would be 9.584. If the Integer
-		//  is just a single character such as 9 or 4, just add it to the intArray and don't resize it.
-		
-		Double[] doubleArr = new Double[arr.length];// The double array to hold each Integer.
-		Integer[] integerArr = new Integer[arr.length];
-		
-		int intSize = 0; int doubleSize = 0;//Trackers for the Integer and Double arrays.
-		
-		for(int i = 0; i < arr.length; i++) {
-			boolean resized = false; //Flag to check if the current variable has been resized.
-			double curr = arr[i];
-			//Adds a tail to the end of doubles that will be later be deleted
-			//Used for finding the end of a double, without 100 would be the same as 1.
-			curr += 0.1;
-			//Resizes the current item
-			while(curr >= 10) {
-				curr /= 10;
-				resized = true;
-			}
-			//Once the integer has been resized to x.xx form, add it to the doubleArr if it has been resized.
-			if(resized) {
-				doubleArr[doubleSize] = curr;
-				doubleSize++;
-			}
-			else {
-				integerArr[intSize] = arr[i];
-				intSize++;
-			}
-		}
-		//Set the int and double resized arrays
-		Integer[] intResizedArr = new Integer[intSize];
-		Double[] doubleResizedArr = new Double[doubleSize];
-		
-		//If either of the graphs just have a single element, then just transfer the element over.
-		if(intSize == 1) {
-			intResizedArr[0] = integerArr[0];
-		}
-		if(doubleSize == 1) {
-			doubleResizedArr[0] = doubleArr[0];
-		}
-		
-		//Next sort both the Integer and Double arrays. Only sort the arrays if they have .
-		if(intSize > 1) {
-			for(int i = 0; i < intSize; i++) {
-				intResizedArr[i] = integerArr[i];
-			}
-			
-			insertionSort(intResizedArr,cmpInteger);
-		}
-		else {
-			intResizedArr = new Integer[1];
-			intResizedArr[0] = 0;//If the integer array is empty, set the first index equal to zero.
-		}
-		if(doubleSize > 1) {
-			for(int i = 0; i < doubleSize; i++) {
-				doubleResizedArr[i] = doubleArr[i];
-			}
-			
-			insertionSort(doubleResizedArr,cmpDouble);
-		}
-		else {
-			doubleResizedArr = new Double[1];
-			doubleResizedArr[0] = 0.0;//If the double array is empty, then set the first index equal to zero.
-		}
-
-	
-		//Form the new array in the largest number form by adding together each of the lists.
-		Integer[] largestNumArray = new Integer[arr.length];
-		int j = 0;
-		int k = 0;
-		
-		//Values to store the next Integer and Double that are being compared.
-		Double nextDouble = doubleResizedArr[0];
-		Integer nextInt = intResizedArr[k];
-		
-		
-		for(int i = 0; i < arr.length; i++) {
-			if(nextDouble>nextInt+1) {
-				//Convert the current double back to an int.
-				double currDouble = doubleResizedArr[j];
-				while(currDouble % 1 != 0) {
-					currDouble *= 10;
-					
-				}
-				
-				currDouble /= 10; //This will take the tail off the current number.
-				largestNumArray[i] = (int) currDouble; //Add the next double in the doubleArr to the largestNumArray in int form.
-				
-				//Assures that a null value isn't returned if at the end of a list.
-				if(j+1 <= doubleResizedArr.length) {
-					if(j+1 >= doubleResizedArr.length) {
-						nextDouble = 0.0;//Return zero as the next double if at the end of the list.
-					}
-					else {
-						j++;
-						nextDouble = doubleResizedArr[j];
-					}
-				}
-				else {
-					nextDouble = 0.0;//Return zero as the next double if at the end of the list.
-				}
-			}
-			else {
-				//Assures that a null value isn't returned if at the end of a list.
-				if(k+1 <= intResizedArr.length) {
-					largestNumArray[i] = intResizedArr[k]; //Add the next int in the intArr to the largestNumberArray.
-					
-					if(k+1 >= intResizedArr.length) {
-						nextInt = 0;
-					}
-					else {
-						k++; //Update the index of the int array.
-						nextInt = intResizedArr[k];	
-					}
-				}
-				else {
-					nextInt = 0;
-				}
-			}
-		}
-		
-		return largestNumArray;
-	}
 }
