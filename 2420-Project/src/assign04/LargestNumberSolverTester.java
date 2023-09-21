@@ -10,9 +10,6 @@ package assign04;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -26,7 +23,6 @@ public class LargestNumberSolverTester {
 	private Integer[] tinyNumArr;
 	private Integer[] smallNumArr;
 	private Integer[] smallMixedNumArr;
-	private Integer[] mixedNumArr;
 	private Integer[] largeNumArr;
 	
 	
@@ -46,7 +42,6 @@ public class LargestNumberSolverTester {
 		tinyNumArr = new Integer[] {5,2,1,4,3};
 		smallNumArr = new Integer[]{4,2,3,8,6,1,9,7,5};
 		smallMixedNumArr = new Integer[] {987,432,1,65};
-		mixedNumArr = new Integer[] {100,1000,10,90,80};
 		largeNumArr = new Integer[1000];
 		
 		Random rand = new Random();
@@ -63,53 +58,23 @@ public class LargestNumberSolverTester {
 	
 	
 	@Test
-	@SuppressWarnings("deprecation")
 	public  void insertionSortEmpty () {
 		setup();
 		
 		numberSolver.insertionSort(emptyNumArr, cmp);
-		
 		assertEquals(0,emptyNumArr.length);
 	}
 
 	
 	
 	@Test
-	@SuppressWarnings("deprecation")
 	public  void insertionSortSmall () {
 		setup();
-		
-//		System.out.println(smallArray[0]);
-//		System.out.println(smallArray[1]);
-//		System.out.println(smallArray[2]);
-//		System.out.println(smallArray[3]);
-//		System.out.println(smallArray[4]);
-//		System.out.println(smallArray[5]);
-//		System.out.println(smallArray[6]);
-//		System.out.println(smallArray[7]);
-//		System.out.println(smallArray[8]);
-//		System.out.println(smallArray[9]);
-//		System.out.println();
-//		
-//		numberSolver.insertionSort(smallArray, cmp);
-//		
-//		System.out.println(smallArray[0]);
-//		System.out.println(smallArray[1]);
-//		System.out.println(smallArray[2]);
-//		System.out.println(smallArray[3]);
-//		System.out.println(smallArray[4]);
-//		System.out.println(smallArray[5]);
-//		System.out.println(smallArray[6]);
-//		System.out.println(smallArray[7]);
-//		System.out.println(smallArray[8]);
-//		System.out.println(smallArray[9]);
-//		
-//		assertEquals(smallArray, new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
 		
 		numberSolver.insertionSort(smallNumArr, cmp);
 		
 		for(Integer i = 1; i > 10; i++) {
-			assertEquals(i,smallNumArr[i]);
+			assertEquals(i, smallNumArr[i]);
 		}
 	}
 
@@ -146,6 +111,7 @@ public class LargestNumberSolverTester {
 	}
 	
 	
+	
 	@Test
 	public  void findLargestNumberSmall () {
 		setup();
@@ -155,24 +121,15 @@ public class LargestNumberSolverTester {
 		assertEquals(expected,result);
 	}
 
+	
+	
 	@Test
 	public void findLargestNumberWithMixedNumbers() {
 		setup();
 		
 		BigInteger expected = BigInteger.valueOf(987654321);
 		BigInteger result = numberSolver.findLargestNumber(smallMixedNumArr);
-		assertEquals(expected,result);
-	}
-
-	
-	@Test
-	public  void findLargestNumberLarge () {
-		setup();
-		
-		BigInteger expected = BigInteger.valueOf(987654321);
-		BigInteger result = numberSolver.findLargestNumber(largeNumArr);
-		
-		assertEquals(expected,result);
+		assertEquals(expected, result);
 	}
 	
 	
@@ -256,26 +213,18 @@ public class LargestNumberSolverTester {
 		assertEquals(expected,result);
 	}
 
-
+	
 	
 	@Test
-	public  void sumOnLarge () {
-		setup();
-		
-		ArrayList<Integer[]> large = new ArrayList<Integer[]>();
-		large.add(largeNumArr);
-		large.add(largeNumArr);
-		
-		BigInteger expected = BigInteger.valueOf(1);
-		BigInteger result = numberSolver.sum(large);
-		
-		assertEquals(expected,result);
-	}
-	
-	public void sumWithAddingSameThingMultipleTimes() {
+	public void sumWithAddingSameThingMultipleTimes () {
 		setup();
 		
 		ArrayList<Integer[]> multiple = new ArrayList<Integer[]>();
+		
+		multiple.add(tinyNumArr);
+		multiple.add(tinyNumArr);
+		multiple.add(tinyNumArr);
+		multiple.add(tinyNumArr);
 		multiple.add(tinyNumArr);
 		
 		int sum = 54321*5;
@@ -283,9 +232,12 @@ public class LargestNumberSolverTester {
 		BigInteger expected = BigInteger.valueOf(sum);
 		BigInteger result = numberSolver.sum(multiple);
 		
-		assertEquals(expected,result);
+		assertEquals(expected, result);
 	}
 	
+	
+	
+	@Test
 	public void sumWithMultipleAddends() {
 		setup();
 		

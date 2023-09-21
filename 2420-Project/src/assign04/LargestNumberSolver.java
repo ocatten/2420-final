@@ -35,16 +35,10 @@ public class LargestNumberSolver {
 		
 		//If empty array or array with length of 1 given, then do nothing and
 		//print out warning message.
-		if(arr.length == 0) {
-			System.out.println("Error. Empty array given");
+		if(arr.length <= 1) {
 			return;
 		}
 		
-		if(arr.length == 1) {
-			System.out.println("Array with length of 1 given. No sorting"
-					+ " can be done.");
-			return;
-		}
 		
 		// Loop through every element of the array in the parameter
 		for (int i = 1; i < arr.length; i++) {
@@ -81,7 +75,7 @@ public class LargestNumberSolver {
 	 */
 	public BigInteger findLargestNumber (Integer[] arr) {
 		
-		Integer[] largestNumArr = findLargestNum(arr);
+		Integer[] largestNumArr = findLargestNumberHelper (arr);
 		
 		String largestNum = "";//String to store the largest number.
 		
@@ -108,7 +102,7 @@ public class LargestNumberSolver {
 		// This method will follow the same logic as findLargestNumber, but will tweak the final product until it can be an int
 		
 		// First, we need to sort by the first number each element in the array possesses.
-		Double[] newArr = new Double[arr.length];
+		/*Double[] newArr = new Double[arr.length];
 		
 		// Take the empty double array and simplify each integer into scientific notation.
 		for (int i = 0; i < arr.length; i++) {
@@ -168,6 +162,8 @@ public class LargestNumberSolver {
 			
 			k++;
 		}
+		return 0;*/
+		
 		return 0;
 	}
 	
@@ -215,15 +211,14 @@ public class LargestNumberSolver {
 	 * @return: BigInteger sum of each array's BigInteger
 	 */
 	public  BigInteger sum (List<Integer[]> list) {
-		//Creates a variable to track the final sum.
+		// Creates a variable to track the final sum.
 		BigInteger finalSum = BigInteger.valueOf(0);
 		
-		//Loops through the list and adding the largest number of each array to the final sum.
-		for(Integer i = 0; i < list.size(); i++) {
-			//Finds the current list then gets the largest number from it.
-			Integer[] currList = list.get(i);
+		// Loops through the list and adding the largest number of each array to the final sum.
+		for(Integer[] currList : list) {
+			// Finds the current list then gets the largest number from it.
 			BigInteger current = findLargestNumber(currList);
-			 finalSum = finalSum.add(current);
+			finalSum = finalSum.add(current);
 		}
 		
 		return finalSum;
@@ -259,26 +254,27 @@ public class LargestNumberSolver {
 	}
 	
 	
-	/*
+	
+	/**
 	 * Helper method which takes in an array and returns the a new array in the form 
 	 * to find the BigInteger.
+	 * 
+	 * @param arr: Array of Integers to be modified
+	 * @return: Sorted array for the largest number
 	 */
-	public Integer[] findLargestNum(Integer[] arr) {
+	public Integer[] findLargestNumberHelper (Integer[] arr) {
 
-		//If the list is empty, then return an array with a single value of zero.
+		// If the list is empty, then return an array with a single value of zero.
 		if(arr.length == 0) {
-			Integer[] tempArr = new Integer[1];
-			tempArr[0] = 0;
-			return tempArr;
+			return new Integer[] {0};
 		}
 		
-
 		
-		//Create a new array with each number converted to a double, so the character of each Integer
-		//is followed by a ".". For example, 425 would be 4.25 and 9584 would be 9.584. If the Integer
-		//is just a single character such as 9 or 4, just add it to the intArray and don't resize it.
-		Double[] doubleArr = new Double[arr.length];//The double array to hold each Integer.
+		// Create a new array with each number converted to a double, so the character of each Integer
+		//  is followed by a ".". For example, 425 would be 4.25 and 9584 would be 9.584. If the Integer
+		//  is just a single character such as 9 or 4, just add it to the intArray and don't resize it.
 		
+		Double[] doubleArr = new Double[arr.length];// The double array to hold each Integer.
 		Integer[] integerArr = new Integer[arr.length];
 		
 		int intSize = 0; int doubleSize = 0;//Trackers for the Integer and Double arrays.
@@ -395,8 +391,6 @@ public class LargestNumberSolver {
 				}
 			}
 		}
-		
-		
 		
 		return largestNumArray;
 	}
