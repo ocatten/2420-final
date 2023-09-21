@@ -295,17 +295,25 @@ public class LargestNumberSolver {
 			}
 			//Once the integer has been resized to x.xx form, add it to the doubleArr if it has been resized.
 			if(resized) {
-				doubleArr[i] = curr;
+				doubleArr[doubleSize] = curr;
 				doubleSize++;
 			}
 			else {
-				integerArr[i] = arr[i];
+				integerArr[intSize] = arr[i];
 				intSize++;
 			}
 		}
 		//Set the int and double resized arrays
 		Integer[] intResizedArr = new Integer[intSize];
-		Double[] doubleResizedArr = new Double[intSize];
+		Double[] doubleResizedArr = new Double[doubleSize];
+		
+		//If either of the graphs just have a single element, then just transfer the element over.
+		if(intSize == 1) {
+			intResizedArr[0] = integerArr[0];
+		}
+		if(doubleSize == 1) {
+			doubleResizedArr[0] = doubleArr[0];
+		}
 		
 		//Next sort both the Integer and Double arrays. Only sort the arrays if they have .
 		if(intSize > 1) {
@@ -316,16 +324,18 @@ public class LargestNumberSolver {
 			insertionSort(intResizedArr,cmpInteger);
 		}
 		else {
+			intResizedArr = new Integer[1];
 			intResizedArr[0] = 0;//If the integer array is empty, set the first index equal to zero.
 		}
 		if(doubleSize > 1) {
-			for(int i = 0; i < intSize; i++) {
+			for(int i = 0; i < doubleSize; i++) {
 				doubleResizedArr[i] = doubleArr[i];
 			}
 			
 			insertionSort(doubleResizedArr,cmpDouble);
 		}
 		else {
+			doubleResizedArr = new Double[1];
 			doubleResizedArr[0] = 0.0;//If the double array is empty, then set the first index equal to zero.
 		}
 
@@ -334,20 +344,54 @@ public class LargestNumberSolver {
 		Integer[] largestNumArray = new Integer[arr.length];
 		int j = 0;
 		int k = 0;
+		
+		//Values to store the next Integer and Double that are being compared.
+		Double nextDouble = doubleResizedArr[0];
+		Integer nextInt = intResizedArr[k];
+		
+		
 		for(int i = 0; i < arr.length; i++) {
-			if(doubleResizedArr[j] > intResizedArr[k]+1) {
+			if(nextDouble>nextInt+1) {
 				//Convert the current double back to an int.
 				double currDouble = doubleResizedArr[j];
 				while(currDouble % 1 != 0) {
 					currDouble *= 10;
+					
 				}
+				
 				currDouble /= 10; //This will take the tail off the current number.
 				largestNumArray[i] = (int) currDouble; //Add the next double in the doubleArr to the largestNumArray in int form.
-				j++; //Update the index of the double array.
+				
+				//Assures that a null value isn't returned if at the end of a list.
+				if(j+1 <= doubleResizedArr.length) {
+					if(j+1 >= doubleResizedArr.length) {
+						nextDouble = 0.0;//Return zero as the next double if at the end of the list.
+					}
+					else {
+						j++;
+						nextDouble = doubleResizedArr[j];
+					}
+				}
+				else {
+					nextDouble = 0.0;//Return zero as the next double if at the end of the list.
+				}
 			}
 			else {
-				largestNumArray[i] = intResizedArr[k]; //Add the next int in the intArr to the largestNumberArray.
-				k++; //Update the index of the int array.
+				//Assures that a null value isn't returned if at the end of a list.
+				if(k+1 <= intResizedArr.length) {
+					largestNumArray[i] = intResizedArr[k]; //Add the next int in the intArr to the largestNumberArray.
+					
+					if(k+1 >= intResizedArr.length) {
+						nextInt = 0;
+					}
+					else {
+						k++; //Update the index of the int array.
+						nextInt = intResizedArr[k];	
+					}
+				}
+				else {
+					nextInt = 0;
+				}
 			}
 		}
 		

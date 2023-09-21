@@ -25,7 +25,11 @@ public class LargestNumberSolverTester {
 	private Integer[] emptyNumArr;
 	private Integer[] tinyNumArr;
 	private Integer[] smallNumArr;
+	private Integer[] smallMixedNumArr;
+	private Integer[] mixedNumArr;
 	private Integer[] largeNumArr;
+	
+	
 	private Comparator<Integer> cmp;
 	
 	private LargestNumberSolver numberSolver;
@@ -41,6 +45,8 @@ public class LargestNumberSolverTester {
 		emptyNumArr = new Integer[0];
 		tinyNumArr = new Integer[] {5,2,1,4,3};
 		smallNumArr = new Integer[]{4,2,3,8,6,1,9,7,5};
+		smallMixedNumArr = new Integer[] {987,432,1,65};
+		mixedNumArr = new Integer[] {100,1000,10,90,80};
 		largeNumArr = new Integer[1000];
 		
 		Random rand = new Random();
@@ -149,6 +155,14 @@ public class LargestNumberSolverTester {
 		assertEquals(expected,result);
 	}
 
+	@Test
+	public void findLargestNumberWithMixedNumbers() {
+		setup();
+		
+		BigInteger expected = BigInteger.valueOf(987654321);
+		BigInteger result = numberSolver.findLargestNumber(smallMixedNumArr);
+		assertEquals(expected,result);
+	}
 
 	
 	@Test
