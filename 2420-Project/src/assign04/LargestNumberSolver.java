@@ -114,12 +114,14 @@ public class LargestNumberSolver {
 		
 		String[] newArr = getSortedStrings(arr); // Use helper method to find the largest combination in Strings
 		
-		// Now uses a while loop to keep looping under smaller versions until an int is found
+		// Now uses a while loop to keep looping under smaller versions until a viable int is found
 		int permutation = 1;
 		while (permutation <= factorial(newArr.length)) {
 			
+			String[] newArrTemp = newArr.clone(); // Make a duplicate to delete from
+			
 			// Create an array to store the current permutation
-			String[] ithLargest = new String[newArr.length];
+			String[] ithLargest = new String[newArrTemp.length];
 			
 			// Check the ith version and take the leading number out first. We find this by determining that each number's
 			//  position in an ith largest combination is determined by i. Each number will remain unchanged during the
@@ -127,57 +129,42 @@ public class LargestNumberSolver {
 			//  swaps with it, then the third, and so on. We'll search the possible combinations and remove elements as we
 			//  clarify their position recursively
 			
-			int currentPermutation = permutation;
+			int currentPermutation = permutation; // Store currentPermutation
 			
-			int position = 1;
-			while (position < ithLargest.length) {
+			for (int i = 1; i <= ithLargest.length; i++) {
+				
+				// Find the next value in the new BigInteger from the original array
+				int newValueIndex = currentPermutation / factorial(i);
+				
+				// Similar to a table, this uses null as a "tombstone" and loops through until a remaining element is found 
+				while (newArrTemp[newValueIndex] == null) {
+					newValueIndex++;
+				}
 				
 				// Test statements
-				//System.out.println(factorial(index++));
-				//System.out.println(currentPermutation + " p");
-				//System.out.println("newValue: " + newValue);
+				// System.out.println(newArr[newValueIndex]);
 				
-				if (currentPermutation == 0) {
-					for(int j = position; j <= ithLargest.length; j++) {
-						
-						
-						ithLargest[j-1] = newArr[j-1];
-					}
-					break;
-					
-				}
+				// Cut the value from the original set of values and add it to the new one.
+				ithLargest[i-1] = newArrTemp[newValueIndex];
+				newArrTemp[newValueIndex] = null;
 				
-				String newValue = newArr[currentPermutation / factorial(position)];
-				
-				while (newValue == null) {
-					
-					System.out.println("null value found");
-					position++;
-					newValue = newArr[currentPermutation / factorial(position)];
-				}
-				
-				newArr[currentPermutation / factorial(position)] = null;
-				ithLargest[position-1] = newValue;
-				
-				currentPermutation %= factorial(position);
-								
+				// Take the remaining number of possibilities and remove all of the current position's values, finding what's left over
+				currentPermutation %= factorial(ithLargest.length+1 - i);
 			}
-			
-			newArr = ithLargest.clone();
 			
 			// Test statements
-			for (String s : newArr) {
-				System.out.println(s);
-			}
+			//for (String s : ithLargest) {
+				//System.out.println(s);
+			//}
 			
-			if (stringsToBigInt(newArr).compareTo(new BigInteger("2147483647")) < 1) {
-				return stringsToBigInt(newArr).intValue();
+			if (stringsToBigInt(ithLargest).compareTo(new BigInteger("2147483647")) < 1) {
+				return stringsToBigInt(ithLargest).intValue();
 			}
 			
 			permutation++;
 		}
 		
-		return 0;
+		throw new OutOfRangeException(stringsToBigInt(newArr).toString()); // If no solution is found in the permutations, throw the exception
 	}
 	
 	
@@ -281,7 +268,59 @@ public class LargestNumberSolver {
 	 */
 	public  long findLargestLong (Integer[] arr) throws OutOfRangeException {
 		
-		return 0;
+		String[] newArr = getSortedStrings(arr); // Use helper method to find the largest combination in Strings
+		
+		// Now uses a while loop to keep looping under smaller versions until a viable long is found
+		Long permutation = (long) 1;
+		while (permutation <= factorial(newArr.length)) {
+			
+			String[] newArrTemp = newArr.clone(); // Make a duplicate to delete from
+			
+			// Create an array to store the current permutation
+			String[] ithLargest = new String[newArrTemp.length];
+			
+			// Check the ith version and take the leading number out first. We find this by determining that each number's
+			//  position in an ith largest combination is determined by i. Each number will remain unchanged during the
+			//  first interval of its position! (factorial). After exceeding that threshold, the second largest number 
+			//  swaps with it, then the third, and so on. We'll search the possible combinations and remove elements as we
+			//  clarify their position recursively
+			
+			Long currentPermutation = permutation; // Store currentPermutation
+			
+			for (int i = 1; i <= ithLargest.length; i++) {
+				
+				// Find the next value in the new BigInteger from the original array
+				int newValueIndex = currentPermutation.intValue() / factorial(i);
+				
+				// Similar to a table, this uses null as a "tombstone" and loops through until a remaining element is found 
+				while (newArrTemp[newValueIndex] == null) {
+					newValueIndex++;
+				}
+				
+				// Test statements
+				// System.out.println(newArr[newValueIndex]);
+				
+				// Cut the value from the original set of values and add it to the new one.
+				ithLargest[i-1] = newArrTemp[newValueIndex];
+				newArrTemp[newValueIndex] = null;
+				
+				// Take the remaining number of possibilities and remove all of the current position's values, finding what's left over
+				currentPermutation %= factorial(ithLargest.length+1 - i);
+			}
+			
+			// Test statements
+			//for (String s : ithLargest) {
+				//System.out.println(s);
+			//}
+			
+			if (stringsToBigInt(ithLargest).compareTo(new BigInteger("9223372036854775807")) < 1) {
+				return stringsToBigInt(ithLargest).longValue();
+			}
+			
+			permutation++;
+		}
+		
+		throw new OutOfRangeException(stringsToBigInt(newArr).toString()); // If no solution is found in the permutations, throw the exception
 	}
 	
 	

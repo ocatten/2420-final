@@ -159,6 +159,10 @@ public class LargestNumberSolverTester {
 	@Test
 	public  void findLargestIntLarge () {
 		setup();
+		
+		Integer[] testCase = new Integer[] {9, 9, 9, 9, 9, 9, 9, 9, 9, 1};
+		
+		assertEquals(numberSolver.findLargestInt(testCase), 1999999999);
 	}
 	
 	
@@ -168,22 +172,34 @@ public class LargestNumberSolverTester {
 	@Test
 	public  void findLargestLongEmpty () {
 		setup();
+		
+		numberSolver.findLargestLong(emptyNumArr);
 	}
 
 	
 	
+	@SuppressWarnings("removal")
 	@Test
-	public  void findLargestLongSmall () {
+	public void findLargestLongSmall () {
 		setup();
+		
+		Integer[] testCase = new Integer[] {9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+		
+		assertEquals(numberSolver.findLargestLong(testCase), new Long("1911111111111111111").longValue());
 	}
 
 
 	
+	@SuppressWarnings("removal")
 	@Test
-	public  void findLargestLongLarge () {
+	public void findLargestLongLarge () {
 		setup();
+		
+		Integer[] testCase = new Integer[] {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 1};
+		
+		assertEquals(numberSolver.findLargestLong(testCase), new Long("1999999999999999999").longValue());
 	}
-	
+
 	
 /*=============================================================== SUM TESTS =========================================================================*/
 	
