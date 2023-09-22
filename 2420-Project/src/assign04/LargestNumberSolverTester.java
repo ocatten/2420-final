@@ -10,6 +10,8 @@ package assign04;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -284,6 +286,21 @@ public class LargestNumberSolverTester {
 	@Test
 	public void findKthLargestEmpty () {
 		setup();
+		
+		ArrayList<Integer[]> testList = new ArrayList<Integer[]>();
+		testList.add(emptyNumArr);
+		
+		//Tests to see if any errors are thrown.
+	}
+	
+	@Test
+	public void findKthLargestEmptyListWithKas1() {
+		setup();
+		
+		ArrayList<Integer[]> testList = new ArrayList<Integer[]>();
+		testList.add(emptyNumArr);
+		
+		assertThrows(IllegalArgumentException.class, () -> { numberSolver.findKthLargest(testList,1); });
 	}
 
 	
@@ -291,13 +308,79 @@ public class LargestNumberSolverTester {
 	@Test
 	public void findKthLargestSmall () {
 		setup();
+		
+		ArrayList<Integer[]> testList = new ArrayList<Integer[]>();
+		testList.add(tinyNumArr);
+		testList.add(smallNumArr);
+		Integer[] result = numberSolver.findKthLargest(testList, 0);
+		 
+		for(int i = 0; i < result.length;i++) {
+			System.out.println("Result = " +result[i]);
+			assertEquals(smallNumArr[i],result[i]);
+		}
+		
+	}
+	
+	@Test
+	public void findKthLargestForLargeAmountOfLists() {
+		setup();
+		
+		ArrayList<Integer[]> testList = new ArrayList<Integer[]>();
+		
+		for(int i = 0; i < 100; i++) {
+			Integer[] currArray = new Integer[5];
+			for(int j = 0; j < 5; j++) {
+				Random rand = new Random();
+				currArray[j] = rand.nextInt(9);
+			}
+			testList.add(currArray);
+		}
+		Integer[] largest = new Integer[]{1,2,3,4,5,6};//Acts as the expected output.
+		testList.add(largest);
+		
+		Integer[] result = numberSolver.findKthLargest(testList, 0);
+		
+		for(int i = 0; i < 6; i++) {
+			assertEquals(largest[i],result[i]);
+		}
+	}
+	
+	@Test
+	public void findKthLargestWithMultipleOfTheSameList() {
+
+		setup();
+		
+		ArrayList<Integer[]> testList = new ArrayList<Integer[]>();
+		testList.add(smallMixedNumArr);
+		testList.add(smallMixedNumArr);
+		testList.add(smallMixedNumArr);
+		testList.add(smallMixedNumArr);
+		testList.add(smallMixedNumArr);
+		testList.add(smallMixedNumArr);
+		Integer[] result = numberSolver.findKthLargest(testList, 0);
+		 
+		for(int i = 0; i < result.length;i++) {
+			System.out.println("Result = " +result[i]);
+			assertEquals(smallMixedNumArr[i],result[i]);			
+		}
 	}
 
 
 	
 	@Test
-	public void findKthLargestLarge () {
+	public void findKthLargestLargeLists() {
 		setup();
+		
+		ArrayList<Integer[]> testList = new ArrayList<Integer[]>();
+		testList.add(largeNumArr);
+		testList.add(smallNumArr); 
+		
+		Integer[] result = numberSolver.findKthLargest(testList, 0);
+		
+		for(int i = 0; i < result.length;i++) {
+			System.out.println("Result = " +result[i]);
+			assertEquals(largeNumArr[i],result[i]);
+		}
 	}
 	
 	
@@ -307,20 +390,7 @@ public class LargestNumberSolverTester {
 	@Test
 	public void readFileEmpty () {
 		setup();
+		
+		numberSolver.readFile(null);
 	}
-
-	
-	
-	@Test
-	public void readFileSmall () {
-		setup();
-	}
-
-
-	
-	@Test
-	public void readFileLarge () {
-		setup();
-	}
-
 }

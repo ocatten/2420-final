@@ -10,8 +10,10 @@ package assign04;
  */
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
 
 public class LargestNumberSolver {
 	
@@ -49,6 +51,11 @@ public class LargestNumberSolver {
 			return new Integer(lhs.length).compareTo(new Integer (rhs.length))*-1; // Inverted for insertionSort
 		}
 	};
+	
+	//Comparator for sorting BigIntegers, sorts highest to lowest.
+		private Comparator<BigInteger> cmpBigInt = new Comparator<BigInteger>() {
+			public int compare(BigInteger o1, BigInteger o2) {return o2.compareTo(o1);}
+		};
 	
 	
 	/**
@@ -358,7 +365,40 @@ public class LargestNumberSolver {
 	 * @throws IllegalArgumentException: Thrown if k is not a valid position in the list
 	 */
 	public  Integer[] findKthLargest (List<Integer[]> list, int k) throws IllegalArgumentException {
-		return null;
+		
+		//Check if k is a valid position in the list
+		if(k < 0 || k >= list.size()){
+			throw new IllegalArgumentException("k out of bounds for list size");
+		}
+		BigInteger[] integerList = new BigInteger[list.size()];
+		
+		//Loop through the list of Integer arrays and add each BigInteger to integerList.
+		for(int i = 0; i < list.size();i++) {
+			BigInteger curr = findLargestNumber(list.get(i));
+			integerList[i] = curr;
+		}
+		
+		//Create a copy to find the original index of each BigInteger after sorting.
+		BigInteger[] copy = new BigInteger[integerList.length];
+		for(int i = 0; i < copy.length;i++) {
+			copy[i] = integerList[i];
+		}
+		
+		//Then sort the original list
+		insertionSort(integerList,cmpBigInt);
+		
+		BigInteger currentInt = integerList[k];
+		
+		//Sorts through the list until it finds the position at which the currentInt started as.
+		int index = 0;
+		for(int i = 0; i < list.size(); i++) {
+			if(copy[i] == currentInt) {
+				index = i;
+				break;
+			}
+		}
+		
+		return list.get(index);
 		
 	}
 	
@@ -372,7 +412,28 @@ public class LargestNumberSolver {
 	 * @return: List of integer arrays from an input file, or an empty list if the file does not exist.
 	 */
 	public  List<Integer[]> readFile (String filename) {
-		return null;
+		//Instantiates the Arraylist to hold the Integer arrays.
+		ArrayList<Integer[]> fileList = new ArrayList<Integer[]>();
+		
+		//Creates a scanner that reads the given file.
+		try(Scanner in = new Scanner(filename)){
+			while(in.hasNextLine()) {
+				//For each line the scanner, split the line into strings of individual items
+				//and create an Integer array with its length being the number of items.
+				String line = in.nextLine();
+				String[] items = line.split(" ");
+				Integer[] currArr = new Integer[items.length];
+				
+				for(int i = 0; i < currArr.length; i++) {
+					currArr[i] = Integer.parseInt(items[i]);
+				}
+				fileList.add(currArr);
+			}
+		}catch(Exception e) {
+			System.out.println("File can't be read");
+		}
+		
+		return fileList;
 	}
 		
 }
