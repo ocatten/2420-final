@@ -208,7 +208,7 @@ public class LargestNumberSolver {
 	public static Integer[] findKthLargest(List<Integer[]> list, int k) throws IllegalArgumentException {
 		
 		// Catch case for k being to large.
-		if(k >= list.size()) {
+		if(k >= list.size()) { 
 			throw new IllegalArgumentException();
 		}
 		
@@ -222,7 +222,7 @@ public class LargestNumberSolver {
 			largestSorted[i] = findLargestNumber(list.get(i));
 		}
 		
-		System.out.println("finished looping");
+
 		// Comparator to sort the list
 		Comparator<BigInteger> cmp = new Comparator<BigInteger>() { 
 			public int compare(BigInteger e1, BigInteger e2) { return e1.compareTo(e2); } };

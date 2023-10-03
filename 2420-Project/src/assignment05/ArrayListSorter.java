@@ -357,7 +357,7 @@ public class ArrayListSorter {
 	
 	/**
 	 * Helper method for determining the pivot, so that the code can easily switch between
-	 * three different strategies for determining the pivot point on quicksort.
+	 *	 three different strategies for determining the pivot point on quicksort.
 	 * This method returns the center of the array.
 	 * 
 	 * @param arr: List that the method will compute the pivot point for.

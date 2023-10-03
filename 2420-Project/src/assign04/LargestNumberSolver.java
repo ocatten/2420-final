@@ -1,5 +1,7 @@
 package assign04;
 
+import java.io.File;
+
 /**
  * This class takes an array of integers and sorts them into a BigInteger number as the largest combination, the kth largest combination,
  * largest int, largest long, etc. Uses StringBuilder to create large numbers. Used Canvas page for some of the method contracts, used
@@ -11,6 +13,7 @@ package assign04;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -18,7 +21,7 @@ import java.util.Scanner;
 public class LargestNumberSolver {
 	
 	// Fields
-	private  Comparator<String> cmp = new Comparator<String>() {
+	private static Comparator<String> cmp = new Comparator<String>() {
 		
 		// For this compare method, we essentially want to sort each number alphabetically. Single digits
 		//  go first for their respective "leading number", as second ones do, and so on
@@ -53,7 +56,7 @@ public class LargestNumberSolver {
 	};
 	
 	//Comparator for sorting BigIntegers, sorts highest to lowest.
-		private Comparator<BigInteger> cmpBigInt = new Comparator<BigInteger>() {
+		private static Comparator<BigInteger> cmpBigInt = new Comparator<BigInteger>() {
 			public int compare(BigInteger o1, BigInteger o2) {return o2.compareTo(o1);}
 		};
 	
@@ -64,7 +67,7 @@ public class LargestNumberSolver {
 	 * @param arr: Array of generic objects that is sorted.
 	 * @param cmp: Comparator object that's used to sort the generic objects
 	 */
-	public  <T> void insertionSort (T[] arr, Comparator<? super T> cmp) {
+	public static <T> void insertionSort (T[] arr, Comparator<? super T> cmp) {
 		
 		// Catch case for an empty array or an array with 1 element
 		if(arr.length <= 1) {
@@ -101,7 +104,7 @@ public class LargestNumberSolver {
 	 * @param arr: Basic array of Integer objects to be combined
 	 * @return largestNumber: Largest possible combination of the elements in the parameter as a BigInteger object
 	 */
-	public BigInteger findLargestNumber (Integer[] arr) {
+	public static BigInteger findLargestNumber (Integer[] arr) {
 		
 		// Use helper for sorting the Strings and getting the built list
 		return stringsToBigInt( getSortedStrings(arr) );
@@ -117,7 +120,7 @@ public class LargestNumberSolver {
 	 * @return: Largest possible int combination created from elements in the parameter's array
 	 * @throws OutOfRangeException: Thrown if the smallest combination within the array is out of range for an integer
 	 */
-	public int findLargestInt (Integer[] arr) throws OutOfRangeException {
+	public static int findLargestInt (Integer[] arr) throws OutOfRangeException {
 		
 		String[] newArr = getSortedStrings(arr); // Use helper method to find the largest combination in Strings
 		
@@ -182,7 +185,7 @@ public class LargestNumberSolver {
 	 * @param x: Number to take factorial of
 	 * @return: Factorial of x
 	 */
-	public int factorial  (int x) {
+	public static int factorial  (int x) {
 		
 		int xFactorial = 1;
 		
@@ -202,7 +205,7 @@ public class LargestNumberSolver {
 	 * @param arr: Array of Integers to combine
 	 * @return: array of Strings
 	 */
-	public String[] getSortedStrings (Integer[] arr) throws OutOfRangeException {
+	public static String[] getSortedStrings (Integer[] arr) throws OutOfRangeException {
 		
 		// Follows same process as largestNumber but uses a helper method to get smaller versions
 		
@@ -227,7 +230,7 @@ public class LargestNumberSolver {
 	 * @param arr: Array of Strings to be combined into a BigInteger
 	 * @return: BigInteger of each concatenated element in the array
 	 */
-	public BigInteger stringsToBigInt (String[] arr) {
+	public static BigInteger stringsToBigInt (String[] arr) {
 		
 		// Build the String for each sorted array
 		StringBuilder builder = new StringBuilder();
@@ -252,7 +255,7 @@ public class LargestNumberSolver {
 	 * @param arr: Array to be combined into a single string
 	 * @return: Built String for array
 	 */
-	public String buildArrayString (Integer[] arr) {
+	public static String buildArrayString (Integer[] arr) {
 		
 		StringBuilder bigNumber = new StringBuilder();
 		
@@ -273,7 +276,7 @@ public class LargestNumberSolver {
 	 * @return: Largest possible long combination created from elements in the parameter's array
 	 * @throws OutOfRangeException: Thrown if the smallest combination within the array is out of range for a long
 	 */
-	public  long findLargestLong (Integer[] arr) throws OutOfRangeException {
+	public static long findLargestLong (Integer[] arr) throws OutOfRangeException {
 		
 		String[] newArr = getSortedStrings(arr); // Use helper method to find the largest combination in Strings
 		
@@ -339,7 +342,7 @@ public class LargestNumberSolver {
 	 * @param list: List of basic arrays to make the biggest numbers out of
 	 * @return: BigInteger sum of each array's BigInteger
 	 */
-	public  BigInteger sum (List<Integer[]> list) {
+	public static BigInteger sum (List<Integer[]> list) {
 		// Creates a variable to track the final sum.
 		BigInteger finalSum = BigInteger.valueOf(0);
 		
@@ -364,7 +367,7 @@ public class LargestNumberSolver {
 	 * @param k: Which rank of the largest number will be found and returned
 	 * @throws IllegalArgumentException: Thrown if k is not a valid position in the list
 	 */
-	public  Integer[] findKthLargest (List<Integer[]> list, int k) throws IllegalArgumentException {
+	public static Integer[] findKthLargest (List<Integer[]> list, int k) throws IllegalArgumentException {
 		
 		//Check if k is a valid position in the list
 		if(k < 0 || k >= list.size()){
@@ -385,7 +388,7 @@ public class LargestNumberSolver {
 		}
 		
 		//Then sort the original list
-		insertionSort(integerList,cmpBigInt);
+		Arrays.sort(integerList);
 		
 		BigInteger currentInt = integerList[k];
 		
@@ -411,9 +414,11 @@ public class LargestNumberSolver {
 	 * @param filename: Name of the file (inluding .txt) to be read
 	 * @return: List of integer arrays from an input file, or an empty list if the file does not exist.
 	 */
-	public  List<Integer[]> readFile (String filename) {
+	public static List<Integer[]> readFile (String filename) {
 		//Instantiates the Arraylist to hold the Integer arrays.
 		ArrayList<Integer[]> fileList = new ArrayList<Integer[]>();
+		
+		//File file = new File(filename); //Converts the given filename into a file.
 		
 		//Creates a scanner that reads the given file.
 		try(Scanner in = new Scanner(filename)){
@@ -430,7 +435,7 @@ public class LargestNumberSolver {
 				fileList.add(currArr);
 			}
 		}catch(Exception e) {
-			System.out.println("File can't be read");
+			System.out.println("File can't be read " + filename);
 		}
 		
 		return fileList;

@@ -15,6 +15,7 @@ import static org.junit.Assert.assertThrows;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Random;
 
 public class LargestNumberSolverTester {
@@ -150,10 +151,20 @@ public class LargestNumberSolverTester {
 	@Test
 	public  void findLargestIntSmall () {
 		setup();
-		
+		 
 		Integer[] testCase = new Integer[] {3, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 		
 		assertEquals(numberSolver.findLargestInt(testCase), 1311111111);
+	}
+	
+	@Test
+	public void findLargestIntOnMixedList() {
+		setup();
+		
+		Integer expected = 987654321;
+		Integer result = LargestNumberSolver.findLargestInt(smallMixedNumArr);
+		
+		assertEquals(expected,result);
 	}
 
 
@@ -188,6 +199,16 @@ public class LargestNumberSolverTester {
 		Integer[] testCase = new Integer[] {9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 		
 		assertEquals(numberSolver.findLargestLong(testCase), new Long("1911111111111111111").longValue());
+	}
+	
+	@Test
+	public void findLargestLongOnMixedList() {
+		setup();
+		
+		Integer expected = 987654321;
+		Integer result = LargestNumberSolver.findLargestInt(smallMixedNumArr);
+		
+		assertEquals(expected,result);
 	}
 
 
@@ -391,6 +412,17 @@ public class LargestNumberSolverTester {
 	public void readFileEmpty () {
 		setup();
 		
-		numberSolver.readFile(null);
+		List<Integer[]> expected = new ArrayList<Integer[]>();
+		
+		assertEquals(expected,numberSolver.readFile(null)) ;
+	}
+	
+	@Test
+	public void readFileSmall() {
+		setup();
+		
+		List<Integer[]> fileList = numberSolver.readFile("NumberSolverTestSmall.txt");
+		
+		assertEquals(2,fileList.size());
 	}
 }
