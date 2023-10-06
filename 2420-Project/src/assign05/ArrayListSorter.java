@@ -130,7 +130,7 @@ public class ArrayListSorter {
 	 */
 	public static <T extends Comparable<? super T>> void quicksort (ArrayList<T> arr) {
 		
-		sortQuick(arr, -1, arr.size()-1);
+		sortQuick(arr, 0, arr.size()-1);
 	}
 	
 	
@@ -141,9 +141,9 @@ public class ArrayListSorter {
 	 * @param hi
 	 * @param low
 	 */
-	public static <T extends Comparable<? super T>> int partition (ArrayList<T> arr, int hi, int low) {
+	public static <T extends Comparable<? super T>> int partition (ArrayList<T> arr, int low, int hi) {
 		
-		T pivot = arr.get(choosePivot("hi", 1, 1)); 
+		T pivot = arr.get(hi); 
         int i = low - 1; 
         for (int j = low; j < hi; j++)
         {
@@ -167,8 +167,8 @@ public class ArrayListSorter {
 	
 	
 	
-	public static int choosePivot (String method, int lo, int hi) {
-		return hi;
+	public static int choosePivot (String method, int low, int high) {
+		return high;
 	}
 	
 	
