@@ -54,10 +54,10 @@ public class ArrayListSorterTester {
 		ArrayList<Integer> expected = new ArrayList<Integer>();
 		
 		result = arraySorter.generateDescending(10);
-		for(Integer i = 10; i > 1; i--) {
+		for(Integer i = 10; i > 0; i--) {
 			expected.add(i);
 		}
-		
+		System.out.println(result.toString());
 		assertEquals(result,expected);
 	}
 	
@@ -67,7 +67,7 @@ public class ArrayListSorterTester {
 		ArrayList<Integer> expected = new ArrayList<Integer>();
 		
 		result = arraySorter.generateDescending(1000);
-		for(Integer i = 1000; i > 1; i--) {
+		for(Integer i = 1000; i > 0; i--) {
 			expected.add(i);
 		}
 		
@@ -156,14 +156,69 @@ public class ArrayListSorterTester {
 	}
 	
 	@Test
-	public void mergesortOnDecendingArray() {
+	public void mergesortOnSmallDecendingArray() {
 		setup();
 		
-		ArrayList<Integer> result = arraySorter.generateDescending(20);
+		ArrayList<Integer> result = arraySorter.generateDescending(10);
 		arraySorter.mergesort(result);
-		ArrayList<Integer> expected = arraySorter.generateAscending(20);
+		ArrayList<Integer> expected = arraySorter.generateAscending(10);
 		
 		assertEquals(expected,result);
+	}
+	
+	@Test
+	public void mergesortOnLargeDecendingArray() {
+		setup();
+		
+		ArrayList<Integer> result = arraySorter.generateDescending(100);
+		arraySorter.mergesort(result);
+		ArrayList<Integer> expected = arraySorter.generateAscending(100);
+		
+		assertEquals(expected,result);
+	}
+	
+	@Test
+	public void mergesortWithInsertionSortOf1() {
+		setup();
+		
+		arraySorter.setInsertionThreshold(1);
+		arraySorter.mergesort(smallMixedArr);;
+		ArrayList<Integer> expected = arraySorter.generateAscending(10);
+		
+		assertEquals(expected,smallMixedArr);
+	}
+	
+	@Test
+	public void mergesortWithInsertionSortOf4() {
+		setup();
+		
+		arraySorter.setInsertionThreshold(4);
+		arraySorter.mergesort(smallMixedArr);;
+		ArrayList<Integer> expected = arraySorter.generateAscending(10);
+		
+		assertEquals(expected,smallMixedArr);
+	}
+	
+	@Test
+	public void mergesortWithInsertionSortSizeOfArray() {
+		setup();
+		
+		arraySorter.setInsertionThreshold(10);
+		arraySorter.mergesort(smallMixedArr);;
+		ArrayList<Integer> expected = arraySorter.generateAscending(10);
+		
+		assertEquals(expected,smallMixedArr);
+	}
+	
+	@Test
+	public void mergesortOnLargeArrayWithInsertionSortInMid() {
+		setup();
+		
+		arraySorter.setInsertionThreshold(4);
+		arraySorter.mergesort(largeMixedArr);;
+		ArrayList<Integer> expected = arraySorter.generateAscending(1000);
+		
+		assertEquals(expected,largeMixedArr);
 	}
 	
 	/*-----------------INSERTION SORT TESTS -------------------------------------------------*/
@@ -172,7 +227,7 @@ public class ArrayListSorterTester {
 	public void insertionSortOnSmallArray() {
 		setup();
 		
-		arraySorter.insertionSort(smallMixedArr,0,smallMixedArr.size());
+		arraySorter.insertionSort(smallMixedArr,0,smallMixedArr.size()-1);
 		ArrayList<Integer> expected = arraySorter.generateAscending(10);
 
 		
@@ -183,7 +238,7 @@ public class ArrayListSorterTester {
 	public void insertionSortOnLargeArray() {
 		setup();
 		
-		arraySorter.insertionSort(largeMixedArr,0,largeMixedArr.size());
+		arraySorter.insertionSort(largeMixedArr,0,largeMixedArr.size()-1);
 		ArrayList<Integer> expected = arraySorter.generateAscending(1000);
 
 		
@@ -195,7 +250,7 @@ public class ArrayListSorterTester {
 		setup();
 		
 		ArrayList<Integer> result = arraySorter.generateDescending(20);
-		arraySorter.insertionSort(result,0,result.size());
+		arraySorter.insertionSort(result,0,result.size()-1);
 		ArrayList<Integer> expected = arraySorter.generateAscending(20);
 		
 		assertEquals(expected,result);

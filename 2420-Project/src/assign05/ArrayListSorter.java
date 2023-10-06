@@ -20,7 +20,7 @@ public class ArrayListSorter {
 	 * when the sub-arrays are split to a given size.
 	 */
 	public static <T extends Comparable<? super T>> void mergesort(ArrayList<T> arr) {
-		if(arr.size() <= 1) {
+		if(arr.size() < 2) {
 			System.out.println("The given array is too small to be sorted!");
 		}
 		else {
@@ -37,7 +37,7 @@ public class ArrayListSorter {
 		//Finds the middle index of the given sub-array.
 		int midIndex = leftIndex + (rightIndex - leftIndex) /2;
 		
-		if (rightIndex - leftIndex <= insertionThreshold) {
+		if ((rightIndex - leftIndex) <= insertionThreshold) {
 	        insertionSort(arr, leftIndex, rightIndex);
 		}
 		//Runs while the sub-array size is less than the insertion sort threshold.
@@ -104,7 +104,7 @@ public class ArrayListSorter {
 	public static <T extends Comparable<? super T>> void insertionSort(ArrayList<T> arr, int leftIndex, int rightIndex) {
 		
 		//Runs insertion sort on the given array just between the given indices.
-		for(int i = leftIndex + 1; i < rightIndex; i++) {
+		for(int i = leftIndex + 1; i <= rightIndex; i++) {
 			T curr = arr.get(i); 
 			
 			int j = i-1;//Acts as a tracker for the previous index.
@@ -155,7 +155,7 @@ public class ArrayListSorter {
 		ArrayList<Integer> descendingList = new ArrayList<Integer>();
 		
 		//Adds Integers to the descendingList from size to 1.
-		for(int i = size; i > 1; i--) {
+		for(int i = size; i > 0; i--) {
 			descendingList.add(i);
 		}
 		
