@@ -95,7 +95,7 @@ public class ArrayListSorter {
 		}
 	}
 	
-
+	
 	
 	/*
 	 * Performs insertion sort on the merge sort sub-arrays once the threshold has been
@@ -120,14 +120,71 @@ public class ArrayListSorter {
 	
 	
 	
-	/*
+	/**
 	 * Performs Quicksort on a given generic ArrayList. The pivot is choosen by using one
 	 * of three strategies, either using the middle, one of the ends, or choosing an index
 	 * around the first or third quarter of the given array.
+	 * 
+	 * @param <T>
+	 * @param arr
 	 */
-	public static <T extends Comparable<? super T>> void quicksort(ArrayList<T> arr) {
+	public static <T extends Comparable<? super T>> void quicksort (ArrayList<T> arr) {
 		
+		sortQuick(arr, -1, arr.size()-1);
 	}
+	
+	
+	
+	/**
+	 * 
+	 * @param arr
+	 * @param hi
+	 * @param low
+	 */
+	public static <T extends Comparable<? super T>> int partition (ArrayList<T> arr, int hi, int low) {
+		
+		T pivot = arr.get(choosePivot("hi", 1, 1)); 
+        int i = low - 1; 
+        for (int j = low; j < hi; j++)
+        {
+            
+            if (arr.get(j).compareTo(pivot) <= 0) {
+                i++;
+                
+                
+                T temp = arr.get(i);
+                arr.set(i, arr.get(j));
+                arr.set(j, temp);
+            }
+        }
+        
+        T temp = arr.get(i+1);
+        arr.set(i+1, arr.get(hi));
+        arr.set(hi, temp);
+ 
+        return i+1;
+    }
+	
+	
+	
+	public static int choosePivot (String method, int lo, int hi) {
+		return hi;
+	}
+	
+	
+	
+	public static <T extends Comparable<? super T>> void sortQuick (ArrayList<T> arr, int low, int high) {
+		
+        if (low < high) {
+        	
+            
+            int partitionIndex = partition(arr, low, high);
+            
+            
+            sortQuick(arr, low, partitionIndex - 1);
+            sortQuick(arr, partitionIndex + 1, high);
+        }
+    }
 	
 	
 	
