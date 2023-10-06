@@ -5,7 +5,15 @@ import java.util.Collections;
 
 public class ArrayListSorter {
 	
-	private int insertionSortThreshold = 0;
+	//Field for the threshold to switch to Insertion Sort in Mergesort.
+	private static int insertionThreshold = 0;
+	
+	/*
+	 * Sets the Insertion Sort Threshold
+	 */
+	public void setInsertionThreshold(int threshold) {
+		insertionThreshold = threshold;
+	}
 
 	/*
 	 * Performs a Mergesort on the given generic ArrayList and swaps to Insertion sort
@@ -29,8 +37,11 @@ public class ArrayListSorter {
 		//Finds the middle index of the given sub-array.
 		int midIndex = leftIndex + (rightIndex - leftIndex) /2;
 		
+		if (rightIndex - leftIndex <= insertionThreshold) {
+	        insertionSort(arr, leftIndex, rightIndex);
+		}
 		//Runs while the sub-array size is less than the insertion sort threshold.
-		if(leftIndex < rightIndex) {
+		else if(leftIndex < rightIndex) {
 			//Divides the given arr into left and right sub-arrays.
 			sort(arr,leftIndex,midIndex);
 			sort(arr,midIndex+1,rightIndex);
@@ -45,118 +56,46 @@ public class ArrayListSorter {
 	 */
 	private static <T extends Comparable<? super T>> void merge(ArrayList<T> arr, int left, int middle, int right) {
 
-		//Finds the length of the left and right sub-arrays.
+		// Finds the length of the left and right sub-arrays.
 		int leftLength = middle - left + 1;
-	    int rightLength = right - middle;
-		
-		//Creates a temporary array to store the merged elements.
+		int rightLength = right - middle;
+
+		// Creates a temporary array to store the merged elements.
 		ArrayList<T> tempArr = new ArrayList<T>();
-		
-		int i = left, j = middle, k = 0;
-		
-		//Checks that objects remain in both the left and right sub-arrays.
-		while (i <= leftLength && j <= rightLength) {
-			//If the next item in the left side of the array is larger than the right side, add it to the temp array next.
-	        if (arr.get(i).compareTo(arr.get(j)) <= 0) {
-	            tempArr.add(arr.get(i));
-	            i++;
-	        } else { //If not add the right side array item to the temp array next.
-	            tempArr.add(arr.get(j));
-	            j++;
-	        }
-	    }
 
-	    // Copy any remaining elements from the left sub-array.
-	    while (i <= leftLength) {
-	        tempArr.add(arr.get(i));
-	        i++;
-	    }
+		int i = left, j = middle + 1, k = 0; 
 
-	    // Copy any remaining elements from the right sub-array.
-	    while (j <= rightLength) {
-	        tempArr.add(arr.get(j));
-	        j++;
-	    }
+		// Checks that objects remain in both the left and right sub-arrays.
+		while (i <= middle && j <= right) { 
+		    // If the next item in the left side of the array is larger than the right side, add it to the temp array next.
+		    if (arr.get(i).compareTo(arr.get(j)) <= 0) {
+		        tempArr.add(arr.get(i));
+		        i++;
+		    } else { // If not, add the right side array item to the temp array next.
+		        tempArr.add(arr.get(j));
+		        j++;
+		    }
+		}
 
-	    // Copy the merged elements back into the original array
-	    for(i = left; i < tempArr.size(); i++) {
-	    	arr.set(i, tempArr.get(i-left));
-	    }
-//	    for (i = left, k = 0; k < tempArr.size(); i++, k++) {
-//	        arr.set(i, tempArr.get(k));
-//	    }
-//		
-		
-		//		int leftSize = middle - left + 1;
-//	    int rightSize = right - middle;
-//	    
-//	    ArrayList<T> leftArr = new ArrayList<T>();
-//	    ArrayList<T> rightArr = new ArrayList<T>();
-//	
-//
-//	
-//	    //Builds the left subarray
-//	    for (int i = 0; i < leftSize; i++) {
-//	    	leftArr.add(arr.get(left + i));
-//	    }
-//	    
-//	    //Builds the right subarray
-//	    for (int j = 0; j < rightSize; j++) {
-//	    	rightArr.add(arr.get(middle + 1 + j));
-//	    }
-//	
-//	    int i = 0, j = 0, k = left;
-//	
-//	    //Checks if items remain in both the left and right subarrays
-//	    while (i < leftSize && j < rightSize) {
-//	    	//If the current index of the left subarray is larger, add it next to the array. If not
-//	    	//add the current item on the right subarray next and increase the respective index.
-//	    	if(leftArr.get(i).compareTo(rightArr.get(j)) < 0) {
-//	    		arr.set(k, leftArr.get(i));
-//	    		i++;
-//	    	}
-//	    	else {
-//	    		arr.set(k, rightArr.get(j));
-//	    		j++;
-//	    	}
-//	        k++;
-//	    }
-//	
-//	    //If any remaining items exist in the left subarray, add them to the array
-//	    while (i < leftSize) {
-//	    	arr.set(k, leftArr.get(i));
-//	        i++;
-//	        k++;
-//	    }
-//	
-//	    //If any remaining items exist in the right subarray, add them to the array
-//	    while (j < rightSize) {
-//	    	arr.set(k, rightArr.get(j));
-//	        j++;
-//	        k++;
-//	    }
-//	}
-//	
-//	/*
-//	 * Performs insertion sort on the merge sort sub-arrays once the threshold has been
-//	 * reached.
-//	 */
-//	public static <T extends Comparable<? super T>> void insertionSort(ArrayList<T> arr, int leftIndex, int rightIndex) {
-//		
-//		//Runs insertion sort on the given array just between the given indices.
-//		for(int i = leftIndex + 1; i < rightIndex; i++) {
-//			T curr = arr.get(i); 
-//			
-//			int j = i-1;//Acts as a tracker for the previous index.
-//			
-//			//Finds the correct spot for the current item while iterating through the list.
-//			while(j >= leftIndex && arr.get(j).compareTo(curr) > 0) {
-//				arr.set(j+1, arr.get(j));
-//				j = j-1;
-//			}
-//			arr.set(j+1,curr);
-//		}
+		// Copy any remaining elements from the left sub-array.
+		while (i <= middle) { 
+		    tempArr.add(arr.get(i));
+		    i++;
+		}
+
+		// Copy any remaining elements from the right sub-array.
+		while (j <= right) { 
+		    tempArr.add(arr.get(j));
+		    j++;
+		}
+
+		// Copy the temp array of merged elements back into the original array
+		for (i = left; i <= right; i++) { 
+		    arr.set(i, tempArr.get(i - left));
+		}
 	}
+	
+
 	
 	/*
 	 * Performs insertion sort on the merge sort sub-arrays once the threshold has been
