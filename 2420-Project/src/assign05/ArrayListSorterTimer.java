@@ -1,9 +1,8 @@
-package assign05;
+	package assign05;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import assignment05.ArrayListSorter;
 
 public class ArrayListSorterTimer {
 	
@@ -25,7 +24,7 @@ public class ArrayListSorterTimer {
 		// For each problem size n . . .
 		for(int n = 1; n <= 20; n ++) {
 			
-			currArr = arraySorter.generatePermuted(n*loopAmount);
+			currArr = arraySorter.generateAscending(n*loopAmount);
 			
 			Random rng = new Random();
 			
@@ -66,7 +65,7 @@ public class ArrayListSorterTimer {
 		ArrayListSorter arraySorter = new ArrayListSorter();
 		
 		
-		int loopAmount = 100000;
+		int loopAmount = 1000;
 		
 		ArrayList<Integer> currArr = new ArrayList<Integer>();
 		

@@ -2,6 +2,7 @@ package assign05;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class ArrayListSorter {
@@ -121,116 +122,61 @@ public class ArrayListSorter {
 	
 	
 	
-	/**
-	 * Performs Quicksort on a given generic ArrayList. The pivot is choosen by using one
-	 * of three strategies, either using the middle, one of the ends, or choosing an index
-	 * around the first or third quarter of the given array.
-	 * 
-	 * @param <T>
-	 * @param arr: ArrayList to be sorted.
-	 */
-	public static <T extends Comparable<? super T>> void quicksort (ArrayList<T> list) {
-		
-		sortQuick(list, 0, list.size()-1);
-	}
-	
-	
-	
-	/**
-	 * Partitioning phase. Takes the given low and high window and swaps certain values depending on the pivot.
-	 * Acts recursively in tandom with the sortQuick method.
-	 * 
-	 * @param list: List to be sorted
-	 * @param high: High index for the window to be sorted
-	 * @param low: Low index
-	 */
-	public static <T extends Comparable<? super T>> int partition (ArrayList<T> list, int low, int high) {
-		
-		// Takes the element at the pivot index (which can be changed) to make comparisons with.
-		T pivot = list.get(choosePivot("high", low, high)); 
-		
-		// Takes the element before the one we're iterating with.
-        int prev = low - 1; 
-        
-        // Iterate through the list for all elements less than or equal to the pivot
-        for (int i = low; i < high; i++) {
-            
-        	// If the current element is less than the pivot
-            if (list.get(i).compareTo(pivot) <= 0) {
-                
-            	// Move the previous value up
-            	prev++;
-                
-            	// Swap positions on the list using a temporary value 
-                T temp = list.get(prev);
-                list.set(prev, list.get(i));
-                list.set(i, temp);
-            }
-        }
-        
-        // Swap positions on the list using a temporary value 
-        T temp = list.get(prev + 1);
-        list.set(prev + 1, list.get(high));
-        list.set(high, temp);
- 
-        return prev+1; // Return the updated tail-end tracker.
+	public enum PivotMethod {
+        HIGH, MID, RANDOM
     }
-	
-	
-	
-	/**
-	 * Takes three parameters to either choose low, random, or high pivot values.
-	 * 
-	 * @param method: Method for choosing pivot
-	 * @param lo: Low index
-	 * @param hi: High index
-	 * @return: Index of the values to be chosen as pivot
-	 */
-	public static int choosePivot (String method, int low, int high) {
 
-		if (method == "high") { // Uses end of list
-			
-			return high;
-		
-		} if (method == "mid") { // Uses middle
-			
-			return (low + high) / 2;
-		
-		} if (method == "random") { // Uses random index
-			
-			Random r = new Random();
-			return r.nextInt((high - low) + 1) + low;
-		}
-		
-		// Print an error message.
-		System.out.println("Invalid method.");
-		return 0;
-		
-	}
-	
-	
-	
-	/**
-	 * Quicksort helper method that essentially acts as a funnel for the recursive process, same as mergesort.
-	 * 
-	 * @param <T>
-	 * @param list: list to be sorted
-	 * @param lo: low index
-	 * @param high: High index
-	 */
-	public static <T extends Comparable<? super T>> void sortQuick (ArrayList<T> list, int lo, int hi) {
-		
-		// Since it's recursive, this essentially functions as a while loop and acts as the base case
-        if (lo < hi) {
-        	
-            // Finds the partition index as a result of the partition function, which it uses for more statements
-            int partitionIndex = partition(list, lo, hi);
-            
-            // Recursively sort the two pieces of the list around the pivot.
-            sortQuick(list, lo, partitionIndex - 1); // Before partition is the hig
-            sortQuick(list, partitionIndex + 1, hi); // After partition is the low
-        }
+    public static <T extends Comparable<? super T>> void quicksort(ArrayList<T> list) {
+        sortQuick(list, 0, list.size() - 1, PivotMethod.HIGH);
     }
+
+    /* This function takes last element as pivot,
+    places the pivot element at its correct
+    position in the sorted list, and places all
+    smaller (smaller than pivot) to the left of
+    pivot and all greater elements to the right
+    of pivot */
+ <T> int partition(List<T> list, int low, int high) {
+     T pivot = list.get(high);
+     int i = low - 1; // index of smaller element
+
+     for (int j = low; j < high; j++) {
+         // If current element is smaller than or
+         // equal to pivot
+         if (list.get(j).compareTo(pivot) <= 0) {
+             i++;
+
+             // swap list[i] and list[j]
+             T temp = list.get(i);
+             list.set(i, list.get(j));
+             list.set(j, temp);
+         }
+     }
+
+     // swap list[i+1] and list[high] (or pivot)
+     T temp = list.get(i + 1);
+     list.set(i + 1, list.get(high));
+     list.set(high, temp);
+
+     return i + 1;
+ }
+
+ /* The main function that implements QuickSort()
+    list --> List to be sorted,
+    low  --> Starting index,
+    high  --> Ending index */
+ <T> void sortQuick(List<T> list, int low, int high) {
+     if (low < high) {
+         /* pi is the partitioning index, list[pi] is
+           now at the right place */
+         int pi = partition(list, low, high);
+
+         // Recursively sort elements before
+         // partition and after partition
+         sort(list, low, pi - 1);
+         sort(list, pi + 1, high);
+     }
+ }
 	
 	
 	

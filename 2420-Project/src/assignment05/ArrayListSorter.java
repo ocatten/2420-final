@@ -142,58 +142,55 @@ public class ArrayListSorter {
 
 
 	/**
-	 * Takes an arrayList of generic class objects and sorts it through the quicksort algorithm, that splits a
-	 * larger array into sub arrays and sorts those.
-	 * 
+	 * Takes an ArrayList of generic class objects and sorts it through the quicksort algorithm.
+	 *
 	 * @param arr: ArrayList of generic objects to be sorted.
 	 */
 	public static <T extends Comparable<? super T>> void quicksort(ArrayList<T> arr) {
-		int low = 0;
-		int high = arr.size() - 1;
-		
-		findPartition(arr,low,high);
+	    int low = 0;
+	    int high = arr.size() - 1;
+
+	    quicksortRecursive(arr, low, high);
 	}
-	
+
 	/*
-	 *Divides the array into smaller subarrays 
+	 * Recursively sorts the sub-array from low to high using quicksort.
 	 */
-	private static <T extends Comparable<? super T>> void findPartition(ArrayList<T> arr, int low, int high) {
-		if (low < high) {
-            int partitionIndex = partition(arr, low, high);
+	private static <T extends Comparable<? super T>> void quicksortRecursive(ArrayList<T> arr, int low, int high) {
+	    if (low < high) {
+	        int partitionIndex = partition(arr, low, high);
 
-            findPartition(arr, low, partitionIndex - 1);
-            findPartition(arr, partitionIndex + 1, high);
-        }
+	        // Recursively sort the left and right subarrays
+	        quicksortRecursive(arr, low, partitionIndex - 1);
+	        quicksortRecursive(arr, partitionIndex + 1, high);
+	    }
 	}
-
-
 
 	/*
 	 * Swaps the items according to the pivot location
 	 */
 	private static <T extends Comparable<? super T>> int partition(ArrayList<T> arr, int low, int high) {
-		T pivot = arr.get(high);//Pivot able to be changed
-		
-		//Set the i index at 1 less than the low
-        int i = low - 1;
-        for(int j = low; j < high; j++) {
-        	if(arr.get(j).compareTo(pivot) < 0) {
-        		i++;
-        		swap(arr, i, j);
-        	}
-        }
-        swap(arr, i + 1, high);
-        return i + 1;
-    }
+	    T pivot = arr.get(high);
+
+	    int i = low - 1;
+	    for (int j = low; j < high; j++) {
+	        if (arr.get(j).compareTo(pivot) < 0) {
+	            i++;
+	            swap(arr, i, j);
+	        }
+	    }
+	    swap(arr, i + 1, high);
+	    return i + 1;
+	}
 
 	/*
 	 * Swaps the indices at i and j
 	 */
-    public static <T extends Comparable<? super T>> void swap(ArrayList<T> arr, int i, int j) {
-        T temp = arr.get(i);
-        arr.set(i, arr.get(j));
-        arr.set(j, temp);
-    }
+	public static <T extends Comparable<? super T>> void swap(ArrayList<T> arr, int i, int j) {
+	    T temp = arr.get(i);
+	    arr.set(i, arr.get(j));
+	    arr.set(j, temp);
+	}
 	
 	
 	
