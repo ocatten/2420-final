@@ -4,7 +4,12 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 
-
+/*
+ * SinglyLinkedList creates a singly linked list by adding given data to a node and adding it to the 
+ * list either at the 
+ * 
+ * @authors Everett Oglesby and Parker Catten
+ */
 public class SinglyLinkedList<E> implements List<E>{
 	
 	//Tracker for the head of the list
@@ -292,12 +297,19 @@ public class SinglyLinkedList<E> implements List<E>{
 		//Array to return with the size of the singly linked list
 		Object[] listArr = new Object[size()];
 		
-		//Tracker for the current nod
+		//Tracker for the current node
 		Node currNode = head;
 		
-		for(int i = 0; i < size(); i++) {
-			listArr[i] = 
+		Iterator<E> iter = iterator();
+		int count = 0;
+		
+		while(iter.hasNext()) {
+			listArr[count] = iter.next();
+			
+			count++;
 		}
+		
+		
 		
 		return listArr;
 	}
