@@ -6,6 +6,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\oscrw\Documents\GitHub\2420-final\2420-Project"/>
 			<item value="C:\Users\parke\git\2420-Summer\2420-Summer-Project"/>
 			<item value="C:\Users\parke\git\2420-Summer"/>
 		</list>
