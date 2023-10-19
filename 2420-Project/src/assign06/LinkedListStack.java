@@ -17,7 +17,7 @@ public class LinkedListStack<E> {
 	
 	
 	// Fields
-	SinglyLinkedList<E> backingList;
+	private SinglyLinkedList<E> backingList;
 	
 	
 	/**
@@ -86,5 +86,14 @@ public class LinkedListStack<E> {
 	 */
 	public int size() {
 		return backingList.size(); // Use the backing list's internal method.
+	}
+	
+	
+	
+	/**
+	 * @return the backing SinglyLinkedList 
+	 */
+	public SinglyLinkedList<E> getList () {
+		return backingList;
 	}
 }
