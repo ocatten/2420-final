@@ -136,4 +136,22 @@ public class WebBrowser {
 		return temp; // Return the completed list.
 	}
 	
+	
+	
+	/**
+	 * @return the stack for the back button for testing
+	 */
+	public LinkedListStack<URL> getBackButton() {
+		return backButton;
+	}
+	
+	
+	
+	/**
+	 * @return the stack for the forward button for testing
+	 */
+	public LinkedListStack<URL> getForwardButton() {
+		return forwardButton;
+	}
+	
 }

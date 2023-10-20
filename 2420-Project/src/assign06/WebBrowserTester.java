@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 
 /**
@@ -21,13 +21,21 @@ public class WebBrowserTester {
 //============================================================= SET_UP ===============================================================================
 	
 	// Fields
-	private static WebBrowser emptyBrowser;
-	private static WebBrowser noHistory;
-	private static WebBrowser noForward;
-	private static WebBrowser fullBrowser;
+	private   WebBrowser emptyBrowser;
+	private   WebBrowser noHistory;
+	private   WebBrowser noForward;
+	private   WebBrowser fullBrowser;
+	
+	private   SinglyLinkedList<URL> history;
 	
 	
-	public static void setup () throws MalformedURLException {
+	public void setup () throws MalformedURLException {
+		
+		history = new SinglyLinkedList<URL>();
+		history.insertFirst(new URL("http://www.example.com/docs/resource1.html"));
+		history.insertFirst(new URL("http://www.google.com/"));
+		history.insertFirst(new URL("http://www.youtube.com/"));
+		
 		
 		emptyBrowser = new WebBrowser();
 		
@@ -35,10 +43,9 @@ public class WebBrowserTester {
 		noHistory = new WebBrowser();
 		
 		noHistory.visit(new URL("http://www.example.com/docs/resource1.html"));
-		noHistory.visit(new URL("https://www.google.com/"));
-		noHistory.visit(new URL("https://www.youtube.com/"));
+		noHistory.visit(new URL("http://www.google.com/"));
+		noHistory.visit(new URL("http://www.youtube.com/"));
 		
-		noHistory.back();
 		noHistory.back();
 		noHistory.back();
 		
@@ -46,19 +53,19 @@ public class WebBrowserTester {
 		noForward = new WebBrowser();
 		
 		noForward.visit(new URL("http://www.example.com/docs/resource1.html"));
-		noForward.visit(new URL("https://www.google.com/"));
-		noForward.visit(new URL("https://www.youtube.com/"));
+		noForward.visit(new URL("http://www.google.com/"));
+		noForward.visit(new URL("http://www.youtube.com/"));
 		
 		
 		fullBrowser = new WebBrowser();
 		
 		fullBrowser.visit(new URL("http://www.example.com/docs/resource1.html"));
-		fullBrowser.visit(new URL("https://www.google.com/"));
-		fullBrowser.visit(new URL("https://www.youtube.com/"));
+		fullBrowser.visit(new URL("http://www.google.com/"));
+		fullBrowser.visit(new URL("http://www.youtube.com/"));
 		
 		fullBrowser.visit(new URL("http://www.example.com/docs/resource1.html"));
-		fullBrowser.visit(new URL("https://www.google.com/"));
-		fullBrowser.visit(new URL("https://www.youtube.com/"));
+		fullBrowser.visit(new URL("http://www.google.com/"));
+		fullBrowser.visit(new URL("http://www.youtube.com/"));
 		
 		fullBrowser.back();
 		fullBrowser.back();
@@ -71,26 +78,13 @@ public class WebBrowserTester {
 	
 	
 	@Test
-	public static void constructorTestOnEmpty () throws MalformedURLException {
+	public void constructorTest () throws MalformedURLException {
 		setup();
 		
+		emptyBrowser = new WebBrowser(history);
 		
-	}
-	
-	
-	
-	@Test
-	public static void constructorTestOnSmall () throws MalformedURLException {
-		setup();
-		
-	}
-	
-	
-	
-	@Test
-	public static void constructorTestOnLarge () throws MalformedURLException {
-		setup();
-		
+		assertEquals("http://www.google.com/", emptyBrowser.back().toString());
+		assertEquals("http://www.example.com/docs/resource1.html", emptyBrowser.back().toString());
 	}
 	
 	
@@ -99,25 +93,61 @@ public class WebBrowserTester {
 	
 	
 	@Test
-	public static void visitTestOnEmpty () throws MalformedURLException {
+	public void visitTestOnEmpty () throws MalformedURLException {
 		setup();
 		
+		
+		try {
+			
+			emptyBrowser.back();
+			assertTrue(false);
+			
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+		
+		try {
+			
+			emptyBrowser.forward();
+			assertTrue(false);
+			
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+		
+		
+		emptyBrowser.visit(new URL("http://www.google.com/"));
+		emptyBrowser.visit(new URL("http://www.youtube.com/"));
+		
+		assertEquals(emptyBrowser.back().toString(), "http://www.google.com/");
+		assertEquals(emptyBrowser.forward().toString(), "http://www.youtube.com/");
 	}
 	
 	
 	
 	@Test
-	public static void visitTestOnSmall () throws MalformedURLException {
+	public void visitTestOnSmall () throws MalformedURLException {
 		setup();
 		
+		assertFalse(noHistory.getForwardButton().isEmpty());
+		noHistory.visit(new URL("http://www.google.com"));
+		assertTrue(noHistory.getForwardButton().isEmpty());
+		
+
+		assertEquals("http://www.example.com/docs/resource1.html", noHistory.back().toString());
 	}
 	
 	
 	
 	@Test
-	public static void visitTestOnLarge () throws MalformedURLException {
+	public void visitTestOnLarge () throws MalformedURLException {
 		setup();
 		
+		fullBrowser.visit(new URL("http://www.pizza.com"));
+		fullBrowser.visit(new URL("http://www.apple.com"));
+		
+		assertEquals("http://www.pizza.com", fullBrowser.back().toString());
+		assertEquals("http://www.youtube.com/", fullBrowser.back().toString());
 	}
 	
 	
@@ -126,24 +156,56 @@ public class WebBrowserTester {
 	
 	
 	@Test
-	public static void backTestOnEmpty () throws MalformedURLException {
+	public void backTestOnEmpty () throws MalformedURLException {
 		setup();
+		
+		try {
+			
+			emptyBrowser.back();
+			assertTrue(false);
+			
+		} catch (Exception e) {
+			assertTrue(true);
+		}
 		
 	}
 	
 	
 	
 	@Test
-	public static void backTestOnSmall () throws MalformedURLException {
+	public void backTestOnSmall () throws MalformedURLException {
 		setup();
 		
+		assertEquals("http://www.google.com/", noForward.back().toString());
+		assertEquals("http://www.example.com/docs/resource1.html", noForward.back().toString());
+		
+		try {
+			
+			noForward.back();
+			assertTrue(false);
+			
+		} catch (Exception e) {
+			assertTrue(true);
+		}
 	}
 	
 	
 	
 	@Test
-	public static void backTestOnLarge () throws MalformedURLException {
+	public void backTestOnLarge () throws MalformedURLException {
 		setup();
+		
+		assertEquals("http://www.google.com/", fullBrowser.back().toString());
+		assertEquals("http://www.example.com/docs/resource1.html", fullBrowser.back().toString());
+		
+		try {
+			
+			fullBrowser.back();
+			assertTrue(false);
+			
+		} catch (Exception e) {
+			assertTrue(true);
+		}
 		
 	}
 	
@@ -153,7 +215,24 @@ public class WebBrowserTester {
 	
 	
 	@Test
-	public static void forwardTestOnEmpty () throws MalformedURLException {
+	public void forwardTestOnEmpty () throws MalformedURLException {
+		setup();
+		
+		try {
+			
+			emptyBrowser.forward();
+			assertTrue(false);
+			
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+		
+	}
+	
+	
+	
+	@Test
+	public void forwardTestOnSmall () throws MalformedURLException {
 		setup();
 		
 	}
@@ -161,15 +240,7 @@ public class WebBrowserTester {
 	
 	
 	@Test
-	public static void forwardTestOnSmall () throws MalformedURLException {
-		setup();
-		
-	}
-	
-	
-	
-	@Test
-	public static void forwardTestOnLarge () throws MalformedURLException {
+	public void forwardTestOnLarge () throws MalformedURLException {
 		setup();
 		
 	}
@@ -180,7 +251,7 @@ public class WebBrowserTester {
 
 	
 	@Test
-	public static void historyTestOnEmpty () throws MalformedURLException {
+	public void historyTestOnEmpty () throws MalformedURLException {
 		setup();
 		
 	}
@@ -188,7 +259,7 @@ public class WebBrowserTester {
 	
 	
 	@Test
-	public static void historyTestOnSmall () throws MalformedURLException {
+	public void historyTestOnSmall () throws MalformedURLException {
 		setup();
 		
 	}
@@ -196,7 +267,7 @@ public class WebBrowserTester {
 	
 	
 	@Test
-	public static void historyTestOnLarge () throws MalformedURLException {
+	public void historyTestOnLarge () throws MalformedURLException {
 		setup();
 		
 	}

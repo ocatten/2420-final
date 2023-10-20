@@ -202,7 +202,7 @@ public class SinglyLinkedList<E> implements List<E>{
 			head = null;
 		}
 		
-		listSize--;//Reduce the size of the list by one
+		listSize--; // Reduce the size of the list by one
 		
 		return previousHead.data;
 	}

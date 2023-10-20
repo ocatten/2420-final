@@ -211,9 +211,9 @@ public class LinkedListStackTester {
 		
 		assertEquals("m", smallStack.pop());
 		assertEquals("i", smallStack.pop());
-		assertEquals("u", smallStack.pop());
-		assertEquals("s", smallStack.pop());
 		assertEquals("t", smallStack.pop());
+		assertEquals("s", smallStack.pop());
+		assertEquals("u", smallStack.pop());
 		assertEquals("x", smallStack.pop());
 		assertEquals("b", smallStack.pop());
 		assertEquals("e", smallStack.pop());
@@ -277,8 +277,8 @@ public class LinkedListStackTester {
 		
 		smallStack.push("y");
 		
-		assertEquals("y", emptyStack.peek());
-		assertEquals(10, emptyStack.size());
+		assertEquals("y", smallStack.peek());
+		assertEquals(10, smallStack.size());
 	}
 	
 	
@@ -334,11 +334,11 @@ public class LinkedListStackTester {
 	public  void sizeTestOnLarge () {
 		setup();
 		
-		assertEquals(100000, largeStack.size());
+		assertEquals(10000, largeStack.size());
 		largeStack.push(11);
-		assertEquals(100001, largeStack.size());
-		smallStack.pop();
-		assertEquals(100000, largeStack.size());
+		assertEquals(10001, largeStack.size());
+		largeStack.pop();
+		assertEquals(10000, largeStack.size());
 		
 		largeStack.clear();
 		assertEquals(0, largeStack.size());
