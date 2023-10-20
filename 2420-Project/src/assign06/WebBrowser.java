@@ -75,6 +75,11 @@ public class WebBrowser {
 	 */
 	public URL back () throws NoSuchElementException {
 		
+		// Catch case if only the current page remains
+		if(backButton.size() <= 1) {
+			throw new NoSuchElementException();
+		}
+		
 		// Add the current page to the forwardButton and delete the current page from the backButton.
 		forwardButton.push( backButton.pop() );
 		
@@ -117,14 +122,14 @@ public class WebBrowser {
 		// We'll iterate through the history, and then iterate back through with the forward button and add the resulting pages to
 		//  the list that will be returned. We have to reverse the order because we need insertFirst's O(1) operation time
 		int count = 0;
-		while(backButton.getList().size() > 1) {
+		while(backButton.size() > 1) {
 			
 			this.back();
 			count++;
 		}
 		
 		// Now that we have the last URL in the WebBrowser, move back again, but add the value to the list this time.
-		temp.insertFirst(this.back());
+		temp.insertFirst(backButton.peek());
 		
 		// While the browser has not returned to the current page, add those pages to the returned list
 		while(count > 0) {

@@ -235,6 +235,18 @@ public class WebBrowserTester {
 	public void forwardTestOnSmall () throws MalformedURLException {
 		setup();
 		
+		assertEquals("http://www.google.com/", noHistory.forward().toString());
+		assertEquals("http://www.youtube.com/", noHistory.forward().toString());
+		
+		try {
+			
+			noHistory.forward();
+			assertTrue(false);
+			
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+		
 	}
 	
 	
@@ -242,6 +254,19 @@ public class WebBrowserTester {
 	@Test
 	public void forwardTestOnLarge () throws MalformedURLException {
 		setup();
+		
+		assertEquals("http://www.example.com/docs/resource1.html", fullBrowser.forward().toString());
+		assertEquals("http://www.google.com/", fullBrowser.forward().toString());
+		assertEquals("http://www.youtube.com/", fullBrowser.forward().toString());
+		
+		try {
+			
+			fullBrowser.forward();
+			assertTrue(false);
+			
+		} catch (Exception e) {
+			assertTrue(true);
+		}
 		
 	}
 	
@@ -254,6 +279,14 @@ public class WebBrowserTester {
 	public void historyTestOnEmpty () throws MalformedURLException {
 		setup();
 		
+		try {
+			
+			emptyBrowser.history();
+			assertTrue(false);
+			
+		} catch (Exception e) {
+			assertTrue(true);
+		}
 	}
 	
 	
@@ -262,6 +295,9 @@ public class WebBrowserTester {
 	public void historyTestOnSmall () throws MalformedURLException {
 		setup();
 		
+		SinglyLinkedList<URL> test = noHistory.history();
+		
+		assertEquals("http://www.example.com/docs/resource1.html", test.getFirst().toString());
 	}
 	
 	
@@ -269,6 +305,20 @@ public class WebBrowserTester {
 	@Test
 	public void historyTestOnLarge () throws MalformedURLException {
 		setup();
+		
+		SinglyLinkedList<URL> test = noForward.history();
+		assertEquals("http://www.youtube.com/", test.deleteFirst().toString());
+		assertEquals("http://www.google.com/", test.deleteFirst().toString());
+		assertEquals("http://www.example.com/docs/resource1.html", test.deleteFirst().toString());
+
+		try {
+			
+			test.deleteFirst();
+			assertTrue(false);
+			
+		} catch (Exception e) {
+			assertTrue(true);
+		}
 		
 	}
 	
