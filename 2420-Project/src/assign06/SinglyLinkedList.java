@@ -6,14 +6,14 @@ import java.util.NoSuchElementException;
 
 /*
  * SinglyLinkedList creates a singly linked list by adding given data to a node and adding it to the 
- * list either at the 
+ * list either at the first or a given index. When 
  * 
  * @authors Everett Oglesby and Parker Catten
  */
 public class SinglyLinkedList<E> implements List<E>{
 	
 	//Tracker for the head of the list
-	public Node head = null;
+	private Node head = null;
 
 	
 	private int listSize = 0;
@@ -95,6 +95,18 @@ public class SinglyLinkedList<E> implements List<E>{
 		//Node with the given element that is being inserted into the list.
 		Node newNode = new Node(element);
 		
+		Iterator<E> iter = iterator();
+		int iterIndex = 0;
+		
+		while(iter.hasNext()) {
+			if(iterIndex == index) {
+				
+			}
+			iter.next();
+			iterIndex++;
+		}
+		
+		
 		//If the index is zero then just call insert first
 		if(index == 0) {
 			insertFirst(element);
@@ -127,6 +139,10 @@ public class SinglyLinkedList<E> implements List<E>{
 	 * @throws NoSuchElementException if the list is empty
 	 */
 	public E getFirst() throws NoSuchElementException{
+		//Throws exception if the list is empty
+		if(size() <= 0) {
+			throw new NoSuchElementException("The list is empty!");
+		}
 		return head.data;	
 	}
 	
@@ -140,18 +156,32 @@ public class SinglyLinkedList<E> implements List<E>{
 	 */
 	public E get(int index) throws IndexOutOfBoundsException{
 		//Throw exception if index is not within the list
-		if(index < 0 || index > size()) {
+		if(index < 0 || index >= size()) {
 			throw new IndexOutOfBoundsException("Index not in range!");
 		}
 		
-		//The node being searched for
-		Node indexNode = head;
+		Iterator<E> iter = iterator();
+		int iterIndex = 0;
 		
-		//Iterates through the list to find the node being searched for
-		for(int i = 0; i > index; i++) {
-			indexNode = indexNode.next;
+		while(iter.hasNext()) {
+			if(iterIndex == index) {
+				return iter.next();
+			}
+			iter.next();
+			iterIndex++;
 		}
-		return indexNode.data;
+		
+		//This code will not be reached!
+		return null;
+		
+//		//The node being searched for
+//		Node indexNode = head;
+//		
+//		//Iterates through the list to find the node being searched for
+//		for(int i = 0; i > index; i++) {
+//			if()
+//		}
+//		return indexNode.data;
 	}
 	
 	/**
@@ -177,6 +207,8 @@ public class SinglyLinkedList<E> implements List<E>{
 		else { //If not then it sets the head to null
 			head = null;
 		}
+		
+		listSize--;//Reduce the size of the list by one
 		
 		return previousHead.data;
 	}
@@ -218,6 +250,8 @@ public class SinglyLinkedList<E> implements List<E>{
 		//This will make the list skip the index essentially removing the node from the list
 		prevNode.next = prevNode.next.next;
 		
+		listSize--;//Reduce the size of the list by one
+		
 		return removedData; //Finally return the data of the removed node
 	}
 	
@@ -231,25 +265,47 @@ public class SinglyLinkedList<E> implements List<E>{
 	 */
 	public int indexOf(E element) {
 		
-		//Trackers for the current node and index
+	
+		
+		//Tracker for the current node
 		Node currNode = head;
+		
+		Iterator<E> iter = iterator();
 		int index = 0;
 		
-		//Iterates through the entire list, searching for a node with the same element that is given
-		for(int i = 0; i > size();i++) {
-			//If the current node's data is equal to the element, then return the index of the current node
-			if(currNode.data == element) {
+		while(iter.hasNext()) {
+			E currData = iter.next();
+			if(currData == element) {
 				return index;
 			}
 			
-			//If the current node is the last in the list return -1, meaning no matching element has been found
-			if(currNode.next == null) {
-				return -1;
-			}
 			index++;
-			currNode = currNode.next;
 		}
-		return -1;
+		
+		return -1;//Return -1 if no index found
+//				
+//				
+//				return listArr;
+//		
+//		//Trackers for the current node and index
+//		Node currNode = head;
+//		int index = 0;
+//		
+//		//Iterates through the entire list, searching for a node with the same element that is given
+//		for(int i = 0; i > size();i++) {
+//			//If the current node's data is equal to the element, then return the index of the current node
+//			if(currNode.data == element) {
+//				return index;
+//			}
+//			
+//			//If the current node is the last in the list return -1, meaning no matching element has been found
+//			if(currNode.next == null) {
+//				return -1;
+//			}
+//			index++;
+//			currNode = currNode.next;
+//		}
+//		return -1;
 	}
 	
 	/**
@@ -283,6 +339,14 @@ public class SinglyLinkedList<E> implements List<E>{
 		//Simply setting the head to null and setting the size to zero clears the list.
 		head = null;
 		listSize = 0;
+	}
+	
+	/*
+	 * Returns the head of the SinglyLinkedList.
+	 * Added exclusively for testing purposes.
+	 */
+	public Node getHead() {
+		return head;
 	}
 	
 	/**
