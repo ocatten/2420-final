@@ -99,19 +99,6 @@ public class SinglyLinkedList<E> implements List<E>{
 		//Node with the given element that is being inserted into the list.
 		Node newNode = new Node(element);
 		
-//		Node prevNode = null;
-//		
-////		Iterator<E> iter = iterator();
-////		int iterIndex = 0;
-////		
-////		while(iter.hasNext()) {
-////			if(iterIndex+1 == index) {
-////				newNode
-////			}
-////			iter.next();
-////			iterIndex++;
-////		}
-		
 		
 		//If the index is zero then just call insert first
 		if(index == 0) {
@@ -292,10 +279,7 @@ public class SinglyLinkedList<E> implements List<E>{
 	 */
 	public int indexOf(E element) {
 		
-	
-		
-		//Tracker for the current node
-		Node currNode = head;
+		// Tracker for the current node
 		
 		Iterator<E> iter = iterator();
 		int index = 0;
@@ -309,7 +293,7 @@ public class SinglyLinkedList<E> implements List<E>{
 			index++;
 		}
 		
-		return -1;//Return -1 if no index found
+		return -1; // Return -1 if no index found
 	}
 	
 	
@@ -455,7 +439,6 @@ public class SinglyLinkedList<E> implements List<E>{
 					prevNode.next = currNode.next;
 				}
 			}
-			
 		}
 	}
 }

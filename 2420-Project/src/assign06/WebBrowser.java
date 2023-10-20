@@ -41,7 +41,7 @@ public class WebBrowser {
 		this(); // Sets up relevant fields by calling the other constructor
 		
 		// Iterate from the last element in the list to the first, adding each one to the backButton in reverse order.
-		for(int i = history.size()-1; i >= 0; i++) {
+		for(int i = history.size()-1; i >= 0; i--) {
 			
 			backButton.push(history.get(i));
 		}
