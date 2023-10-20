@@ -262,6 +262,7 @@ public class SinglyLinkedListTester {
 		Integer expected = 4;
 		linkedList.delete(0);
 		
+		assertEquals(4,linkedList.size());
 		assertEquals(expected,linkedList.getFirst());
 	}
 	
@@ -278,11 +279,11 @@ public class SinglyLinkedListTester {
 		test = 5;
 		linkedList.insertFirst(test);
 
-		Integer expected = 4;
-		linkedList.delete(0);
+		Integer expected = 2;
+		linkedList.delete(4);
 		
 		assertEquals(4,linkedList.size());
-		assertEquals(expected,linkedList.getFirst());
+		assertEquals(expected,linkedList.get(3));
 	}
 	
 	

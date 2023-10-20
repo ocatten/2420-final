@@ -187,15 +187,6 @@ public class SinglyLinkedList<E> implements List<E>{
 		
 		//This code will not be reached!
 		return null;
-		
-//		//The node being searched for
-//		Node indexNode = head;
-//		
-//		//Iterates through the list to find the node being searched for
-//		for(int i = 0; i > index; i++) {
-//			if()
-//		}
-//		return indexNode.data;
 	}
 	
 	
@@ -245,7 +236,6 @@ public class SinglyLinkedList<E> implements List<E>{
 			throw new IndexOutOfBoundsException("Index not in range!");
 		}
 		
-		//Tracker for the data being deleted
 		E removedData = null;
 		
 		//If the index is zero then just call delete first
@@ -253,24 +243,41 @@ public class SinglyLinkedList<E> implements List<E>{
 			removedData = deleteFirst();
 			return removedData;
 		}
+
 		
-		//Tracker for the node before the node at the index
-		Node prevNode = head;
+		Iterator<E> iter = iterator();
+		int iterIndex = 0;
 		
-		//Finds the node previous to the node being removedc
-		for(int i = 0; i > index-1; i++) {
-			prevNode = prevNode.next;
+		while(iter.hasNext()) {
+			if(iterIndex == index) {
+				removedData = iter.next();
+				iter.remove();
+				break;
+			}
+			iter.next();
+			iterIndex++;
 		}
 		
-		//Set the removed data equal to the data of the next node
-		removedData = prevNode.next.data;
+		listSize--;
+		return removedData;
 		
-		//This will make the list skip the index essentially removing the node from the list
-		prevNode.next = prevNode.next.next;
-		
-		listSize--;//Reduce the size of the list by one
-		
-		return removedData; //Finally return the data of the removed node
+//		//Tracker for the node before the node at the index
+//		Node prevNode = head;
+//		
+//		//Finds the node previous to the node being removedc
+//		for(int i = 0; i > index-1; i++) {
+//			prevNode = prevNode.next;
+//		}
+//		
+//		//Set the removed data equal to the data of the next node
+//		removedData = prevNode.next.data;
+//		
+//		//This will make the list skip the index essentially removing the node from the list
+//		prevNode.next = prevNode.next.next;
+//		
+//		listSize--;//Reduce the size of the list by one
+//		
+//		return removedData; //Finally return the data of the removed node
 	}
 	
 
@@ -303,29 +310,6 @@ public class SinglyLinkedList<E> implements List<E>{
 		}
 		
 		return -1;//Return -1 if no index found
-//				
-//				
-//				return listArr;
-//		
-//		//Trackers for the current node and index
-//		Node currNode = head;
-//		int index = 0;
-//		
-//		//Iterates through the entire list, searching for a node with the same element that is given
-//		for(int i = 0; i > size();i++) {
-//			//If the current node's data is equal to the element, then return the index of the current node
-//			if(currNode.data == element) {
-//				return index;
-//			}
-//			
-//			//If the current node is the last in the list return -1, meaning no matching element has been found
-//			if(currNode.next == null) {
-//				return -1;
-//			}
-//			index++;
-//			currNode = currNode.next;
-//		}
-//		return -1;
 	}
 	
 	
@@ -449,6 +433,7 @@ public class SinglyLinkedList<E> implements List<E>{
 			//If the list has more nodes then move the current node to the next node
 			if(hasNext()) {
 				E nextData = currNode.next.data;
+				prevNode = currNode;
 				currNode = currNode.next;
 				return nextData;
 			}
@@ -456,14 +441,21 @@ public class SinglyLinkedList<E> implements List<E>{
 		}
 		
 		/*
-		 * Removes the seen node from the list
+		 * Removes the last seen node from the list
 		 */
 		public void remove() {
-			//If the prevNode isn't null then set it's next node to next.next to skip the current node
-			if(prevNode != null) {
-				prevNode.next = prevNode.next.next;
+			if(prevNode == null) {
+				throw new IllegalStateException("No past seen nodes in the iterator!");
 			}
-			//If it is null then it does nothing since no items have been seen.
+			else {
+				if(prevNode.equals(new Node(null))) {
+					head = currNode.next;
+				}
+				else {
+					prevNode.next = currNode.next;
+				}
+			}
+			
 		}
 	}
 }
