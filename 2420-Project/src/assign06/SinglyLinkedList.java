@@ -14,8 +14,11 @@ public class SinglyLinkedList<E> implements List<E>{
 	
 	//Tracker for the head of the list
 	private Node head = null;
+<<<<<<< HEAD
 
 	
+=======
+>>>>>>> fd44d180cfc130eeb03d2cc24f077667cface028
 	private int listSize = 0;
 	
 	/*
@@ -24,6 +27,8 @@ public class SinglyLinkedList<E> implements List<E>{
 	public SinglyLinkedList() {
 		
 	}
+	
+	
 	
 	/**
 	 * Each item in the linked list exists as a node with generic data and trackers to the
@@ -51,6 +56,7 @@ public class SinglyLinkedList<E> implements List<E>{
 	}
 
 	
+	
 	/**
 	 * Inserts an element at the beginning of the list.
 	 * O(1) for a singly-linked list.
@@ -77,6 +83,8 @@ public class SinglyLinkedList<E> implements List<E>{
 		listSize ++;
 	}
 
+	
+	
 	/**
 	 * Inserts an element at a specific position in the list.
 	 * O(N) for a singly-linked list.
@@ -113,6 +121,8 @@ public class SinglyLinkedList<E> implements List<E>{
 			return;
 		}
 		
+		
+		
 		//Tracker for the node at the index
 		Node indexNode = null;
 		//Tracker for the node before the node at the index
@@ -131,6 +141,8 @@ public class SinglyLinkedList<E> implements List<E>{
 		prevNode.next = newNode;
 	}
 	
+	
+	
 	/**
 	 * Gets the first element in the list.
 	 * O(1) for a singly-linked list.
@@ -145,6 +157,8 @@ public class SinglyLinkedList<E> implements List<E>{
 		}
 		return head.data;	
 	}
+	
+	
 	
 	/**
 	 * Gets the element at a specific position in the list.
@@ -184,6 +198,8 @@ public class SinglyLinkedList<E> implements List<E>{
 //		return indexNode.data;
 	}
 	
+	
+	
 	/**
 	 * Deletes and returns the first element from the list.
 	 * O(1) for a singly-linked list.
@@ -212,6 +228,8 @@ public class SinglyLinkedList<E> implements List<E>{
 		
 		return previousHead.data;
 	}
+	
+	
 	
 	/**
 	 * Deletes and returns the element at a specific position in the list.
@@ -254,6 +272,8 @@ public class SinglyLinkedList<E> implements List<E>{
 		
 		return removedData; //Finally return the data of the removed node
 	}
+	
+
 	
 	/**
 	 * Determines the index of the first occurrence of the specified element in the list, 
@@ -308,6 +328,8 @@ public class SinglyLinkedList<E> implements List<E>{
 //		return -1;
 	}
 	
+	
+	
 	/**
 	 * O(1) for a singly-linked list.
 	 * 
@@ -316,6 +338,8 @@ public class SinglyLinkedList<E> implements List<E>{
 	public int size() {
 		return listSize;
 	}
+	
+	
 	
 	/**
 	 * O(1) for a singly-linked list.
@@ -331,6 +355,8 @@ public class SinglyLinkedList<E> implements List<E>{
 		}
 	}
 	
+	
+	
 	/**
 	 * Removes all of the elements from this list.
 	 * O(1) for a singly-linked list.
@@ -341,6 +367,7 @@ public class SinglyLinkedList<E> implements List<E>{
 		listSize = 0;
 	}
 	
+<<<<<<< HEAD
 	/*
 	 * Returns the head of the SinglyLinkedList.
 	 * Added exclusively for testing purposes.
@@ -348,6 +375,9 @@ public class SinglyLinkedList<E> implements List<E>{
 	public Node getHead() {
 		return head;
 	}
+=======
+	
+>>>>>>> fd44d180cfc130eeb03d2cc24f077667cface028
 	
 	/**
 	 * Generates an array containing all of the elements in this list in proper sequence 
@@ -360,9 +390,6 @@ public class SinglyLinkedList<E> implements List<E>{
 
 		//Array to return with the size of the singly linked list
 		Object[] listArr = new Object[size()];
-		
-		//Tracker for the current node
-		Node currNode = head;
 		
 		Iterator<E> iter = iterator();
 		int count = 0;
@@ -378,6 +405,8 @@ public class SinglyLinkedList<E> implements List<E>{
 		return listArr;
 	}
 	
+	
+	
 	/**
 	 * @return an iterator over the elements in this list in proper sequence (from first 
 	 * element to last element)
@@ -387,15 +416,15 @@ public class SinglyLinkedList<E> implements List<E>{
 	}
 	
 	
+	
 	/**
 	 * Creates an iterator class for the Singly Linked List.
 	 * 
 	 */
-	class SinglyLinkedListIterator implements Iterator<E> {
+	public class SinglyLinkedListIterator implements Iterator<E> {
 		
 		//Tracker for the node behind the iterator
 		Node currNode = new Node(null);
-		
 		Node prevNode = null;
 		
 		/**
