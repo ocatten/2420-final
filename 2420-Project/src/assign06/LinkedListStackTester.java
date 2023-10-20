@@ -1,10 +1,12 @@
 package assign06;
 
-import static org.junit.Assert.assertEquals; 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
+
 
 
 /**
@@ -17,11 +19,11 @@ public class LinkedListStackTester {
 	
 //============================================================= SET_UP ===============================================================================
 	
-	private static LinkedListStack<String> emptyStack;
-	private static LinkedListStack<String> smallStack;
-	private static LinkedListStack<Integer> largeStack;
+	private  LinkedListStack<String> emptyStack;
+	private  LinkedListStack<String> smallStack;
+	private  LinkedListStack<Integer> largeStack;
 	
-	public static void setup () {
+	public  void setup () {
 		
 		emptyStack = new LinkedListStack<String>();
 		
@@ -51,7 +53,7 @@ public class LinkedListStackTester {
 	
 	
 	@Test
-	public static void clearTestOnEmpty () {
+	public  void clearTestOnEmpty () {
 		setup();
 		emptyStack.clear();
 	}
@@ -59,7 +61,7 @@ public class LinkedListStackTester {
 	
 	
 	@Test
-	public static void clearTestOnSmall () {
+	public  void clearTestOnSmall () {
 		setup();
 		
 		assertEquals(smallStack.size(), 9);
@@ -72,7 +74,7 @@ public class LinkedListStackTester {
 	
 	
 	@Test
-	public static void clearTestOnLarge () {
+	public  void clearTestOnLarge () {
 		setup();
 		
 		assertEquals(largeStack.size(), 10000);
@@ -88,7 +90,7 @@ public class LinkedListStackTester {
 
 
 	@Test
-	public static void isEmptyTestOnEmpty () {
+	public  void isEmptyTestOnEmpty () {
 		setup();
 		
 		assertTrue(emptyStack.isEmpty());
@@ -99,7 +101,7 @@ public class LinkedListStackTester {
 	
 	
 	@Test
-	public static void isEmptyTestOnSmall () {
+	public  void isEmptyTestOnSmall () {
 		setup();
 		
 		assertFalse(smallStack.isEmpty());
@@ -120,7 +122,7 @@ public class LinkedListStackTester {
 	
 	
 	@Test
-	public static void isEmptyTestOnLarge () {
+	public  void isEmptyTestOnLarge () {
 		setup();
 		
 		assertFalse(largeStack.isEmpty());
@@ -139,7 +141,7 @@ public class LinkedListStackTester {
 	
 	
 	@Test
-	public static void peekTestOnEmpty () {
+	public  void peekTestOnEmpty () {
 		setup();
 		
 		try {
@@ -154,7 +156,7 @@ public class LinkedListStackTester {
 	
 	
 	@Test
-	public static void peekTestOnSmall () {
+	public  void peekTestOnSmall () {
 		setup();
 		
 		assertEquals("m", smallStack.peek());
@@ -170,7 +172,7 @@ public class LinkedListStackTester {
 	
 	@Test
 	@SuppressWarnings("removal")
-	public static void peekTestOnLarge () {
+	public  void peekTestOnLarge () {
 		setup();
 		
 		assertEquals(new Integer(9999), largeStack.peek());
@@ -188,7 +190,7 @@ public class LinkedListStackTester {
 	
 	
 	@Test
-	public static void popTestOnEmpty () {
+	public  void popTestOnEmpty () {
 		setup();
 		
 		try {
@@ -204,7 +206,7 @@ public class LinkedListStackTester {
 	
 	
 	@Test
-	public static void popTestOnSmall () {
+	public  void popTestOnSmall () {
 		setup();
 		
 		assertEquals("m", smallStack.pop());
@@ -229,7 +231,7 @@ public class LinkedListStackTester {
 	
 	
 	@Test
-	public static void popTestOnLarge () {
+	public  void popTestOnLarge () {
 		setup();
 		
 		for(Integer i = 9999; i >= 0; i--) {
@@ -251,7 +253,7 @@ public class LinkedListStackTester {
 	
 	
 	@Test
-	public static void pushTestOnEmpty () {
+	public  void pushTestOnEmpty () {
 		setup();
 		
 		assertTrue(emptyStack.isEmpty());
@@ -267,7 +269,7 @@ public class LinkedListStackTester {
 	
 	
 	@Test
-	public static void pushTestOnSmall () {
+	public  void pushTestOnSmall () {
 		setup();
 		
 		assertEquals("m", smallStack.peek());
@@ -283,7 +285,7 @@ public class LinkedListStackTester {
 	
 	@Test
 	@SuppressWarnings("removal")
-	public static void pushTestOnLarge () {
+	public  void pushTestOnLarge () {
 		setup();
 		
 		assertEquals(new Integer(9999), largeStack.peek());
@@ -300,7 +302,7 @@ public class LinkedListStackTester {
 	
 	
 	@Test
-	public static void sizeTestOnEmpty () {
+	public  void sizeTestOnEmpty () {
 		setup();
 		
 		assertEquals(0, emptyStack.size());
@@ -313,7 +315,7 @@ public class LinkedListStackTester {
 	
 	
 	@Test
-	public static void sizeTestOnSmall () {
+	public  void sizeTestOnSmall () {
 		setup();
 		
 		assertEquals(9, smallStack.size());
@@ -329,7 +331,7 @@ public class LinkedListStackTester {
 	
 	
 	@Test
-	public static void sizeTestOnLarge () {
+	public  void sizeTestOnLarge () {
 		setup();
 		
 		assertEquals(100000, largeStack.size());
