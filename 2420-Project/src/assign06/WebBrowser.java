@@ -111,19 +111,29 @@ public class WebBrowser {
 	 */
 	public SinglyLinkedList<URL> history () {
 		
-		// Add the current webpage to the history.
+		// Make a new list to return
 		SinglyLinkedList<URL> temp = new SinglyLinkedList<URL>();
 
-		// Get an array from the backing list. O(N)
-		URL[] tempArr = (URL[])backButton.getList().toArray();
-		
-		// Add these elements from the back to front using insertFirst, adding up to O(N).
-		for(int i = tempArr.length-1; i >= 0; i--) {
+		// We'll iterate through the history, and then iterate back through with the forward button and add the resulting pages to
+		//  the list that will be returned. We have to reverse the order because we need insertFirst's O(1) operation time
+		int count = 0;
+		while(backButton.getList().size() > 1) {
 			
-			temp.insertFirst(tempArr[i]);
+			this.back();
+			count++;
 		}
 		
-		return temp; // Return the completed array
+		// Now that we have the last URL in the WebBrowser, move back again, but add the value to the list this time.
+		temp.insertFirst(this.back());
+		
+		// While the browser has not returned to the current page, add those pages to the returned list
+		while(count > 0) {
+			
+			temp.insertFirst(this.forward());
+			count--;
+		}
+		
+		return temp; // Return the completed list.
 	}
 	
 }
