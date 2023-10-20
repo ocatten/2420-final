@@ -14,11 +14,7 @@ public class SinglyLinkedList<E> implements List<E>{
 	
 	//Tracker for the head of the list
 	private Node head = null;
-<<<<<<< HEAD
 
-	
-=======
->>>>>>> fd44d180cfc130eeb03d2cc24f077667cface028
 	private int listSize = 0;
 	
 	/*
@@ -99,20 +95,22 @@ public class SinglyLinkedList<E> implements List<E>{
 		if(index < 0 || index > size()) {
 			throw new IndexOutOfBoundsException("Index not in range!");
 		}
-		
+//		
 		//Node with the given element that is being inserted into the list.
 		Node newNode = new Node(element);
 		
-		Iterator<E> iter = iterator();
-		int iterIndex = 0;
-		
-		while(iter.hasNext()) {
-			if(iterIndex == index) {
-				
-			}
-			iter.next();
-			iterIndex++;
-		}
+//		Node prevNode = null;
+//		
+////		Iterator<E> iter = iterator();
+////		int iterIndex = 0;
+////		
+////		while(iter.hasNext()) {
+////			if(iterIndex+1 == index) {
+////				newNode
+////			}
+////			iter.next();
+////			iterIndex++;
+////		}
 		
 		
 		//If the index is zero then just call insert first
@@ -124,21 +122,23 @@ public class SinglyLinkedList<E> implements List<E>{
 		
 		
 		//Tracker for the node at the index
-		Node indexNode = null;
+		Node indexNode = head;
 		//Tracker for the node before the node at the index
 		Node prevNode = head;
 		
 		//Finds the node at the current index
-		for(int i = 0; i > index-1; i++) {
-			prevNode = prevNode.next;
+		for(int i = 0; i < index; i++) {
+			prevNode = indexNode;
+			indexNode = indexNode.next;
 		}
 		
-		//Set the index node to the node after the prevNode
-		indexNode = prevNode.next;
+
 		
 		//Set the new node between the two nodes.
 		newNode.next = indexNode;
 		prevNode.next = newNode;
+		
+		listSize++;//Finally update the list size
 	}
 	
 	
@@ -367,7 +367,7 @@ public class SinglyLinkedList<E> implements List<E>{
 		listSize = 0;
 	}
 	
-<<<<<<< HEAD
+
 	/*
 	 * Returns the head of the SinglyLinkedList.
 	 * Added exclusively for testing purposes.
@@ -375,10 +375,7 @@ public class SinglyLinkedList<E> implements List<E>{
 	public Node getHead() {
 		return head;
 	}
-=======
-	
->>>>>>> fd44d180cfc130eeb03d2cc24f077667cface028
-	
+
 	/**
 	 * Generates an array containing all of the elements in this list in proper sequence 
 	 * (from first element to last element).

@@ -86,10 +86,13 @@ public class SinglyLinkedListTester {
 		linkedList.insert(3,test);
 		Integer expected = 4;
 		
-		
+		Object[] toArray = linkedList.toArray();
+		for(Integer i = 0; i < 4; i++) {
+			System.out.print(toArray[i] + ", ");
+		}
 		
 		assertEquals(4,linkedList.size());
-		assertEquals(expected,linkedList.getHead().next.data);
+		assertEquals(expected,linkedList.get(3));
 	}
 	
 	@Test
@@ -98,10 +101,13 @@ public class SinglyLinkedListTester {
 			linkedList.insertFirst(i);
 		}
 		Integer inserted = 1000;
-		linkedList.insert(50,inserted);
+		linkedList.insert(49,inserted);
+		
+		
+		
 		
 		assertEquals(101,linkedList.size());
-		assertEquals(inserted,linkedList.get(50));
+		assertEquals(inserted,linkedList.get(49));
 	}
 	
 	//-----------------------IndexOf Tests---------------------------------------------------------//
