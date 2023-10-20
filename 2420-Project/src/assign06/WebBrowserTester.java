@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 
 /**
- * Tester class for the WebBrowser
+ * Tester class for WebBrowser.java
  * 
  * @author Parker Catten & Everett Oglesby
  * @version 10:19:23
