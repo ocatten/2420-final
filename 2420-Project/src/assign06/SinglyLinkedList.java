@@ -436,7 +436,12 @@ public class SinglyLinkedList<E> implements List<E>{
 					head = currNode.next;
 				}
 				else {
-					prevNode.next = currNode.next;
+					if(currNode.next == null) {
+						throw new IllegalStateException("No coming in the iterator!");
+					}
+					else {
+						prevNode.next = currNode.next;
+					}
 				}
 			}
 		}
