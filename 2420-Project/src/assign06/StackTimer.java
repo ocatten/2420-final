@@ -2,28 +2,26 @@ package assign06;
 
 import java.util.Random;
 
-
-
-
 public class StackTimer {
+	
 	public static void main(String[] args) {
-		//The amount of times to loop the program
-		int timesToLoop = 100000;
 		
-		//Set this for which test to do
-		//Look on the if statements to see what they're timing
+		//The amount of times to loop the program
+		int timesToLoop = 1000000;
+		
+		//Set this for which test to do. Look on the if statements to see what they're timing
 		//The timers are comparing our code VS a premade code (The array stack code)
 		
 		//Which test to do, change the int to do a different test
 		//I wrote all of the tests as seperate methods
-		int test = 0;
+		int test = 1;
 
-		LinkedListStack timer = new LinkedListStack();
+		LinkedListStack<Integer> timer = new LinkedListStack<Integer>();
 		for(Integer n = 0; n < timesToLoop ; n++) {
 			timer.push(n);
 		}
 		
-		ArrayStack timerArrayStack = new ArrayStack();
+		ArrayStack<Integer> timerArrayStack = new ArrayStack<Integer>();
 		for(Integer n = 0; n < timesToLoop ; n++) {
 			timer.push(n);
 		}
@@ -67,14 +65,9 @@ public class StackTimer {
 		for(int n = 1; n < 21; n++) {
 			
 			// Create new stack
-			LinkedListStack stackTimer = new LinkedListStack();
+			LinkedListStack<Integer> stackTimer = new LinkedListStack<Integer>();
 			
 			Random rng = new Random();
-
-			
-
-			
-
 			
 			// First, spin computing stuff until one second has gone by
 			// This allows this thread to stabilize
@@ -105,18 +98,16 @@ public class StackTimer {
 		}
 	}
 	
-	public static void popTest(LinkedListStack timer) {
+	public static void popTest(LinkedListStack<Integer> timer) {
 		//The amount of times to loop the program
 		int timesToLoop = 1000000;
-		
-		
 		
 		// For each problem size n . . .
 		for(int n = 1; n < 21; n++) {
 			
 			// Create new stack
-			LinkedListStack tempTimer = new LinkedListStack();
-			tempTimer = timer;
+			//LinkedListStack<Integer> tempTimer = new LinkedListStack<Integer>();
+			//tempTimer = timer;
 			
 			
 			//Random rng = new Random();
@@ -142,7 +133,7 @@ public class StackTimer {
 
 			//Create the list 
 			for(Integer i = 0; i < n*timesToLoop; i++) {
-				Integer temp = (Integer) tempTimer.pop();
+				//Integer temp = (Integer) tempTimer.pop();
 				//System.out.print(temp);
 			}
 
@@ -159,7 +150,7 @@ public class StackTimer {
 		}
 	}
 
-	public static void peekTest(LinkedListStack timer) {
+	public static void peekTest(LinkedListStack<Integer> timer) {
 		//The amount of times to loop the program
 		int timesToLoop = 1000000;
 		
@@ -169,15 +160,10 @@ public class StackTimer {
 		for(int n = 1; n < 21; n++) {
 			
 			// Create new stack
-			LinkedListStack tempTimer = timer;
+			LinkedListStack<Integer> tempTimer = timer;
 			
 			
-			Random rng = new Random();
-
-			
-
-			
-
+			//Random rng = new Random();
 			
 			// First, spin computing stuff until one second has gone by
 			// This allows this thread to stabilize
@@ -215,7 +201,7 @@ public class StackTimer {
 		for(int n = 1; n < 21; n++) {
 			
 			// Create new stack
-			ArrayStack stackTimer = new ArrayStack();
+			ArrayStack<Integer> stackTimer = new ArrayStack<Integer>();
 			
 			Random rng = new Random();
 
@@ -253,7 +239,7 @@ public class StackTimer {
 		}
 	}
 	
-	public static void popTestArrayStack(ArrayStack timer) {
+	public static void popTestArrayStack(ArrayStack<Integer> timer) {
 		//The amount of times to loop the program
 		int timesToLoop = 1000000;
 		
@@ -263,10 +249,10 @@ public class StackTimer {
 		for(int n = 1; n < 21; n++) {
 			
 			// Create new stack
-			ArrayStack tempTimer = timer;
+			ArrayStack<Integer> tempTimer = timer;
 			
 			
-			Random rng = new Random();
+			//Random rng = new Random();
 
 			//Create the list 
 			for(Integer i = 0; i < n*timesToLoop; i++) {
@@ -305,7 +291,7 @@ public class StackTimer {
 		}
 	}
 	
-	public static void peekTestArrayStack(ArrayStack timer) {
+	public static void peekTestArrayStack(ArrayStack<Integer> timer) {
 		//The amount of times to loop the program
 		int timesToLoop = 1000000;
 		
@@ -315,10 +301,10 @@ public class StackTimer {
 		for(int n = 1; n < 21; n++) {
 			
 			// Create new stack
-			ArrayStack tempTimer = timer;
+			ArrayStack<Integer> tempTimer = timer;
 			
 			
-			Random rng = new Random();
+			//Random rng = new Random();
 
 			
 			//Create the list 

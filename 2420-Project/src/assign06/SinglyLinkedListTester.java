@@ -169,7 +169,8 @@ public class SinglyLinkedListTester {
 		for(Integer i = 1; i <= 100; i++) {
 			linkedList.insertFirst(i);
 		}
-		Integer lookup = 55;
+		
+		//Integer lookup = 55;
 		
 		int index = linkedList.indexOf(55);
 		
