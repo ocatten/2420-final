@@ -18,7 +18,7 @@ public class Graph<Type> {
 	
 	
 	/**
-	 * Constructor that sets up relevant fields
+	 * @Constructor to set up fields
 	 */
 	public Graph() {
 		allVertices = new HashMap<Type, Vertex<Type>>();
