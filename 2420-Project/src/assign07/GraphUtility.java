@@ -3,8 +3,12 @@ package assign07;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Scanner;
+
+import assignment07.Vertex;
 
 /**
  * Contains several methods for solving problems on generic, directed, unweighted, sparse graphs.
@@ -14,16 +18,103 @@ import java.util.Scanner;
  */
 public class GraphUtility {
 
+	/*
+	 * Performs a depth-first search algorithm on a graph created from the list of sources and destinations to determine 
+	 * if there is a path from the srcData to dstData in the graph. The Depth-First algorithm searches recursively to find
+	 * a route, if any, by first iterating all the way down to the last level of a graph and back tracking and going down 
+	 * different branches until a solution is found. Throws IllegalArgumentException if there is no vertex in the 
+	 * graph with scrData or dstData.
+	 * 
+	 */
 	public static <Type> boolean areConnected(List<Type> sources, List<Type> destinations, Type srcData, Type dstData)
 			throws IllegalArgumentException {
-		// FILL IN + ADD METHOD COMMENT
+		
+		boolean found = depthFirstSearch(srcData,dstData);
+		
+		/*
+		 * oreach vertex vi do
+vi.distance_from_s ← ∞
+s.distance_from_s ← 0
+depthFirstSearch(s)
+depthFirstSearch(vertex x):
+foreach edge e from x do
+vertex w ← e.destination
+if w.distance_from_s = ∞ do
+w.distance_from_s = x.distance_from_start + e.weight
+w.previous = x
+depthFirstSearch(w)
+
+		 */
+		
+		
 		return false;
 	}
 
+	private <Type> boolean depthFirstSearch(Type curr, Vertex<Type> dest) {
+		for(Edge e: curr.getAdjacent()) {
+			Vertex oppositeVertex = e.getDestination();
+
+			if(!oppositeVertex.getVisited()) {
+				if(oppositeVertex.getData().equals(dest.getData())){
+					return true;
+				}
+				depthFirstSearch(oppositeVertex,dest);
+			}
+		}
+		return false;
+	}
+	
+	
+	
+	
+	/*
+	 * Finds the shortest path from the vertex scrData to the vertex dstData in a graph created from the sources and destinations by
+	 * using a Breadth-First Search algorithm to iterate through the graph. Throws IllegalArgumentException if there is no vertex in the 
+	 * graph with scrData or dstData.
+	 * 
+	 */
 	public static <Type> List<Type> shortestPath(List<Type> sources, List<Type> destinations, Type srcData, Type dstData)
 			throws IllegalArgumentException {
-		// FILL IN + ADD METHOD COMMENT
+		
+		Vertex<Type> startVertex = null;
+		
+		//First find the vertex with srcData, if no vertex matches then throw Illegal argument exception
+		for(Type source: sources) {
+			//Check if the current source matches the source expected in the list.
+			if(source.equals(srcData)) {
+				startVertex = Vertex<Type>
+			}
+		}
+		
+		//Throw exception if no source found
+		if(startVertex != null) {
+			throw new IllegalArgumentException("Source could not be found!");
+		}
+		
+		//Creates a queue to store the next vertices to sort through
+		Queue<Vertex<Type> > queue = new LinkedList<Vertex<Type> >();
+		
+		//Add the first vertex to the queue.
+		queue.add(startVertex);
+		
+		
+		while(!queue.isEmpty()) {
+			Vertex<Type> currVertex = queue.remove();
+			for(Edge<Type> e: currVertex.getAdjacent()) {
+				Vertex<Type> other = e.getDestination();
+				other.d
+			}
+		}
+		
 		return null;
+	}
+	
+	
+	private void breadthFirstSearch(Vertex<Type> curr) {
+		
+		
+		
+		
 	}
 	
 	public static <Type> List<Type> sort(List<Type> sources, List<Type> destinations) throws IllegalArgumentException {
