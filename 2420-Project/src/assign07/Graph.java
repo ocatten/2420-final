@@ -1,12 +1,9 @@
 package assign07;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import assignment07.Edge;
-import assignment07.Vertex;
+import java.util.Map.Entry;
 
 /**
  * This class stores the vertices and the edges between them, utilizing GraphUtility to run operations on them.
@@ -17,11 +14,9 @@ import assignment07.Vertex;
 public class Graph<Type> {
 	
 	// Fields
-	ArrayList<Vertex<Type>> backingList;
-	
-	
 	private Map<Type, Vertex<Type>> vertices;
 
+	
 	/**
 	 * Constructs an empty graph.
 	 */
@@ -29,10 +24,21 @@ public class Graph<Type> {
 		vertices = new HashMap<Type, Vertex<Type>>();
 	}
 	
+	
+	
+	/**
+	 * @return: the HashMap this graph uses
+	 */
+	public Map<Type, Vertex<Type>> getVertices() { 
+		return vertices; 
+	}
+	
+	
+	
 	/*
 	 * Returns the vertex being searched for or null if no vertex exists
 	 */
-	public Vertex<Type> getVertex(Type data){
+	public Vertex<Type> getVertex(String data){
 		return vertices.get(data);
 	}
 
@@ -44,22 +50,22 @@ public class Graph<Type> {
 	 * @param name1 - string name for source vertex
 	 * @param name2 - string name for destination vertex
 	 */
-	public void addEdge(String name1, String name2) {
+	public void addEdge(Type name1, Type name2) {
 		Vertex<Type> vertex1;
 		// if vertex already exists in graph, get its object
 		if(vertices.containsKey(name1))
 			vertex1 = vertices.get(name1);
 		// else, create a new object and add to graph
 		else {
-			vertex1 = new Vertex(name1);
+			vertex1 = new Vertex<Type>(name1);
 			vertices.put(name1, vertex1);
 		}
 
 		Vertex<Type> vertex2;
-		if(vertices.containsKey(name2))
-			vertex2 = vertices.get(name2);
+		if(vertices.containsKey(name2.toString()))
+			vertex2 = vertices.get(name2.toString());
 		else {
-			vertex2 = new Vertex(name2);
+			vertex2 = new Vertex<Type>(name2);
 			vertices.put(name2, vertex2);
 		}
 
@@ -80,15 +86,15 @@ public class Graph<Type> {
 		DOT.append("graph { \n");
 		
 		// Get every vertex's edges and add those edges to the DOT object in order
-		for(Vertex<Type> vertex : backingList) {
+		for(Entry<Type, Vertex<Type>> vertexEntry : vertices.entrySet()) {
 			
-			List<Edge<Type>> edges = vertex.getAdjacent();
+			List<Edge<Type>> edges = vertexEntry.getValue().getAdjacent();
 			
 			// Loop through each vertex's adjacency list for the edges
 			for(Edge<Type> edge : edges)  {
 				
 				// Add the source, the arrow, and the destination for DOT format with indentations
-				DOT.append("   \"" + vertex.getData() + "\" -> \"" + edge.getDestination().getData() + "\"\n");
+				DOT.append("   \"" + vertexEntry.getValue().getData() + "\" -> \"" + edge.getDestination().getData() + "\"\n");
 			}
 		}
 		

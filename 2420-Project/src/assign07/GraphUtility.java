@@ -5,10 +5,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Scanner;
-
-import assignment07.Graph;
 
 
 /**
@@ -44,7 +43,7 @@ public class GraphUtility {
 		
 		//Create an empty tracker for the start vertex and search the graph for the starting vertex
 		Vertex<Type> startVertex = null;
-		startVertex = graph.getVertex(srcData);
+		startVertex = graph.getVertex(srcData.toString());
 		
 		
 		//Throw exception if no source found
@@ -53,7 +52,7 @@ public class GraphUtility {
 		}
 		
 		//Calls depth first search to recursively iterate through the list to find if the srcData and the dstData are connected.
-		boolean found = depthFirstSearch(startVertex,dstData);
+		boolean found = depthFirstSearch(startVertex, graph.getVertex(dstData.toString()));
 		
 
 		
@@ -61,7 +60,7 @@ public class GraphUtility {
 		return false;
 	}
 
-	private <Type> boolean depthFirstSearch(Vertex<Type> curr, Vertex<Type> dest) {
+	private static <Type> boolean depthFirstSearch(Vertex<Type> curr, Vertex<Type> dest) {
 		
 		//Search each edge of the graph, recursively traveling down to the end of the branch.
 		for(Edge e: curr.getAdjacent()) {
@@ -109,7 +108,7 @@ public class GraphUtility {
 		
 		//Create an empty tracker for the start vertex and search the graph for the starting vertex
 		Vertex<Type> startVertex = null;
-		startVertex = graph.getVertex(srcData);
+		startVertex = graph.getVertex(srcData.toString());
 		
 		
 		//Throw exception if no source found
@@ -184,9 +183,9 @@ public class GraphUtility {
 		
 		
 		//Check each vertex in the graph and if its indegree is 0 then add it to the queue.
-		for(Vertex<Type> vertex : graph) {
-			if(vertex.getIndegree() == 0) {
-				queue.add(vertex);
+		for(Entry<Type, Vertex<Type>> vertexEntry : graph.getVertices().entrySet()) {
+			if(vertexEntry.getValue().getIndegree() == 0) {
+				queue.add(vertexEntry.getValue());
 			}
 		}
 		
