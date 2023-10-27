@@ -43,21 +43,21 @@ public class GraphUtility {
 		
 		//Create an empty tracker for the start vertex and search the graph for the starting vertex
 		Vertex<Type> startVertex = null;
-		startVertex = graph.getVertex(srcData.toString());
+		startVertex = graph.getVertex(srcData);
 		
 		
 		//Throw exception if no source found
-		if(startVertex != null) {
+		if(startVertex == null) {
 			throw new IllegalArgumentException("Source could not be found!");
 		}
 		
 		//Calls depth first search to recursively iterate through the list to find if the srcData and the dstData are connected.
-		boolean found = depthFirstSearch(startVertex, graph.getVertex(dstData.toString()));
+		boolean found = depthFirstSearch(startVertex, graph.getVertex(dstData));
 		
 
 		
 		
-		return false;
+		return found;
 	}
 
 	private static <Type> boolean depthFirstSearch(Vertex<Type> curr, Vertex<Type> dest) {
@@ -74,7 +74,7 @@ public class GraphUtility {
 					return true;
 				}
 				//If there isn't a match then call depth first search on the opposite edge.
-				depthFirstSearch(oppositeVertex,dest);
+				return depthFirstSearch(oppositeVertex,dest);
 			}
 		}
 		return false;
@@ -108,11 +108,11 @@ public class GraphUtility {
 		
 		//Create an empty tracker for the start vertex and search the graph for the starting vertex
 		Vertex<Type> startVertex = null;
-		startVertex = graph.getVertex(srcData.toString());
+		startVertex = graph.getVertex(srcData);
 		
 		
 		//Throw exception if no source found
-		if(startVertex != null) {
+		if(startVertex == null) {
 			throw new IllegalArgumentException("Source could not be found!");
 		}
 		
@@ -195,9 +195,15 @@ public class GraphUtility {
 		
 		//This will repeat until each vertex has been added in a sorted order.
 		while(!queue.isEmpty()) {
-			
 			//Remove the current vertex from the queue and add its data to the sortedList.
 			Vertex<Type> currVertex = queue.remove();
+			
+			//Prevents topological sort from attempting to sort Cyclic graphs.
+			if(currVertex.getVisited()) {
+				throw new IllegalArgumentException("Cyclic graph can not be sorted by topological sort!");
+			}
+			currVertex.setVisited(true);//Set the current vertex to visited
+			
 			sortedList.add(currVertex.getData());
 			
 			for(Edge<Type> e: currVertex.getAdjacent()) {

@@ -27,7 +27,7 @@ public class Graph<Type> {
 	
 	
 	/**
-	 * @return: the HashMap this graph uses
+	 * @return: the map of vertices used for the graph
 	 */
 	public Map<Type, Vertex<Type>> getVertices() { 
 		return vertices; 
@@ -38,39 +38,42 @@ public class Graph<Type> {
 	/*
 	 * Returns the vertex being searched for or null if no vertex exists
 	 */
-	public Vertex<Type> getVertex(String data){
+	public Vertex<Type> getVertex(Type data){
 		return vertices.get(data);
 	}
 
 	/**
-	 * Adds to the graph a directed edge from the vertex with name "name1" 
-	 * to the vertex with name "name2".  (If either vertex does not already 
-	 * exist in the graph, it is added.)
+	 * Creates a directed edge from the srcData to the dstData and adds the
+	 * edge to the local vertice's adjacency list.
 	 * 
 	 * @param name1 - string name for source vertex
 	 * @param name2 - string name for destination vertex
 	 */
-	public void addEdge(Type name1, Type name2) {
-		Vertex<Type> vertex1;
-		// if vertex already exists in graph, get its object
-		if(vertices.containsKey(name1))
-			vertex1 = vertices.get(name1);
-		// else, create a new object and add to graph
-		else {
-			vertex1 = new Vertex<Type>(name1);
-			vertices.put(name1, vertex1);
+	public void addEdge(Type srcData, Type dstData) {
+		
+		
+		Vertex<Type> sourceVertex;//Represents the vertex at the source.
+		Vertex<Type> dstVertex;//Represents the vertex at the destination.
+		
+		//Gets the Vertex of the srcData if it already exists in the graph.
+		if(vertices.containsKey(srcData)) {
+			sourceVertex = vertices.get(srcData);
+		}
+		else {//If it doesn't then we can create a new Vertex and add the vertex to the graph
+			sourceVertex = new Vertex<Type>(srcData);
+			vertices.put(srcData, sourceVertex);
 		}
 
-		Vertex<Type> vertex2;
-		if(vertices.containsKey(name2.toString()))
-			vertex2 = vertices.get(name2.toString());
+		//Repeats same process with the dstData to find or create the dstVertex.
+		if(vertices.containsKey(dstData.toString()))
+			dstVertex = vertices.get(dstData.toString());
 		else {
-			vertex2 = new Vertex<Type>(name2);
-			vertices.put(name2, vertex2);
+			dstVertex = new Vertex<Type>(dstData);
+			vertices.put(dstData, dstVertex);
 		}
 
-		// add new directed edge from vertex1 to vertex2
-		vertex1.addEdge(vertex2);
+		//Add a directed edge from the source to the destination within the sourceVertex's adjacney list.
+		sourceVertex.addEdge(dstVertex);
 	}
 	
 	
@@ -103,5 +106,7 @@ public class Graph<Type> {
 		
 		return DOT.toString(); // Return the final String
 	}
+	
+	
 	
 }
