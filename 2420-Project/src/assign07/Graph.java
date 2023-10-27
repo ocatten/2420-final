@@ -1,7 +1,9 @@
 package assign07;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import assignment07.Edge;
 import assignment07.Vertex;
@@ -18,11 +20,51 @@ public class Graph<Type> {
 	ArrayList<Vertex<Type>> backingList;
 	
 	
+	private Map<Type, Vertex<Type>> vertices;
+
 	/**
-	 * @Constructor to set up fields
+	 * Constructs an empty graph.
 	 */
-	public Graph () {
-		backingList = new ArrayList<Vertex<Type>>();
+	public Graph() {
+		vertices = new HashMap<Type, Vertex<Type>>();
+	}
+	
+	/*
+	 * Returns the vertex being searched for or null if no vertex exists
+	 */
+	public Vertex<Type> getVertex(Type data){
+		return vertices.get(data);
+	}
+
+	/**
+	 * Adds to the graph a directed edge from the vertex with name "name1" 
+	 * to the vertex with name "name2".  (If either vertex does not already 
+	 * exist in the graph, it is added.)
+	 * 
+	 * @param name1 - string name for source vertex
+	 * @param name2 - string name for destination vertex
+	 */
+	public void addEdge(String name1, String name2) {
+		Vertex<Type> vertex1;
+		// if vertex already exists in graph, get its object
+		if(vertices.containsKey(name1))
+			vertex1 = vertices.get(name1);
+		// else, create a new object and add to graph
+		else {
+			vertex1 = new Vertex(name1);
+			vertices.put(name1, vertex1);
+		}
+
+		Vertex<Type> vertex2;
+		if(vertices.containsKey(name2))
+			vertex2 = vertices.get(name2);
+		else {
+			vertex2 = new Vertex(name2);
+			vertices.put(name2, vertex2);
+		}
+
+		// add new directed edge from vertex1 to vertex2
+		vertex1.addEdge(vertex2);
 	}
 	
 	

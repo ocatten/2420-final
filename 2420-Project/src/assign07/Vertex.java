@@ -68,6 +68,19 @@ public class Vertex<Type> {
 	public boolean getVisited() { return visited; }
 	
 	/**
+	 * Set whether the current vertex has been visited or not
+	 * 
+	 * @return boolean - visited
+	 */
+	public boolean setVisited(boolean beenVisited) { 
+		
+			visited = beenVisited;
+		
+			return visited;
+		}
+	
+	
+	/**
 	 * @return the previous vertex
 	 */
 	public Vertex<Type> getPrevious() { return previous; }
@@ -82,6 +95,40 @@ public class Vertex<Type> {
 			previous = previousVertex;
 		
 			return previous; 
+		}
+	
+	/**
+	 * Set the distance from the start
+	 * 
+	 * @return the previous vertex
+	 */
+	public  int addDistance(int distance) { 
+		
+			distanceFromStart += distance;
+		
+			return distanceFromStart;
+		}
+	
+	/**
+	 * Set the indegree of the current vertex.
+	 * 
+	 * @return int - indegree
+	 */
+	public  int setIndegree(int distance) { 
+		
+			distanceFromStart += distance;
+		
+			return distanceFromStart;
+		}
+	
+	/**
+	 * Gets the current indegree of the vertex. The indegree tracks the number of incoming edges.
+	 * 
+	 * @return int - indegree
+	 */
+	public  int getIndegree() { 
+		
+			return distanceFromStart;
 		}
 	
 	

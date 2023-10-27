@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
 
-import assignment07.Vertex;
+import assignment07.Graph;
+
 
 /**
  * Contains several methods for solving problems on generic, directed, unweighted, sparse graphs.
@@ -28,36 +29,52 @@ public class GraphUtility {
 	 */
 	public static <Type> boolean areConnected(List<Type> sources, List<Type> destinations, Type srcData, Type dstData)
 			throws IllegalArgumentException {
+		//Throw exception if the number of sources doesn't match the number of destinations.
+		if(sources.size() != destinations.size()){
+			throw new IllegalArgumentException("The length of the list of the sources doesn't match the length of the list of destinations!");
+		}
 		
-		boolean found = depthFirstSearch(srcData,dstData);
+		//Creates a graph from the lists of sources and destinations.
+		Graph<Type> graph = new Graph<Type>();
 		
-		/*
-		 * oreach vertex vi do
-vi.distance_from_s ← ∞
-s.distance_from_s ← 0
-depthFirstSearch(s)
-depthFirstSearch(vertex x):
-foreach edge e from x do
-vertex w ← e.destination
-if w.distance_from_s = ∞ do
-w.distance_from_s = x.distance_from_start + e.weight
-w.previous = x
-depthFirstSearch(w)
+		//Creates the edges between sources[i] and destinations[i]
+		for(int i = 0; i < destinations.size();i++) {
+			graph.addEdge( sources.get(i), destinations.get(i) );
+		}
+		
+		//Create an empty tracker for the start vertex and search the graph for the starting vertex
+		Vertex<Type> startVertex = null;
+		startVertex = graph.getVertex(srcData);
+		
+		
+		//Throw exception if no source found
+		if(startVertex != null) {
+			throw new IllegalArgumentException("Source could not be found!");
+		}
+		
+		//Calls depth first search to recursively iterate through the list to find if the srcData and the dstData are connected.
+		boolean found = depthFirstSearch(startVertex,dstData);
+		
 
-		 */
 		
 		
 		return false;
 	}
 
-	private <Type> boolean depthFirstSearch(Type curr, Vertex<Type> dest) {
+	private <Type> boolean depthFirstSearch(Vertex<Type> curr, Vertex<Type> dest) {
+		
+		//Search each edge of the graph, recursively traveling down to the end of the branch.
 		for(Edge e: curr.getAdjacent()) {
+			//Get the opposite vertex of the edge.
 			Vertex oppositeVertex = e.getDestination();
 
+			//Check if it has been visited yet.
 			if(!oppositeVertex.getVisited()) {
+				//If not, check if its data matches the destination data
 				if(oppositeVertex.getData().equals(dest.getData())){
 					return true;
 				}
+				//If there isn't a match then call depth first search on the opposite edge.
 				depthFirstSearch(oppositeVertex,dest);
 			}
 		}
@@ -76,15 +93,24 @@ depthFirstSearch(w)
 	public static <Type> List<Type> shortestPath(List<Type> sources, List<Type> destinations, Type srcData, Type dstData)
 			throws IllegalArgumentException {
 		
-		Vertex<Type> startVertex = null;
-		
-		//First find the vertex with srcData, if no vertex matches then throw Illegal argument exception
-		for(Type source: sources) {
-			//Check if the current source matches the source expected in the list.
-			if(source.equals(srcData)) {
-				startVertex = Vertex<Type>
-			}
+		//Throw exception if the number of sources doesn't match the number of destinations.
+		if(sources.size() != destinations.size()){
+			throw new IllegalArgumentException("The length of the list of the sources doesn't match the length of the list of destinations!");
 		}
+		
+		//Creates a graph from the lists of sources and destinations.
+		Graph<Type> graph = new Graph<Type>();
+		
+		//Creates the edges between sources[i] and destinations[i]
+		for(int i = 0; i < destinations.size();i++) {
+			graph.addEdge( sources.get(i), destinations.get(i) );
+		}
+		
+		
+		//Create an empty tracker for the start vertex and search the graph for the starting vertex
+		Vertex<Type> startVertex = null;
+		startVertex = graph.getVertex(srcData);
+		
 		
 		//Throw exception if no source found
 		if(startVertex != null) {
@@ -97,29 +123,99 @@ depthFirstSearch(w)
 		//Add the first vertex to the queue.
 		queue.add(startVertex);
 		
+		//List 
 		
+		//Loops through each vertex to find the shortest path
 		while(!queue.isEmpty()) {
+			//Starts its search at the next vertex of the queue
 			Vertex<Type> currVertex = queue.remove();
+			
+			//Find each of the vertices that share edges with the current vertex
 			for(Edge<Type> e: currVertex.getAdjacent()) {
 				Vertex<Type> other = e.getDestination();
-				other.d
+				
+				
+				if(!other.getVisited()) {//Assures that the same vertex isn't checked twice
+					other.setVisited(true);
+					
+					//Increase the distance from start of the other vertex by 1.
+					other.addDistance(1);
+					
+					//Sets the other's previous vertex to the current vertex and adds it next to the queue.
+					other.setPrevious(currVertex);
+					queue.add(other);
+				}
 			}
 		}
 		
 		return null;
 	}
 	
+	//Currently not being used, possibly later
+//	private void breadthFirstSearch(Vertex<Type> curr) {
+//		
+//		
+//		
+//		
+//	}
 	
-	private void breadthFirstSearch(Vertex<Type> curr) {
-		
-		
-		
-		
-	}
-	
+	/*
+	 * Generates a sorted ordering of the graph created from the list of sources and destinations. The graph may have more than
+	 * one valid ordering and since it only works with acyclic graphs, it will throw an IllegalArgumentException if the graph contains
+	 * any cycles.
+	 */
 	public static <Type> List<Type> sort(List<Type> sources, List<Type> destinations) throws IllegalArgumentException {
-		// FILL IN + ADD METHOD COMMENT
-		return null;
+		
+		//Throw exception if the number of sources doesn't match the number of destinations.
+		if(sources.size() != destinations.size()){
+			throw new IllegalArgumentException("The length of the list of the sources doesn't match the length of the list of destinations!");
+		}
+	
+		//Creates a graph from the lists of sources and destinations.
+		Graph<Type> graph = new Graph<Type>();
+		
+		//Creates the edges between sources[i] and destinations[i]
+		for(int i = 0; i < destinations.size();i++) {
+			graph.addEdge( sources.get(i), destinations.get(i) );
+		}
+		
+		//Creates a queue to store the next vertices to sort through
+		Queue<Vertex<Type> > queue = new LinkedList<Vertex<Type> >();
+		
+		
+		//Check each vertex in the graph and if its indegree is 0 then add it to the queue.
+		for(Vertex<Type> vertex : graph) {
+			if(vertex.getIndegree() == 0) {
+				queue.add(vertex);
+			}
+		}
+		
+		//List tracking the sorted graph
+		List<Type> sortedList = new ArrayList<Type>();
+		
+		
+		//This will repeat until each vertex has been added in a sorted order.
+		while(!queue.isEmpty()) {
+			
+			//Remove the current vertex from the queue and add its data to the sortedList.
+			Vertex<Type> currVertex = queue.remove();
+			sortedList.add(currVertex.getData());
+			
+			for(Edge<Type> e: currVertex.getAdjacent()) {
+				Vertex<Type> other = e.getDestination();
+				
+				//Reduce the indegree by 1
+				other.setIndegree(other.getIndegree()-1);
+				
+				//If the indegree is zero then add it next to the queue
+				if(other.getIndegree() == 0) {
+					queue.add(currVertex);
+				}
+			}
+		}
+		
+		//Finally return the list representing the sorted graph.
+		return sortedList;
 	}
 
 	/**
