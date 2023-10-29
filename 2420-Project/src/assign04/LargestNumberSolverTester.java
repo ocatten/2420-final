@@ -60,6 +60,7 @@ public class LargestNumberSolverTester {
 /*=========================================================== INSERTION_SORT TESTS ==================================================================*/
 	
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public  void insertionSortEmpty () {
 		setup();
@@ -70,6 +71,7 @@ public class LargestNumberSolverTester {
 
 	
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public  void insertionSortSmall () {
 		setup();
@@ -83,6 +85,7 @@ public class LargestNumberSolverTester {
 
 
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public  void insertionSortLarge () {
 		setup();
@@ -109,12 +112,14 @@ public class LargestNumberSolverTester {
 		setup();
 		
 		BigInteger expected = BigInteger.valueOf(0);
+		@SuppressWarnings("static-access")
 		BigInteger result = numberSolver.findLargestNumber(emptyNumArr);
 		assertEquals(expected,result);
 	}
 	
 	
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public  void findLargestNumberSmall () {
 		setup();
@@ -126,6 +131,7 @@ public class LargestNumberSolverTester {
 
 	
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void findLargestNumberWithMixedNumbers() {
 		setup();
@@ -139,6 +145,7 @@ public class LargestNumberSolverTester {
 /*========================================================= FIND_LARGEST_INT TESTS ==================================================================*/
 	
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public  void findLargestIntEmpty () {
 		setup();
@@ -148,6 +155,7 @@ public class LargestNumberSolverTester {
 
 	
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public  void findLargestIntSmall () {
 		setup();
@@ -169,6 +177,7 @@ public class LargestNumberSolverTester {
 
 
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public  void findLargestIntLarge () {
 		setup();
@@ -182,6 +191,7 @@ public class LargestNumberSolverTester {
 /*========================================================= FIND_LARGEST_LONG TESTS =================================================================*/
 	
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public  void findLargestLongEmpty () {
 		setup();
@@ -191,7 +201,7 @@ public class LargestNumberSolverTester {
 
 	
 	
-	@SuppressWarnings("removal")
+	@SuppressWarnings({ "removal", "static-access" })
 	@Test
 	public void findLargestLongSmall () {
 		setup();
@@ -213,7 +223,7 @@ public class LargestNumberSolverTester {
 
 
 	
-	@SuppressWarnings("removal")
+	@SuppressWarnings({ "removal", "static-access" })
 	@Test
 	public void findLargestLongLarge () {
 		setup();
@@ -227,6 +237,7 @@ public class LargestNumberSolverTester {
 /*=============================================================== SUM TESTS =========================================================================*/
 	
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public  void sumOnEmpty () {
 		setup();
@@ -253,6 +264,7 @@ public class LargestNumberSolverTester {
 		int sum = 987654321 + 54321;
 		
 		BigInteger expected = BigInteger.valueOf(sum);
+		@SuppressWarnings("static-access")
 		BigInteger result = numberSolver.sum(small);
 		
 		assertEquals(expected,result);
@@ -260,6 +272,7 @@ public class LargestNumberSolverTester {
 
 	
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void sumWithAddingSameThingMultipleTimes () {
 		setup();
@@ -295,6 +308,7 @@ public class LargestNumberSolverTester {
 		int sum = 987654321 + 54321 + 876 + 7642;
 		
 		BigInteger expected = BigInteger.valueOf(sum);
+		@SuppressWarnings("static-access")
 		BigInteger result = numberSolver.sum(multiple);
 		
 		assertEquals(expected,result);
@@ -314,6 +328,7 @@ public class LargestNumberSolverTester {
 		//Tests to see if any errors are thrown.
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void findKthLargestEmptyListWithKas1() {
 		setup();
@@ -333,6 +348,7 @@ public class LargestNumberSolverTester {
 		ArrayList<Integer[]> testList = new ArrayList<Integer[]>();
 		testList.add(tinyNumArr);
 		testList.add(smallNumArr);
+		@SuppressWarnings("static-access")
 		Integer[] result = numberSolver.findKthLargest(testList, 0);
 		 
 		for(int i = 0; i < result.length;i++) {
@@ -342,6 +358,7 @@ public class LargestNumberSolverTester {
 		
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void findKthLargestForLargeAmountOfLists() {
 		setup();
@@ -378,6 +395,7 @@ public class LargestNumberSolverTester {
 		testList.add(smallMixedNumArr);
 		testList.add(smallMixedNumArr);
 		testList.add(smallMixedNumArr);
+		@SuppressWarnings("static-access")
 		Integer[] result = numberSolver.findKthLargest(testList, 0);
 		 
 		for(int i = 0; i < result.length;i++) {
@@ -388,6 +406,7 @@ public class LargestNumberSolverTester {
 
 
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void findKthLargestLargeLists() {
 		setup();
@@ -408,6 +427,7 @@ public class LargestNumberSolverTester {
 /*============================================================= READ_FILE TESTS =====================================================================*/
 	
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void readFileEmpty () {
 		setup();
@@ -417,6 +437,7 @@ public class LargestNumberSolverTester {
 		assertEquals(expected,numberSolver.readFile(null)) ;
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void readFileSmall() {
 		setup();

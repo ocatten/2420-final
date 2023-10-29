@@ -1,7 +1,6 @@
 package assign04;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.ArrayList; 
 import java.util.List;
 import java.util.Random;
 
@@ -10,10 +9,10 @@ import assignment04.LargestNumberSolver;
  * This class uses copy and pasted code. NO SUBMIT!
  */
 public class LargestNumberSolverTimer {
-public static void main(String[] args) {
- 
-		
-		
+	
+	@SuppressWarnings("static-access")
+	public static void main(String[] args) {
+ 	
 		// Do 10000 lookups and use the average running time
 		int timesToLoop = 5000;
 		
@@ -39,6 +38,7 @@ public static void main(String[] args) {
 			int kNum = rng.nextInt(integerArrayList.size());
 
 
+			@SuppressWarnings("unused")
 			Random randomNumberGenerator = new Random();
 
 			
@@ -54,6 +54,7 @@ public static void main(String[] args) {
 			startTime = System.currentTimeMillis();
 
 			//Uncomment this out to test our insertion sort
+			@SuppressWarnings("unused")
 			Integer[] largestArray = numberSolver.findKthLargest(integerArrayList, kNum);
 
 			

@@ -1,6 +1,6 @@
 package assign07;
 
-import java.util.LinkedList; 
+import java.util.LinkedList;
 import java.util.List;
 
 /**

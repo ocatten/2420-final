@@ -56,14 +56,14 @@ public class GraphUtility {
 		}
 		
 		//Calls depth first search to recursively iterate through the list to find if the srcData and the dstData are connected.
-		boolean found = depthFirstSearch(startVertex, graph.getVertex(dstData));
+		boolean found = depthFirstSearch(graph, startVertex, graph.getVertex(dstData));
 		
 
 		
 		
 		return found;
 	}
-
+	
 	/*
 	 * Recursively performs with depth first search from the given vertex searching for the vertex dest. If
 	 * the data of the opposite vertex matches the data of the destination, then return true. If the data doesn't 
@@ -71,21 +71,30 @@ public class GraphUtility {
 	 * within the graph. 
 	 */
 	private static <Type> boolean depthFirstSearch(Vertex<Type> curr, Vertex<Type> dest) {
+
 		
 		//Search each edge of the graph, recursively traveling down to the end of the branch.
-		for(Edge e: curr.getAdjacent()) {
+		for(Edge<Type> e: curr.getAdjacent()) {
 			//Get the opposite vertex of the edge.
-			Vertex oppositeVertex = e.getDestination();
+			Vertex<Type> oppositeVertex = e.getDestination();
 
 			//Check if it has been visited yet.
 			if(!oppositeVertex.getVisited()) {
+				
+				oppositeVertex.setVisited(true);
 				//If not, check if its data matches the destination data
 				if(oppositeVertex.getData().equals(dest.getData())){
+					
+					//System.out.println(oppositeVertex.getData() + " matches " + dest.getData()); // Test
 					return true;
 				}
+				
+				
 				oppositeVertex.setVisited(true);//Set the opposite vertex to visited to avoid looping
+
 				//If there isn't a match then call depth first search on the opposite edge.
 				return depthFirstSearch(oppositeVertex,dest);
+				
 			}
 		}
 		return false;

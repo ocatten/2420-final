@@ -1,8 +1,7 @@
-	package assign05;
+package assign05;
 
-import java.util.ArrayList;
-import java.util.Random;
-
+import java.util.ArrayList; 
+//import java.util.Random;
 
 public class ArrayListSorterTimer {
 	
@@ -13,6 +12,7 @@ public class ArrayListSorterTimer {
 		quicksortTests();
 	}
 	
+	@SuppressWarnings("static-access")
 	public static void mergesortTests() {
 		ArrayListSorter arraySorter = new ArrayListSorter();
 		arraySorter.setInsertionThreshold(64);
@@ -26,7 +26,7 @@ public class ArrayListSorterTimer {
 			
 			currArr = arraySorter.generateAscending(n*loopAmount);
 			
-			Random rng = new Random();
+			//Random rng = new Random();
 			
 			
 			
@@ -61,6 +61,7 @@ public class ArrayListSorterTimer {
 		}
 	}
 	
+	@SuppressWarnings("static-access")
 	public static void quicksortTests() {
 		ArrayListSorter arraySorter = new ArrayListSorter();
 		
@@ -74,7 +75,7 @@ public class ArrayListSorterTimer {
 			
 			currArr = arraySorter.generatePermuted(n*loopAmount);
 			
-			Random rng = new Random();
+			//sssRandom rng = new Random();
 			
 			
 			

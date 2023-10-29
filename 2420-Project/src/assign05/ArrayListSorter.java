@@ -1,9 +1,8 @@
 package assign05;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class ArrayListSorter {
 	
@@ -59,13 +58,13 @@ public class ArrayListSorter {
 	private static <T extends Comparable<? super T>> void merge(ArrayList<T> arr, int left, int middle, int right) {
 
 		// Finds the length of the left and right sub-arrays.
-		int leftLength = middle - left + 1;
-		int rightLength = right - middle;
+		//int leftLength = middle - left + 1;
+		//int rightLength = right - middle;
 
 		// Creates a temporary array to store the merged elements.
 		ArrayList<T> tempArr = new ArrayList<T>();
 
-		int i = left, j = middle + 1, k = 0; 
+		int i = left, j = middle + 1;// k = 0; 
 
 		// Checks that objects remain in both the left and right sub-arrays.
 		while (i <= middle && j <= right) { 
@@ -127,7 +126,7 @@ public class ArrayListSorter {
     }
 
     public static <T extends Comparable<? super T>> void quicksort(ArrayList<T> list) {
-        sortQuick(list, 0, list.size() - 1, PivotMethod.HIGH);
+        //sortQuick(list, 0, list.size() - 1, PivotMethod.HIGH);
     }
 
     /* This function takes last element as pivot,
@@ -136,21 +135,22 @@ public class ArrayListSorter {
     smaller (smaller than pivot) to the left of
     pivot and all greater elements to the right
     of pivot */
- <T> int partition(List<T> list, int low, int high) {
+ @SuppressWarnings("unused")
+<T> int partition(List<T> list, int low, int high) {
      T pivot = list.get(high);
      int i = low - 1; // index of smaller element
 
      for (int j = low; j < high; j++) {
          // If current element is smaller than or
          // equal to pivot
-         if (list.get(j).compareTo(pivot) <= 0) {
+         //if (list.get(j).compareTo(pivot) <= 0) {
              i++;
 
              // swap list[i] and list[j]
              T temp = list.get(i);
              list.set(i, list.get(j));
              list.set(j, temp);
-         }
+         
      }
 
      // swap list[i+1] and list[high] (or pivot)
@@ -169,12 +169,12 @@ public class ArrayListSorter {
      if (low < high) {
          /* pi is the partitioning index, list[pi] is
            now at the right place */
-         int pi = partition(list, low, high);
+         //int pi = partition(list, low, high);
 
          // Recursively sort elements before
          // partition and after partition
-         sort(list, low, pi - 1);
-         sort(list, pi + 1, high);
+         //sort(list, low, pi - 1);
+         //sort(list, pi + 1, high);
      }
  }
 	

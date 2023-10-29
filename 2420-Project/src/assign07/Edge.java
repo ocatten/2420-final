@@ -6,6 +6,7 @@ package assign07;
  * @author Parker Catten, & Everett Oglesby
  * @version 10:23:23
  */
+
 public class Edge<Type> {
 	
 	// Fields

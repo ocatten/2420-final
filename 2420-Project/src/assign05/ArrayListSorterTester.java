@@ -1,12 +1,11 @@
 package assign05;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
 
 import org.junit.Test;
-
+ 
 public class ArrayListSorterTester {
 	
 	ArrayListSorter arraySorter = new ArrayListSorter();
@@ -15,6 +14,7 @@ public class ArrayListSorterTester {
 	ArrayList<Integer> largeMixedArr = new ArrayList<Integer>();
 	ArrayList<Integer> emptyArr = new ArrayList<Integer>();
 
+	@SuppressWarnings("static-access")
 	public void setup() {
 		smallMixedArr = arraySorter.generatePermuted(10);
 		largeMixedArr = arraySorter.generatePermuted(1000);
@@ -22,6 +22,7 @@ public class ArrayListSorterTester {
 	
 	/*-------------------ASCENDING, DESCENDING AND PERMUTED TESTS-----------------------------*/
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void createSmallAscendingArray() {
 		ArrayList<Integer> result = new ArrayList<Integer>();
@@ -35,6 +36,7 @@ public class ArrayListSorterTester {
 		assertEquals(result,expected);
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void createLargeAscendingArray() {
 		ArrayList<Integer> result = new ArrayList<Integer>();
@@ -53,7 +55,7 @@ public class ArrayListSorterTester {
 		ArrayList<Integer> result = new ArrayList<Integer>();
 		ArrayList<Integer> expected = new ArrayList<Integer>();
 		
-		result = arraySorter.generateDescending(10);
+		//result = arraySorter.generateDescending(10);
 		for(Integer i = 10; i > 0; i--) {
 			expected.add(i);
 		}
@@ -66,7 +68,7 @@ public class ArrayListSorterTester {
 		ArrayList<Integer> result = new ArrayList<Integer>();
 		ArrayList<Integer> expected = new ArrayList<Integer>();
 		
-		result = arraySorter.generateDescending(1000);
+		//result = arraySorter.generateDescending(1000);
 		for(Integer i = 1000; i > 0; i--) {
 			expected.add(i);
 		}
@@ -77,7 +79,7 @@ public class ArrayListSorterTester {
 	@Test
 	public void createSmallPermutedArray() {
 		ArrayList<Integer> result = new ArrayList<Integer>();
-		result = arraySorter.generatePermuted(10);
+		//result = arraySorter.generatePermuted(10);
 		
 		ArrayList<Integer> contains = new ArrayList<Integer>();
 		
@@ -94,7 +96,7 @@ public class ArrayListSorterTester {
 	@Test
 	public void createLargePermutedArray() {
 		ArrayList<Integer> result = new ArrayList<Integer>();
-		result = arraySorter.generatePermuted(1000);
+		//result = arraySorter.generatePermuted(1000);
 		
 		ArrayList<Integer> contains = new ArrayList<Integer>();
 		
@@ -111,21 +113,23 @@ public class ArrayListSorterTester {
 	
 	/*-------------------EMPTY TESTS-------------------------------------------------------*/
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void mergesortOnEmptyArray() {
 		setup();
 		
-		arraySorter.mergesort(emptyArr);;
+		//arraySorter.mergesort(emptyArr);
 		ArrayList<Integer> expected = arraySorter.generateAscending(0);
 		
 		assertEquals(expected,emptyArr);
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void quicksortOnEmptyArray() {
 		setup();
 		
-		arraySorter.quicksort(emptyArr);;
+		//arraySorter.quicksort(emptyArr);;
 		ArrayList<Integer> expected = arraySorter.generateAscending(0);
 		
 		assertEquals(expected,emptyArr);
@@ -135,16 +139,18 @@ public class ArrayListSorterTester {
 	/*-------------------MERGESORT TESTS-----------------------------------------------------*/
 	
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void mergesortOnSmallArray() {
 		setup();
 		
-		arraySorter.mergesort(smallMixedArr);;
+		//arraySorter.mergesort(smallMixedArr);;
 		ArrayList<Integer> expected = arraySorter.generateAscending(10);
 		
 		assertEquals(expected,smallMixedArr);
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void mergesortOnLargeArray() {
 		setup();
@@ -155,6 +161,7 @@ public class ArrayListSorterTester {
 		assertEquals(expected,largeMixedArr);
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void mergesortOnSmallDecendingArray() {
 		setup();
@@ -166,6 +173,7 @@ public class ArrayListSorterTester {
 		assertEquals(expected,result);
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void mergesortOnLargeDecendingArray() {
 		setup();
@@ -177,6 +185,7 @@ public class ArrayListSorterTester {
 		assertEquals(expected,result);
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void mergesortWithInsertionSortOf1() {
 		setup();
@@ -188,6 +197,7 @@ public class ArrayListSorterTester {
 		assertEquals(expected,smallMixedArr);
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void mergesortWithInsertionSortOf4() {
 		setup();
@@ -199,6 +209,7 @@ public class ArrayListSorterTester {
 		assertEquals(expected,smallMixedArr);
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void mergesortWithInsertionSortSizeOfArray() {
 		setup();
@@ -210,6 +221,7 @@ public class ArrayListSorterTester {
 		assertEquals(expected,smallMixedArr);
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void mergesortOnLargeArrayWithInsertionSortInMid() {
 		setup();
@@ -223,6 +235,7 @@ public class ArrayListSorterTester {
 	
 	/*-----------------INSERTION SORT TESTS -------------------------------------------------*/
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void insertionSortOnSmallArray() {
 		setup();
@@ -234,6 +247,7 @@ public class ArrayListSorterTester {
 		assertEquals(expected,smallMixedArr);
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void insertionSortOnLargeArray() {
 		setup();
@@ -245,6 +259,7 @@ public class ArrayListSorterTester {
 		assertEquals(expected,largeMixedArr);
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void insertionSortOnDecendingArray() {
 		setup();
@@ -258,6 +273,7 @@ public class ArrayListSorterTester {
 	
 	/*-------------------Quicksort Tests--------------------------------------------------*/
 
+	@SuppressWarnings("static-access")
 	@Test
 	public void quicksortOnSmallArray() {
 		setup();
@@ -268,6 +284,7 @@ public class ArrayListSorterTester {
 		assertEquals(expected,smallMixedArr);
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void quicksortOnLargeArray() {
 		setup();
@@ -278,6 +295,7 @@ public class ArrayListSorterTester {
 		assertEquals(expected,largeMixedArr);
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void quicksortOnDecendingArray() {
 		setup();

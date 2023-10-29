@@ -109,4 +109,16 @@ public class Graph<Type> {
 	
 	
 	
+	/**
+	 * Helper method that sets each vertex's visited value to false.
+	 */
+	public void unVisit () {
+		
+		for(Entry<Type, Vertex<Type>> vertexEntry : vertices.entrySet()) {
+			
+			vertexEntry.getValue().setVisited(false);
+		}
+	}
+	
+	
 }
