@@ -61,6 +61,15 @@ public class GraphTester {
 			if(i == 0) {
 				assertEquals("a",result.get(i));
 			}
+			if(i == 1) {
+				assertEquals("c",result.get(i));
+			}
+			if(i == 2) {
+				assertEquals("d",result.get(i));
+			}
+			if(i == 3) {
+				assertEquals("e",result.get(i));
+			}
 		}
 	}
 }

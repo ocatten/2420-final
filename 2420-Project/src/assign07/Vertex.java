@@ -19,7 +19,7 @@ public class Vertex<Type> {
 	
 	private boolean visited = false; //Used by Depth-First Search
 	
-	private int distanceFromStart;//Used by Breadth-First Search, If not visited
+	private int distanceFromStart = -1;//Used by Breadth-First Search, If not visited
 	
 	private Vertex<Type> previous;//Used by Breadth-First Search
 	
@@ -131,6 +131,25 @@ public class Vertex<Type> {
 			return distanceFromStart;
 		}
 	
+	/**
+	 * Set the distance from start of the current vertex.
+	 * 
+	 * @return int - distanceFromStart
+	 */
+	public  int setDistanceFromStart(int distance) { 
+		
+			distanceFromStart = distance;
+		
+			return distanceFromStart;
+		}
 	
+	/**
+	 * Set the distance from start of the current vertex.
+	 * 
+	 * @return int - distanceFromStart
+	 */
+	public  int getDistanceFromStart() { 
+			return distanceFromStart;
+		}
 	
 }
