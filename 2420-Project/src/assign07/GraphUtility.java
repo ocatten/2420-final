@@ -159,8 +159,7 @@ public class GraphUtility {
 					//Increase the distance from start of the other vertex by 1.
 					other.addDistance(1);
 					
-					//Sets the other's previous vertex to the current vertex and adds it next to the queue.
-					other.setPrevious(currVertex);
+					
 					queue.add(other);
 				}
 			}
