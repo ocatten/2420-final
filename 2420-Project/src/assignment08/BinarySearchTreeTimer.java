@@ -9,7 +9,7 @@ public class BinarySearchTreeTimer {
 	public static void main(String[] args) {
 		
 		boolean useBinaryTree = false;
-		int timesToLoop = 1000;
+		int timesToLoop = 250000;
 		
 		if(useBinaryTree) {
 			timeWithBinaryTree(timesToLoop);
@@ -27,7 +27,7 @@ public class BinarySearchTreeTimer {
 		int timesToLoop = givenTimesToLoop;
 				
 		// For each problem size n . . .
-		for(int n = 1; n < 15; n ++) {
+		for(int n = 1; n <= 20; n ++) {
 
 			// Starts with a new binary search tree
 			BinarySearchTree<Integer> binaryTree = new BinarySearchTree<Integer>();
@@ -51,6 +51,7 @@ public class BinarySearchTreeTimer {
 						
 				int num = rng.nextInt();
 				num = Math.abs(num);
+//				int num = i;
 				String numToString = i.toString();
 	
 				binaryTree.add(num);
@@ -80,7 +81,7 @@ public class BinarySearchTreeTimer {
 		int timesToLoop = givenTimesToLoop;
 				
 		// For each problem size n . . .
-		for(int n = 1; n < 16; n ++) {
+		for(int n = 1; n <= 20; n ++) {
 
 			// Starts with a new binary search tree
 					

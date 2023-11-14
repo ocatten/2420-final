@@ -1,4 +1,4 @@
-package assign04;
+	package assign04;
 
 import java.io.File;
 
@@ -435,7 +435,9 @@ public class LargestNumberSolver {
 				}
 				fileList.add(currArr);
 			}
-		}catch(Exception e) {
+		}
+		
+		catch(Exception e) {
 			System.out.println("File can't be read " + filename);
 		}
 		
