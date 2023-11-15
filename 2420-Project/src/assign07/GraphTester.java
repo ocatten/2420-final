@@ -39,6 +39,7 @@ public class GraphTester {
 	public void testDFSTrue() {
 		setup();
 		
+		@SuppressWarnings("static-access")
 		boolean result = graphHelper.areConnected(smallSources, smallDestinations, "a", "e");
 		assertTrue(result);
 	}
@@ -47,6 +48,7 @@ public class GraphTester {
 	public void testDFSFalse() {
 		setup();
 		
+		@SuppressWarnings("static-access")
 		boolean result = graphHelper.areConnected(smallSources, smallDestinations, "e", "a");
 		assertFalse(result);
 	}
@@ -55,6 +57,7 @@ public class GraphTester {
 	public void testBFS() {
 		setup();
 		
+		@SuppressWarnings("static-access")
 		List<String> result = graphHelper.shortestPath(smallSources, smallDestinations, "a", "e");
 		
 		for(int i = 0; i <result.size();i++) {

@@ -419,10 +419,10 @@ public class LargestNumberSolver {
 		//Instantiates the Arraylist to hold the Integer arrays.
 		ArrayList<Integer[]> fileList = new ArrayList<Integer[]>();
 		
-		//File file = new File(filename); //Converts the given filename into a file.
+		File file = new File(filename); //Converts the given filename into a file.
 		
-		//Creates a scanner that reads the given file.
-		try(Scanner in = new Scanner(filename)){
+		// Creates a scanner that reads the given file.
+		try(Scanner in = new Scanner(filename)) {
 			while(in.hasNextLine()) {
 				//For each line the scanner, split the line into strings of individual items
 				//and create an Integer array with its length being the number of items.

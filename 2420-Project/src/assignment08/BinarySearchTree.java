@@ -154,8 +154,8 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		// Take root node given
 		Vertex currentVertex = sourceVertex;
 		
-		// Catch case for a provided vertex that isn't a root:
-		if(currentVertex.leftSide != null && currentVertex.rightSide != null) {
+		// Catch case for a root verte
+		if(currentVertex.leftSide == null && currentVertex.rightSide == null) {
 			return; // Do nothing and remove the call from the call stack
 		}
 		
@@ -188,14 +188,9 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		
 		// Creates tracker starting at head
 		Vertex currentNode = head;
-		
-		// Catch case for empty tree
-		if (head == null) {
-			return false; // If empty, tree doesn't have param
-		}
 			
 		// Loop through each element of the tree until a null value is hit
-		while(currentNode.data != null) {
+		while(currentNode != null) {
 		
 			// If parameter is less than the currentNode:
 			if(cmp.compare(item, currentNode.data) < 0) {
@@ -222,9 +217,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 				}
 		}
 		
-		// Catch case for an error.
-		System.out.println("ERROR IN CONTAINS() BST");
-		return false; // False otherwise.
+		return false; // Catch case for an empty tree, cannot contain anything
 	}
 	
 	

@@ -73,9 +73,9 @@ public class GraphUtility {
 	private static <Type> boolean depthFirstSearch(Vertex<Type> curr, Vertex<Type> dest) {
 		
 		//Search each edge of the graph, recursively traveling down to the end of the branch.
-		for(Edge e: curr.getAdjacent()) {
+		for(Edge<Type> e: curr.getAdjacent()) {
 			//Get the opposite vertex of the edge.
-			Vertex oppositeVertex = e.getDestination();
+			Vertex<Type> oppositeVertex = e.getDestination();
 
 			//Check if it has been visited yet.
 			if(!oppositeVertex.getVisited()) {
