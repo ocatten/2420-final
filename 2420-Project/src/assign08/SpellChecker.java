@@ -1,4 +1,4 @@
-package assignment08;
+package assign08;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,22 +10,25 @@ import java.util.Scanner;
  * Represents a "dictionary" of strings using a binary search tree and offers
  * methods for spell-checking documents.
  * 
- * @author Everett Oglesby and Parker Catten
- * @version June 26, 2023
+ * @author Prof. Parker, Parker Catten, Everett Oglesby
+ * @version October 26, 2023
  */
 public class SpellChecker {
-	
+
 	// Fields
+	@SuppressWarnings("unused")
 	private BinarySearchTree<String> dictionary;
 
 	
 	/**
-	 * Default constructor--creates empty dictionary.
+	 * @Constructor that creates empty dictionary.
 	 */
 	public SpellChecker() {
 		dictionary = new BinarySearchTree<String>();
 	}
-
+	
+	
+	
 	/**
 	 * Creates dictionary from a list of words.
 	 * 
@@ -35,9 +38,9 @@ public class SpellChecker {
 		this();
 		buildDictionary(words);
 	}
+	
+	
 
-	
-	
 	/**
 	 * Creates dictionary from a file.
 	 * 
@@ -48,6 +51,8 @@ public class SpellChecker {
 		this();
 		buildDictionary(readFromFile(dictionaryFile));
 	}
+	
+	
 
 	/**
 	 * Add a word to the dictionary.
@@ -58,6 +63,8 @@ public class SpellChecker {
 		dictionary.add(word);
 	}
 
+	
+	
 	/**
 	 * Remove a word from the dictionary.
 	 * 
@@ -66,25 +73,9 @@ public class SpellChecker {
 	public void removeFromDictionary(String word) {
 		dictionary.remove(word);
 	}
+
 	
-	/**
-	 * Removes all the words in a given list
-	 * @param wordsToRemove
-	 */
-	public void removeAll(ArrayList<String> wordsToRemove) {
-		dictionary.removeAll(wordsToRemove);
-	}
 	
-	/**
-	 * Test if the dictionary contains the given word
-	 * @param word
-	 * @return boolean - contains
-	 */
-	public boolean dictionaryContains(String word) {
-		boolean contains = dictionary.contains(word);
-		return contains;
-	}
-f,kdls;a'kfdl;as'
 	/**
 	 * Spell-checks a document against the dictionary.
 	 * 
@@ -94,22 +85,24 @@ f,kdls;a'kfdl;as'
 	 */
 	public List<String> spellCheck(File documentFile) {
 
-		//The list of words from the file to check through.
+		// All words from the file
 		List<String> wordsToCheck = readFromFile(documentFile);
 
-		//The list of misspelled words found from the file
-		List<String> misspelledWords = new ArrayList<String>();
-		
-		//Check each word from the list of words to check to see if any are not 
-		//found in the dictionary. If not add them to the list of misspelled words.
-		for(String word: wordsToCheck)
+		// List of words not found in the dictionary
+		List<String> misspelled = new ArrayList<String>();
+				
+		// Determine if each word in wordsToCheck is contained in the dictionary
+		for(String word: wordsToCheck) {
+			
 			if(!dictionary.contains(word)) {
-				misspelledWords.add(word);
+				misspelled.add(word); // If it isn't, add it to the list that will be returned
 			}
-		
-		//Return the list of misspelled words.
-		return misspelledWords;
+		}
+				
+		return misspelled; // Return the completed list
 	}
+	
+	
 
 	/**
 	 * Fills in the dictionary with the input list of words.
@@ -117,10 +110,10 @@ f,kdls;a'kfdl;as'
 	 * @param words - the List of Strings to be added to the dictionary
 	 */
 	private void buildDictionary(List<String> words) {
-		//Add each string from the arrayList of words to the dictionary.
-		dictionary.addAll(words);
-		
+		dictionary.addAll(words); // Adds each item in the list 
 	}
+	
+	
 
 	/**
 	 * Returns a list of the words contained in the specified file. (Note that
@@ -152,9 +145,8 @@ f,kdls;a'kfdl;as'
 
 			while (fileInput.hasNext()) {
 				String s = fileInput.next();
-				if (!s.equals("")) {
+				if (!s.equals("")) 
 					words.add(s.toLowerCase());
-				}
 			}
 			
 			fileInput.close();
@@ -166,4 +158,5 @@ f,kdls;a'kfdl;as'
 
 		return words;
 	}
+	
 }

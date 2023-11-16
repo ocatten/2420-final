@@ -1,16 +1,14 @@
 package assign07;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.Collections;
 import java.util.Random;
-
-import assign07.GraphUtility;
 
 public class GraphTimer<Type> {
 	
 
 	public static void main(String[] args) {
-		int vertexCount = 200000;
+		int vertexCount = 100;
 		
 		dfsTest(vertexCount);
 	}
@@ -33,7 +31,7 @@ public class GraphTimer<Type> {
 			sourceData.clear();
 			destinationData.clear();
 			
-			createGraphdfs((vertexCount*i),sourceData,destinationData);
+			createGraphbfs((vertexCount*i),sourceData,destinationData);
 			
 			Integer first = 0;
 			Integer last = (sourceData.size()/2)-1;
@@ -131,8 +129,8 @@ public class GraphTimer<Type> {
 			
 			createGraphTopo((vertexCount*i),sourceData,destinationData);
 			
-			Integer first = 0;
-			Integer last = (sourceData.size()/2)-1;
+			//Integer first = 0;
+			//Integer last = (sourceData.size()/2)-1;
 			
 			// First, spin computing stuff until one second has gone by
 			// This allows this thread to stabilize

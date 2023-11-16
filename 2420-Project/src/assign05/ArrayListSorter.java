@@ -1,6 +1,6 @@
-Fpackage assign05;
+package assign05;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

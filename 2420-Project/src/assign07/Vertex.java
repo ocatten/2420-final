@@ -23,6 +23,7 @@ public class Vertex<Type> {
 	
 	private Vertex<Type> previous;//Used by Breadth-First Search
 	
+	@SuppressWarnings("unused")
 	private int indegree;//Used by Topological Search
 	
 	/**
@@ -46,6 +47,7 @@ public class Vertex<Type> {
 	public void addEdge(Vertex<Type> destination) {
 		
 		adj.add(new Edge<Type>(this, destination)); // Update adjacency list with new edge
+		indegree = 0;
 	}
 	
 	
