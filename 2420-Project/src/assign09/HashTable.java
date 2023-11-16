@@ -1,9 +1,43 @@
 package assign09;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-public class HashTable<K, V> implements Map<K, V> {
+import assignment09.MapEntry;
 
+/**
+ * This class represents a HashTable data structure with two generic data types (K & V) for the Key objects and Value objects respectively.
+ * This data structure can retrieve, add, and remove items with O(1) time using separate chaining, creating LinkedLists for each index of
+ * the backing array for collisions. Rehashes once the load factor becomes 10.
+ * 
+ * @param <K>: Data type for the Key object
+ * @param <V>: Data type for the Value object
+ * 
+ * @author: Everett Oglesby & Parker Catten
+ * @version: 11:16:23
+ */
+public class HashTable<K, V> implements Map<K, V> {
+	
+	// Fields
+	ArrayList< LinkedList< MapEntry<K, V> > > hashTable = new ArrayList<LinkedList<MapEntry<K,V>>>(); // Backing list of LinkedList for separate chaining
+	int size = 0; // Tracker for number of elements
+	int length = 10; // Number of LinkedLists in the backing lists
+	
+	
+	/**
+	 * @Constructor for creating the backing list for separate chaining
+	 */
+	public HashTable() {
+		
+		// Set up the backing table with 10 empty LinkedLists
+		for (int i = 0; i < length; i++) {
+			hashTable.add(new LinkedList< MapEntry<K, V> >());
+		}
+	}
+	
+	
+	
 	/**
 	 * Removes all mappings from this map.
 	 * 
@@ -11,7 +45,27 @@ public class HashTable<K, V> implements Map<K, V> {
 	 */
 	public void clear() {
 		
+		// Iterate through each LinkedList and clear it
+		for(LinkedList< MapEntry<K, V> > entry : hashTable) {
+			entry.clear();
+		}
+				
+		size = 0; // Reset size tracker
 	}
+	
+	
+	
+	/**
+	 * Helper method that takes the hashCode of an object and modulates it by the length to guarantee a valid position
+	 * 
+	 * @param key: Generic object key to find hashCode
+	 * @return: Index where the key's value will be added to
+	 */
+	public int compression (Object key) {
+		return Math.abs(key.hashCode()) % length;
+	}
+	
+	
 
 	/**
 	 * Determines whether this map contains the specified key.
@@ -22,7 +76,16 @@ public class HashTable<K, V> implements Map<K, V> {
 	 * @return true if this map contains the key, false otherwise
 	 */
 	public boolean containsKey(K key) {
-		return false;
+		
+		// Iterate through the entries to find a viable position:
+		for(MapEntry<K , V> entry : hashTable.get(compression(key)) ) {
+						
+			if(entry.getKey().equals(key)) {
+				return true; // Match is found
+			}
+		}	
+				
+		return false; // No match found
 	}
 
 	/**

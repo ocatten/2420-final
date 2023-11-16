@@ -1,4 +1,4 @@
-package assignment08;
+package assign08;
 
 import java.util.Random;
 import java.util.TreeSet;
@@ -52,7 +52,7 @@ public class BinarySearchTreeTimer {
 				int num = rng.nextInt();
 				num = Math.abs(num);
 //				int num = i;
-				String numToString = i.toString();
+				//String numToString = i.toString();
 	
 				binaryTree.add(num);
 						
@@ -104,7 +104,7 @@ public class BinarySearchTreeTimer {
 			
 				int num = rng.nextInt();
 				num = Math.abs(num);
-				String numToString = i.toString();
+				//String numToString = i.toString();
 	
 				treeSet.add(num);
 						
