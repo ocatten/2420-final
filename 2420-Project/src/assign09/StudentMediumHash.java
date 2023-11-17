@@ -89,7 +89,11 @@ public class StudentMediumHash {
 		
 		//For the last name, multiple the value of the code by each characters positiom
 		//in the String.
+<<<<<<< HEAD
 		for(int i = 0; i < lastName.length();i++) {
+=======
+		for(int i = 0; i < lastName.length(); i++) {
+>>>>>>> eac416b38ae5467dad62c8fed97d9a23cc035a9c
 			code += Character.getNumericValue(lastName.charAt(i));
 		}
 		

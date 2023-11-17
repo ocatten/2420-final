@@ -1,9 +1,9 @@
 package assignment10;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.Comparator;
 import java.util.List;
-
+ 
 /**
  * This class contains generic static methods for finding the k largest items in a list.
  * 
@@ -23,7 +23,7 @@ public class FindKLargest < E extends Comparable<? super E> > {
 	 * @return a list of the k largest items, in descending order
 	 * @throws IllegalArgumentException if k is negative or larger than the size of the given list
 	 */
-	public static <E extends Comparable<? super E>> List<E> findKLargestHeap(List<E> items, int k) throws IllegalArgumentException {
+	public List<E> findKLargestHeap(List<E> items, int k) throws IllegalArgumentException {
 		
 		// Catch statement for if k is out of bounds
 		if (k > items.size() || k < 0) {

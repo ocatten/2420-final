@@ -8,25 +8,22 @@ package assignment10;
  */
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 
 public class FindKLargestTester<E> {
 	
 	
 	// Fields
-	private BinaryMaxHeap<Integer> numHeapEmpty;
-	private BinaryMaxHeap<Integer> numHeapSmall;
-	private BinaryMaxHeap<Integer> numHeapLarge;
+	//private BinaryMaxHeap<Integer> numHeapEmpty;
+	//private BinaryMaxHeap<Integer> numHeapSmall;
+	//private BinaryMaxHeap<Integer> numHeapLarge;
 	
 	FindKLargest<Integer> kLargest = new FindKLargest<Integer>();
 	
@@ -68,14 +65,14 @@ public class FindKLargestTester<E> {
 
 
 	//ArrayLists
-	private ArrayList<Integer> numSmallList = new ArrayList<Integer>();
-	private ArrayList<Integer> numLargeList = new ArrayList<Integer>();
+	//private ArrayList<Integer> numSmallList = new ArrayList<Integer>();
+	//private ArrayList<Integer> numLargeList = new ArrayList<Integer>();
 	@Test
 	public void kLargestHeapComparableExceptionTest () {
 
 		try {
 
-			FindKLargest.findKLargestHeap(new ArrayList<Integer>(), 7);
+			//FindKLargest.findKLargestHeap(new ArrayList<Integer>(), 7);
 			assertTrue(false);
 
 		} catch (Exception e) {
@@ -85,6 +82,7 @@ public class FindKLargestTester<E> {
 
 
 
+	@SuppressWarnings("removal")
 	@Test
 	public void kLargestHeapComparableOnSmallTest () {
 
@@ -98,6 +96,7 @@ public class FindKLargestTester<E> {
 
 
 
+	@SuppressWarnings("removal")
 	@Test
 	public void kLargestHeapComparableOnLargestTest () {
 
@@ -126,6 +125,7 @@ public class FindKLargestTester<E> {
 			} 
 		};
 		
+		@SuppressWarnings("static-access")
 		List<String> test = kLargest.findKLargestHeap(stringList, 3, cmp);
 		
 		assertEquals("6", test.get(0));
