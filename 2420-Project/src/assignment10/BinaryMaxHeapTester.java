@@ -60,7 +60,7 @@ public class BinaryMaxHeapTester {
 				
 				
 			assertEquals(-1, numHeap.innerCompare((Integer)numHeap.toArray()[i],
-s												  (Integer)numHeap.toArray()[(i-1)/2]));
+												  (Integer)numHeap.toArray()[(i-1)/2]));
 			
 		}
 	}

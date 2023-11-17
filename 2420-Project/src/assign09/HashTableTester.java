@@ -259,11 +259,11 @@ public class HashTableTester {
 		
 		setupLargeTable();
 		
-		for(int i = 0; i < 5001; i++) {
+		for(int i = 0; i < 5000; i++) {
 			assertTrue(hashTable.containsKey(i));
 		}
 		
-		assertFalse(hashTable.containsKey(100000));
+		assertFalse(hashTable.containsKey(10000));
 	}
 	
 	
@@ -305,7 +305,7 @@ public class HashTableTester {
 			assertTrue(hashTable.containsValue(i.toString()));
 		}
 		
-		assertFalse(hashTable.containsValue("1000"));
+		assertFalse(hashTable.containsValue("10000"));
 	}
 	
 	
