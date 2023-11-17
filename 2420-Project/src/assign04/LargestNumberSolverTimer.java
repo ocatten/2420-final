@@ -1,10 +1,9 @@
 package assign04;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;  
 import java.util.List;
 import java.util.Random;
 
-import assignment04.LargestNumberSolver;
 /*
  * This class uses copy and pasted code. NO SUBMIT!
  */
