@@ -92,23 +92,23 @@ public class StudentGoodHash {
 	 */
 	public int hashCode() {
 		
-		// Value to be eventually returned
-		int hashCode = 1;
+		int code = 0;
+		//First set the code equal to the student's UID.
+		code = uid;
 		
-		// For each letter in the firstName:
-		for(int i = 0; i < firstName.length(); i++) {
-			
-			// Multiply tracking field by the ASCII value at i raised to its position
-			hashCode *= Character.getNumericValue( firstName.charAt(i) )^i;
+		//For the first name, add the value of the code by each characters ASCII value
+		//to the position it is in the String.
+		for(int i = 0; i < firstName.length();i++) {
+			code += Math.pow(Character.getNumericValue( firstName.charAt(i) ),i);
 		}
 		
-		// For each letter in the lastName:
-		for(int i = 0; i < lastName.length(); i++) {
-			
-			// Multiply tracking field by the ASCII value at i raised to its position
-			hashCode *= Character.getNumericValue( lastName.charAt(i) )^i;
-		};
+		//For the last name, multiple the value of the code by each characters position
+		//in the String.
+		for(int i = 0; i < lastName.length();i++) {
+			code += Math.pow(Character.getNumericValue( lastName.charAt(i) ),i);
+		}
 		
-		return hashCode*uid; // Lastly, multiply it by the uid and return it
+		//Return the created hash code
+		return code;
 	}
 }

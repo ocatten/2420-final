@@ -91,8 +91,24 @@ public class StudentMediumHash {
 	 * @return: length of firstName^2 * length of lastName^2 * uid^2
 	 */
 	public int hashCode() {
+		int code = 0;
+		//First set the code equal to the student's UID.
+		code = uid;
 		
-		return (firstName.length()^2) * (lastName.length()^2)*(uid^2);
+		//For the first name, multiple the value of the code by each characters positiom
+		//in the String.
+		for(int i = 0; i < firstName.length();i++) {
+			code *= Character.getNumericValue(firstName.charAt(i));
+		}
+		
+		//For the last name, multiple the value of the code by each characters positiom
+		//in the String.
+		for(int i = 0; i < firstName.length();i++) {
+			code += Character.getNumericValue(lastName.charAt(i));
+		}
+		
+		//Return the created hash code
+		return code;
 	}
 	
 }

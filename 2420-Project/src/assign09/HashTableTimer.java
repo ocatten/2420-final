@@ -1,17 +1,21 @@
-package assignment09;
+package assign09;
 
 import java.util.Random;
 import java.util.TreeMap;
-import java.util.TreeSet;
+
+import assign09.HashTable;
+import assign09.StudentBadHash;
+import assign09.StudentGoodHash;
+import assign09.StudentMediumHash;
 
 public class HashTableTimer {
-	
+
 	
 	public static void main(String[] args) {
 		
 		int timesToLoop = 10000;
-		//badTimeHash(timesToLoop);
-		mediumTimeHash(timesToLoop);
+		badTimeHash(timesToLoop);
+		//mediumTimeHash(timesToLoop);
 		//goodTimeHash(timesToLoop);
 		//stringHashTable(timesToLoop);
 		//stringHashMap(timesToLoop);
@@ -88,7 +92,7 @@ public class HashTableTimer {
 	public static void goodTimeHash (int timesToLoop) {
 		
 		// For each problem size n . . .
-		for(int n = 1; n < 16; n ++) {
+		for(int n = 1; n < 21; n ++) {
 			
 			HashTable<Integer, StudentGoodHash> studHash = new HashTable<Integer, StudentGoodHash>();
 
@@ -121,7 +125,7 @@ public class HashTableTimer {
 	public static void stringHashTable (int timesToLoop) {
 		
 		// For each problem size n . . .
-		for(int n = 1; n < 16; n ++) {
+		for(int n = 1; n < 21; n ++) {
 			
 			HashTable<Integer, String> studHash = new HashTable<Integer, String>();
 
@@ -151,7 +155,7 @@ public class HashTableTimer {
 	public static void stringHashMap(int timesToLoop) {
 		
 		// For each problem size n . . .
-		for(int n = 1; n < 16; n ++) {
+		for(int n = 1; n < 21; n ++) {
 			
 			TreeMap<Integer, String> studHash = new TreeMap<Integer, String>();
 
@@ -175,5 +179,4 @@ public class HashTableTimer {
 			System.out.println(n + "\t" + averageTime);
 		}
 	}
-
 }

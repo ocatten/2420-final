@@ -63,12 +63,7 @@ public class HashTableTester {
 	public void sizeOnLargeTest() {
 		
 		setupLargeTable();
-		assertEquals(hashTable.size(), 1000);
-		
-	
-		
-		
-		assertEquals(hashTable.size(), 0);
+		assertEquals(hashTable.size(), 5000);
 	}
 	
 	@Test
@@ -90,7 +85,7 @@ public class HashTableTester {
 		
 		for (int i = 0; i < entries.size(); i++ ) {
 			
-			assertEquals(hashTable.size(), 6-i);
+			assertEquals(hashTable.size(), 5-i);
 			hashTable.remove(entries.get(i).getKey() );
 		}
 		
@@ -144,7 +139,7 @@ public class HashTableTester {
 	public void clearOnSmallTest() {
 		
 		setupSmallTable();
-		assertEquals(11, hashTable.size());
+		assertEquals(5, hashTable.size());
 		hashTable.clear();
 		assertEquals(0, hashTable.size());
 	}
@@ -155,7 +150,7 @@ public class HashTableTester {
 	public void clearOnLargeTest() {
 		
 		setupLargeTable();
-		assertEquals(1000, hashTable.size());
+		assertEquals(5000, hashTable.size());
 		hashTable.clear();
 		assertEquals(0, hashTable.size());
 	}
@@ -198,11 +193,9 @@ public class HashTableTester {
 	
 	@Test
 	public void rehashOnEmptyTable() {
-		setupSmallTable();
-		assertEquals(5, hashTable.getLength());
 		hashTable.rehash();
-		assertEquals(11, hashTable.getLength());
 		
+		assertEquals(0,hashTable.size());
 	}
 	
 	
@@ -212,12 +205,8 @@ public class HashTableTester {
 		
 		setupSmallTable();
 		assertEquals(10, hashTable.getLength());
-		
-		for(Integer i = 6; i < 51; i++) {
-			hashTable.put(i, i.toString());
-		}
-		
-		assertEquals(67, hashTable.getLength());
+		hashTable.rehash();
+		assertEquals(20, hashTable.getLength());
 	}
 	
 	
@@ -227,15 +216,15 @@ public class HashTableTester {
 		
 		setupLargeTable();
 		
-		assertEquals(1, hashTable.getLength());
+		assertEquals(640, hashTable.getLength());
 		assertEquals(5000, hashTable.size());
 		
 		for(Integer i = 5000; i < 1970; i++) {
 			hashTable.put(i, i.toString());
 		}
 		
-		assertEquals(1, hashTable.size());
-		assertEquals(1, hashTable.getLength());
+		assertEquals(5000, hashTable.size());
+		assertEquals(640, hashTable.getLength());
 	}
 	
 	

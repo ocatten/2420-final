@@ -93,8 +93,13 @@ public class StudentBadHash {
 	 * 
 	 * @return: length of name + uid
 	 */
-	public int hashCode() {
-		
-		return firstName.length() + lastName.length() + uid;
-	}
+		public int hashCode() {
+			int code = 0;
+			//Add the length of the first and last name to the index code
+			code += firstName.length();
+			code += lastName.length();
+			
+			//Return the created hash code
+			return code;
+		}
 }

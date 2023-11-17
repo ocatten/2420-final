@@ -84,13 +84,13 @@ public class StudentMediumHash {
 		//For the first name, multiple the value of the code by each characters positiom
 		//in the String.
 		for(int i = 0; i < firstName.length();i++) {
-			code *= (firstName.codePointAt(i)+1);
+			code *= Character.getNumericValue(firstName.charAt(i));
 		}
 		
 		//For the last name, multiple the value of the code by each characters positiom
 		//in the String.
 		for(int i = 0; i < firstName.length();i++) {
-			code += (lastName.codePointAt(i)+1);
+			code += Character.getNumericValue(lastName.charAt(i));
 		}
 		
 		//Return the created hash code
