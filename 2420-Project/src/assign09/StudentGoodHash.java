@@ -84,13 +84,13 @@ public class StudentGoodHash {
 		//For the first name, add the value of the code by each characters ASCII value
 		//to the position it is in the String.
 		for(int i = 0; i < firstName.length();i++) {
-			code += Math.pow(Character.getNumericValue( firstName.charAt(i) ),i);
+			code += Math.pow(Character.getNumericValue( firstName.charAt(i) ),i+1);
 		}
 		
 		//For the last name, multiple the value of the code by each characters position
 		//in the String.
 		for(int i = 0; i < lastName.length();i++) {
-			code += Math.pow(Character.getNumericValue( lastName.charAt(i) ),i);
+			code += Math.pow(Character.getNumericValue( lastName.charAt(i) ),i+1);
 		}
 		
 		//Return the created hash code

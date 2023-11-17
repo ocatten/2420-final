@@ -8,7 +8,7 @@ public class HashTableTimer {
 	
 	public static void main(String[] args) {
 		
-		int timesToLoop = 10000;
+		int timesToLoop = 100000;
 		//badTimeHash(timesToLoop);
 		mediumTimeHash(timesToLoop);
 		//goodTimeHash(timesToLoop);
@@ -32,19 +32,23 @@ public class HashTableTimer {
 			int loopTime = timesToLoop * n;
 			startTime = System.currentTimeMillis();
 					
+			int collisions = 0;
 					
 			for(Integer i = 0; i < loopTime; i++) {
 				
 				StudentBadHash hashStudent = new StudentBadHash (Math.abs(rng.nextInt()), Integer.valueOf(Math.abs( rng.nextInt() )).toString(),
 																Integer.valueOf(Math.abs( rng.nextInt() )).toString());
-				
+				if(studHash.containsKey(hashStudent.hashCode())) {
+					collisions++;
+				}
 				studHash.put(hashStudent.hashCode(), hashStudent);
+				
 			}
-
+			//System.out.println("N " + n + " collisions = " + collisions);
 			double stopTime = System.currentTimeMillis();
 			double averageTime = stopTime - startTime;
 			
-			averageTime = averageTime / 1000*n;
+			averageTime = averageTime / 1000;
 			System.out.println(n + "\t" + averageTime);
 		}
 	}
@@ -65,19 +69,23 @@ public class HashTableTimer {
 			int loopTime = timesToLoop * n;
 			startTime = System.currentTimeMillis();
 					
-					
+			int collisions = 0;
+			
 			for(Integer i = 0; i < loopTime; i++) {
 				
 				StudentMediumHash hashStudent = new StudentMediumHash (Math.abs(rng.nextInt()), Integer.valueOf(Math.abs( rng.nextInt() )).toString(),
 																Integer.valueOf(Math.abs( rng.nextInt() )).toString());
+				if(studHash.containsKey(hashStudent.hashCode())) {
+					collisions++;
+				}
 				
 				studHash.put(hashStudent.hashCode(), hashStudent);
 			}
-
+			System.out.println("N " + n + " collisions = " + collisions);
 			double stopTime = System.currentTimeMillis();
 			double averageTime = stopTime - startTime;
 			
-			averageTime = averageTime / 1000*n;
+			averageTime = averageTime / 1000;
 			System.out.println(n + "\t" + averageTime);
 		}
 	}
@@ -97,20 +105,25 @@ public class HashTableTimer {
 					
 			int loopTime = timesToLoop * n;
 			startTime = System.currentTimeMillis();
-					
+				
+			int collisions = 0;
 					
 			for(Integer i = 0; i < loopTime; i++) {
 				
 				StudentGoodHash hashStudent = new StudentGoodHash(Math.abs(rng.nextInt()), Integer.valueOf(Math.abs( rng.nextInt(1000000) )).toString(),
 																Integer.valueOf(Math.abs( rng.nextInt() )).toString());
+				if(studHash.containsKey(hashStudent.hashCode())) {
+					collisions++;
+				}
 				
 				studHash.put(hashStudent.hashCode(), hashStudent);
 			}
 
+			System.out.println("N " + n + " collisions = " + collisions);
 			double stopTime = System.currentTimeMillis();
 			double averageTime = stopTime - startTime;
 			
-			averageTime = averageTime / 1000*n;
+			averageTime = averageTime / 1000;
 			System.out.println(n + "\t" + averageTime);
 		}
 	}
