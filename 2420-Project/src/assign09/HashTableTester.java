@@ -9,9 +9,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import assignment09.HashTable;
-import assignment09.MapEntry;
-
 /**
  * Tester for the HashTable class.
  * 
@@ -202,9 +199,9 @@ public class HashTableTester {
 	@Test
 	public void rehashOnEmptyTable() {
 		setupSmallTable();
-		assertEquals(5, hashTable.getCapacity());
+		assertEquals(5, hashTable.getLength());
 		hashTable.rehash();
-		assertEquals(11, hashTable.getCapacity());
+		assertEquals(11, hashTable.getLength());
 		
 	}
 	
@@ -214,13 +211,13 @@ public class HashTableTester {
 	public void rehashOnSmallTable() {
 		
 		setupSmallTable();
-		assertEquals(10, hashTable.getCapacity());
+		assertEquals(10, hashTable.getLength());
 		
 		for(Integer i = 6; i < 51; i++) {
 			hashTable.put(i, i.toString());
 		}
 		
-		assertEquals(67, hashTable.getCapacity());
+		assertEquals(67, hashTable.getLength());
 	}
 	
 	
@@ -230,7 +227,7 @@ public class HashTableTester {
 		
 		setupLargeTable();
 		
-		assertEquals(1, hashTable.getCapacity());
+		assertEquals(1, hashTable.getLength());
 		assertEquals(5000, hashTable.size());
 		
 		for(Integer i = 5000; i < 1970; i++) {
@@ -238,7 +235,7 @@ public class HashTableTester {
 		}
 		
 		assertEquals(1, hashTable.size());
-		assertEquals(1, hashTable.getCapacity());
+		assertEquals(1, hashTable.getLength());
 	}
 	
 	
