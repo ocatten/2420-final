@@ -84,7 +84,7 @@ public class StudentMediumHash {
 		//For the first name, multiple the value of the code by each characters positiom
 		//in the String.
 		for(int i = 0; i < firstName.length();i++) {
-			code *= Character.getNumericValue(firstName.charAt(i));
+			code += Character.getNumericValue(firstName.charAt(i));
 		}
 		
 		//For the last name, multiple the value of the code by each characters positiom

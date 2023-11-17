@@ -14,8 +14,8 @@ public class HashTableTimer {
 	public static void main(String[] args) {
 		
 		int timesToLoop = 10000;
-		badTimeHash(timesToLoop);
-		//mediumTimeHash(timesToLoop);
+		//badTimeHash(timesToLoop);
+		mediumTimeHash(timesToLoop);
 		//goodTimeHash(timesToLoop);
 		//stringHashTable(timesToLoop);
 		//stringHashMap(timesToLoop);
