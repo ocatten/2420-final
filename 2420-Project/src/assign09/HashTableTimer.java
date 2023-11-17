@@ -1,12 +1,7 @@
 package assign09;
 
-import java.util.Random;
+import java.util.Random; 
 import java.util.TreeMap;
-
-import assign09.HashTable;
-import assign09.StudentBadHash;
-import assign09.StudentGoodHash;
-import assign09.StudentMediumHash;
 
 public class HashTableTimer {
 
@@ -129,7 +124,7 @@ public class HashTableTimer {
 			
 			HashTable<Integer, String> studHash = new HashTable<Integer, String>();
 
-			Random rng = new Random();
+			//Random rng = new Random();
 			double startTime = System.currentTimeMillis();
 			while(System.currentTimeMillis() - startTime < 100) {} // empty block
 					
@@ -159,7 +154,7 @@ public class HashTableTimer {
 			
 			TreeMap<Integer, String> studHash = new TreeMap<Integer, String>();
 
-			Random rng = new Random();
+			//Random rng = new Random();
 			double startTime = System.currentTimeMillis();
 			while(System.currentTimeMillis() - startTime < 100) {} // empty block
 					

@@ -16,7 +16,6 @@ import java.util.Scanner;
 public class SpellChecker {
 
 	// Fields
-	@SuppressWarnings("unused")
 	private BinarySearchTree<String> dictionary;
 
 	
