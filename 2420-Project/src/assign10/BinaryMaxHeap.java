@@ -177,16 +177,45 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 			i++;
 		}
 		backingArray = (E[]) new Object[backingArrLength];
+		
+		// Add each element from the list to the binary heap.
+		for(int j = 0; j < list.size(); j++) {				
+			backingArray[list.size()+1 - (i+2)] = list.get(i);
+
+			size++;
+		}
 	}
 	
 	/*
 	 * Percolates the current item up the binary max heap until no larger smaller item exists
-	 * directly above it.
+	 * directly above it. The given index is the position of the item being perculated up.
 	 */
-	public void perculateUp() {
+	public void perculateUp(int index) {
 		
+		
+		//Determines if the current node is greater than its parent
+		if (innerCompare(backingArray[index], backingArray[(index-1)/2]) > 0) {
+			
+			//Data at the current index
+			E lowerData = backingArray[index];
+			
+			//Since the child is larger, swap the parent and child.
+			backingArray[index] = backingArray[ (index-1)/2 ];
+			backingArray[ (index-1)/2 ] = lowerData;
+			
+			//Check the parent to see if the element can be traverse the heap even higher.
+			perculateUp((index-1)/2);
+			
+		} else {
+			return; //Do nothing since the parent is larger than the current child.
+		}
 	}
 	
+	
+	/*
+	 * Percolates the current item down the binary heap until no larger item exists anywhere below it. The 
+	 * 
+	 */
 	public void perculateDown() {
 		
 	}
