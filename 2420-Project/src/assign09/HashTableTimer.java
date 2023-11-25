@@ -10,10 +10,10 @@ public class HashTableTimer {
 		
 		int timesToLoop = 100000;
 		//badTimeHash(timesToLoop);
-		mediumTimeHash(timesToLoop);
+		//mediumTimeHash(timesToLoop);
 		//goodTimeHash(timesToLoop);
 		//stringHashTable(timesToLoop);
-		//stringHashMap(timesToLoop);
+		stringHashMap(timesToLoop);
 	}
 	
 	
@@ -44,12 +44,12 @@ public class HashTableTimer {
 				studHash.put(hashStudent.hashCode(), hashStudent);
 				
 			}
-			//System.out.println("N " + n + " collisions = " + collisions);
+			System.out.println(collisions);
 			double stopTime = System.currentTimeMillis();
 			double averageTime = stopTime - startTime;
 			
 			averageTime = averageTime / 1000;
-			System.out.println(n + "\t" + averageTime);
+			//System.out.println(n + "\t" + averageTime);
 		}
 	}
 	
@@ -81,12 +81,12 @@ public class HashTableTimer {
 				
 				studHash.put(hashStudent.hashCode(), hashStudent);
 			}
-			System.out.println("N " + n + " collisions = " + collisions);
+			System.out.println(collisions);
 			double stopTime = System.currentTimeMillis();
 			double averageTime = stopTime - startTime;
 			
 			averageTime = averageTime / 1000;
-			System.out.println(n + "\t" + averageTime);
+			//System.out.println(n + "\t" + averageTime);
 		}
 	}
 	
@@ -119,12 +119,12 @@ public class HashTableTimer {
 				studHash.put(hashStudent.hashCode(), hashStudent);
 			}
 
-			System.out.println("N " + n + " collisions = " + collisions);
+			System.out.println(collisions);
 			double stopTime = System.currentTimeMillis();
 			double averageTime = stopTime - startTime;
 			
 			averageTime = averageTime / 1000;
-			System.out.println(n + "\t" + averageTime);
+			//System.out.println(n + "\t" + averageTime);
 		}
 	}
 	
@@ -153,13 +153,13 @@ public class HashTableTimer {
 			double stopTime = System.currentTimeMillis();
 			double averageTime = stopTime - startTime;
 			
-			averageTime = averageTime / 1000*n;
+			averageTime = averageTime / 1000;
 			System.out.println(n + "\t" + averageTime);
 		}
 	}
 
 
-
+	
 	public static void stringHashMap(int timesToLoop) {
 		
 		// For each problem size n . . .
@@ -183,7 +183,7 @@ public class HashTableTimer {
 			double stopTime = System.currentTimeMillis();
 			double averageTime = stopTime - startTime;
 			
-			averageTime = averageTime / 1000*n;
+			averageTime = averageTime / 1000;
 			System.out.println(n + "\t" + averageTime);
 		}
 	}

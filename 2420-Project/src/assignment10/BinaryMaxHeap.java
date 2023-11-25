@@ -229,7 +229,7 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 		
 		// Test statements
 		//System.out.println("CHILD VALUE: " + maxHeap[index]);
-		//System.out.println("PARENT VALUE: " + maxHeap[ (index-1)/2 ]);
+		//System.out.println("PARENT VALUE: " + maxHeap[(index-1)/2]);
 		
 		// If this child node is greater than its parent (found at (i-1)/2 in a binary heap for the array):
 		if (innerCompare(maxHeap[index], maxHeap[ (index-1)/2 ] ) > 0) {
