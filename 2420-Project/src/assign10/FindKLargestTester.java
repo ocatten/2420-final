@@ -1,10 +1,14 @@
 package assign10;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+import org.junit.Test;
+
 
 public class FindKLargestTester<E> {
 	
@@ -22,25 +26,33 @@ public class FindKLargestTester<E> {
 		emptyList = new ArrayList<Integer>();
 		
 		smallList = new ArrayList<Integer>();
-		for(Integer i = 1; i < 10; i++) {
+		for(Integer i = 1; i < 11; i++) {
 			smallList.add(i);
 		}
 		
 		largeList = new ArrayList<Integer>();
-		for(Integer i = 1; i < 5000; i++) {
+		for(Integer i = 1; i < 5001; i++) {
 			largeList.add(i);
 		}
-	}
+	} 
 	
 	//------------k Largest Heap Tests--------------------------------------------------------------------------------------//
-	public void emptyListGivenToHeap() {
-		
+	@Test
+	public void emptyListWithPositiveNumber() {
+		assertThrows(IllegalArgumentException.class, () -> { findKLargest.findKLargestHeap(emptyList, 1); });
 	}
 	
-	public void negativeKGivenToHeap() {
-		
+	@Test
+	public void negativeKGiven() {
+		assertThrows(IllegalArgumentException.class, () -> { findKLargest.findKLargestHeap(smallList, -1); });
 	}
 	
+	@Test
+	public void OutofBoundsK() {
+		assertThrows(IllegalArgumentException.class, () -> { findKLargest.findKLargestHeap(smallList, 100); });
+	}
+	
+	@Test
 	public void emptyListWithKEqualsZero() {
 		setup();
 		
@@ -49,6 +61,7 @@ public class FindKLargestTester<E> {
 		assertEquals(0,kLargest.size());
 	}
 	
+	@Test
 	public void kEqualsZeroOnSmallList() {
 		setup();
 		
@@ -57,6 +70,7 @@ public class FindKLargestTester<E> {
 		assertEquals(0,kLargest.size());
 	}
 	
+	@Test
 	public void kLargestComparable() {
 		setup();
 		
@@ -69,6 +83,7 @@ public class FindKLargestTester<E> {
 		}
 	}
 	
+	@Test
 	public void kLargestComparator() {
 		setup();
 		
@@ -81,6 +96,7 @@ public class FindKLargestTester<E> {
 		}
 	}
 	
+	@Test
 	public void kLargestOnLargeList() {
 		setup();
 		
@@ -95,6 +111,29 @@ public class FindKLargestTester<E> {
 	
 	//------------k Largest With Java Sort Tests--------------------------------------------------------------------------------------//
 
+	@Test
+	public void kLargestWithComparableJavaSort() {
+		setup();
+		
+		List<Integer> kLargest = findKLargest.findKLargestSort(smallList, 5);
+		
+		assertEquals(5,kLargest.size());
+		for(Integer i = 0; i < kLargest.size();i++) {
+			Integer expected = 10-i;
+			assertEquals(expected,kLargest.get(i));
+		}
+	}
 
-
+	@Test
+	public void kLargestWithComparatorJavaSort() {
+		setup();
+		
+		List<Integer> kLargest = findKLargest.findKLargestSort(smallList, 5, cmp);
+		
+		assertEquals(5,kLargest.size());
+		for(Integer i = 0; i < kLargest.size();i++) {
+			Integer expected = 10-i;
+			assertEquals(expected,kLargest.get(i));
+		}
+	}
 }

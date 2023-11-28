@@ -299,11 +299,14 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 	@SuppressWarnings("unchecked")
 	public void buildHeap(List<? extends E> list) {
 		
+
+
+		
+		
 		// Creates a backing array with its size being a full last level of the tree representation.
 		int i = 1;
-		
-		while(list.size() >= length) {
-			length = 2^i;
+		while(list.size() > length) {
+			length += 2^i;
 			i++;
 		}
 		
@@ -312,7 +315,7 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		// Add each element from the list to the binary heap.
 		for(int j = 0; j < list.size(); j++) {		
 			
-			backingArray[list.size()+1 - (i+2)] = list.get(i);
+			add(list.get(j));
 			size++;
 		}
 	}

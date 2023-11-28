@@ -24,9 +24,14 @@ public class FindKLargest {
 	public static <E extends Comparable<? super E>> List<E> findKLargestHeap(List<E> items, int k) throws IllegalArgumentException {
 		
 		//Check that K is not less than 0 or more than the number of items.
-		if (k < 0 || k > items.size()) {
-			throw new IllegalArgumentException("There are " + items.size() + " number of items in the list, so " + k 
-					+ " is out of the range for the list!");
+		if(items == null) {
+			throw new IllegalArgumentException("Items is null!");
+		}
+		else {
+			if(k < 0 || k > items.size()) {
+				throw new IllegalArgumentException("There are " + items.size() + " number of items in the list, so " + k 
+						+ " is out of the range for the list!");
+			}
 		}
 		
 
@@ -56,9 +61,14 @@ public class FindKLargest {
 	public static <E> List<E> findKLargestHeap(List<E> items, int k, Comparator<? super E> cmp) throws IllegalArgumentException {
 		
 		//Check that K is not less than 0 or more than the number of items.
-		if (k < 0 || k > items.size()) {
-			throw new IllegalArgumentException("There are " + items.size() + " number of items in the list, so " + k 
-					+ " is out of the range for the list!");
+		if(items == null) {
+			throw new IllegalArgumentException("Items is null!");
+		}
+		else {
+			if(k < 0 || k > items.size()) {
+				throw new IllegalArgumentException("There are " + items.size() + " number of items in the list, so " + k 
+						+ " is out of the range for the list!");
+			}
 		}
 		
 		//Create a max heap with the given list of items and the given comparator.
@@ -86,19 +96,26 @@ public class FindKLargest {
 	public static <E extends Comparable<? super E>> List<E> findKLargestSort(List<E> items, int k) throws IllegalArgumentException {
 		
 		//Check that K is not less than 0 or more than the number of items.
-		if (k < 0 || k > items.size()) {
-			throw new IllegalArgumentException("There are " + items.size() + " number of items in the list, so " + k 
-					+ " is out of the range for the list!");
+		//Check that K is not less than 0 or more than the number of items.
+		if(items == null) {
+			throw new IllegalArgumentException("Items is null!");
 		}
-				
+		else {
+			if(k < 0 || k > items.size()) {
+				throw new IllegalArgumentException("There are " + items.size() + " number of items in the list, so " + k 
+						+ " is out of the range for the list!");
+			}
+		}
+		
 		//Sorts the items via java's sort routine using Comparable since no Comparator is given.
 		items.sort(null);
 				
 		List<E> kLargest = new ArrayList<E>();//ArrayList to how the k number of largest items.
 			
-		//Since items is now sorted, add the first k number of elements from items to kLargest.
+		//Since items is now sorted, add the last k number of elements from items to kLargest since
+		//Java's sort orders them smallest to largest.
 		for(int i = 0; i < k; i++) {
-			kLargest.add(items.get(i));
+			kLargest.add(items.get(items.size()-1-i));
 		}
 		
 		return kLargest;
@@ -115,9 +132,15 @@ public class FindKLargest {
 	 */
 	public static <E> List<E> findKLargestSort(List<E> items, int k, Comparator<? super E> cmp) throws IllegalArgumentException {
 		//Check that K is not less than 0 or more than the number of items.
-		if (k < 0 || k > items.size()) {
-			throw new IllegalArgumentException("There are " + items.size() + " number of items in the list, so " + k 
-					+ " is out of the range for the list!");
+		//Check that K is not less than 0 or more than the number of items.
+		if(items == null) {
+			throw new IllegalArgumentException("Items is null!");
+		}
+		else {
+			if(k < 0 || k > items.size()) {
+				throw new IllegalArgumentException("There are " + items.size() + " number of items in the list, so " + k 
+						+ " is out of the range for the list!");
+			}
 		}
 				
 		//Sorts the items via java's sort routine using the given Comparator, cmp.
@@ -127,7 +150,7 @@ public class FindKLargest {
 			
 		//Since items is now sorted, add the first k number of elements from items to kLargest.
 		for(int i = 0; i < k; i++) {
-			kLargest.add(items.get(i));
+			kLargest.add(items.get(items.size()-1-i));
 		}
 		
 		return kLargest;
