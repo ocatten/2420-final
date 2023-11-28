@@ -6,15 +6,14 @@ import java.util.NoSuchElementException;
 
 /**
  * This method is used to create and interact with a binary max heap. It implements the PriorityQueue interface
- * and is able to uses applicable methods such as add, clear, remove, etc. The binary max heap is represented 
+ * and is able to uses applicable methods such as add, clear, remove, etc. The binary max backingArray is represented 
  * as a tree with each node being larger than the nodes below it. When a node is added to the tree, it is added
  * to the next available space and is percolated up until all the nodes directly above it are larger and all the 
- * nodes below are smaller.	
+ * nodes below are smaller.
  * 
- * @author Everett Oglesby & Parker Catten
- * @version 10:30:23 FA-23 2420_020
+ * @author: Everett Oglesby & Parker Catten
+ * @version: 10:30:23 FA-23 2420_020
  */
-
 public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 	
 	// Fields
