@@ -1,27 +1,27 @@
-package assignment10;
+package assign10;
 
-/**
- * MaxBinaryHeapTester
- * 
- * @author Parker Catten & Everett Oglesby
- * @version 07:13:23 CS-2420_001 SUM-2023
- */
-
-import static org.junit.Assert.assertEquals; 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Comparator;
+
 import org.junit.Test;
 
-public class BinaryMaxHeapTester {	
+
+public class BinaryHeapTester {
 	
-	// Fields
-	private BinaryMaxHeap<Integer> numHeap;
+	private BinaryMaxHeap<Integer> maxHeap;
 	
+	@Test
+	public void smallHeapComparable() {
+		maxHeap = 
+	}
 	
-/*========================================================= ADD & PERCOLATE_UP TESTS ========================================================================*/
-	
+	@Test
+	public void smallHeapComparator() {
+		
+	}
 	
 	@Test
 	@SuppressWarnings("removal")
@@ -474,3 +474,4 @@ public class BinaryMaxHeapTester {
 	}
 
 }
+

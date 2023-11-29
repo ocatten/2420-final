@@ -28,7 +28,7 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 	 */
 	@SuppressWarnings("unchecked")
 	public BinaryMaxHeap () {
-		
+		 
 		backingArray = (E[]) new Object[3];
 		length = 3;
 		size = 0;
