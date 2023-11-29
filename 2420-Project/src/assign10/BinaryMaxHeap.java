@@ -334,11 +334,11 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		if (innerCompare(backingArray[index], backingArray[(index-1)/2]) > 0) {
 			
 			// Data at the current index
-			E lowerData = backingArray[index];
+			E childData = backingArray[index];
 			
 			// Since the child is larger, swap the parent and child.
 			backingArray[index] = backingArray[ (index-1)/2 ];
-			backingArray[ (index-1)/2 ] = lowerData;
+			backingArray[ (index-1)/2 ] = childData;
 			
 			// Check the parent to see if the element can be traverse the heap even higher.
 			percolateUp((index-1)/2);
