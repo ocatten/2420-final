@@ -18,8 +18,8 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 	
 	// Fields
 	E[] backingArray; // Stores the heap as a basic array.
-	int length; // Stores the length of the backing array.
-	int size; // Tracker for the number of items in the binary heap.
+	int length = 0; // Stores the length of the backing array.
+	int size = 0; // Tracker for the number of items in the binary heap.
 	private Comparator<? super E> cmp; // Empty comparator to be replaced if a comparator is given.
 
 	
@@ -90,18 +90,19 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 			size++; // Update the size tracker and exit the method
 			return;
 		}
-		
-		size++; // Update size to check if the array needs resizing
-				
-		// Catch case if the backing array needs resizing
-		if (size >= length) {
-			this.resize();
+		else {
+			size++; // Update size to check if the array needs resizing
+			
+			// Catch case if the backing array needs resizing
+			if (size >= length) {
+				this.resize();
+			}
+					
+			// Find next available space and add new item to it
+			backingArray[ size-1 ] = item;
+			
+			percolateUp(size-1); // Percolate up to get the correct space
 		}
-				
-		// Find next available space and add new item to it
-		backingArray[ size-1 ] = item;
-		
-		percolateUp(size-1); // Percolate up to get the correct space
 	}
 	
 	
@@ -156,34 +157,24 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 	public E extractMax () throws NoSuchElementException {
 
 		// Empty heap catch case
-		if (this.isEmpty()) {
+		if (size == 0) {
 			throw new NoSuchElementException();
 		}
 		
-		size--; // Update size
+		size--; //Decrea
 		E oldMax = backingArray[0]; // Store the deleted max
 		System.out.println("EXTRACTED VALUE: " + oldMax); // Test statement
 		
-		// Find the first leaf node by halving the length and subtracting 1.
-		int leafIndex = (length/2)-1;
+		//Swap the positions of the end leaf and the max item.
+		backingArray[0] = backingArray[size];
+		backingArray[size] =  backingArray[0];
 		
-		// Iterate through each leaf index
-		while(leafIndex < length) {
-			
-			leafIndex++;
-			
-			// If this is the last leafIndex with a value, break out of the loop
-			if (backingArray[leafIndex + 1] == null) {
-				break;
-			}
-		}
+		//Percolate the new item at the max down to find the new max and bring the item back to the bottom level.
+		percolateDown(0); 
 		
-		// Place the right-most leaf node at the root and clear its old position
-		backingArray[0] = backingArray[leafIndex];
-		backingArray[leafIndex] = null;
 		
-		// Percolate the new root down to find the true max
-		percolateDown(0);
+		//Set the last left index to null
+		backingArray[size] = null;
 		
 		return oldMax; // Return the extracted value
 	}
@@ -317,7 +308,6 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		for(int j = 0; j < list.size(); j++) {		
 			
 			add(list.get(j));
-			size++;
 		}
 	}
 	
@@ -412,7 +402,7 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 	
 	
 	
-	/**
+	/** 
 	 * @return the length of the backing array
 	 */
 	public int getLength () {
