@@ -137,6 +137,8 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 	 */
 	public E peek () throws NoSuchElementException {
 		
+		System.out.println("PEEK CALLED: ");
+		
 		// Empty heap catch case
 		if (this.isEmpty()) {
 			throw new NoSuchElementException();
@@ -161,9 +163,12 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 			throw new NoSuchElementException();
 		}
 		
-		size--; //Decrea
+		size--; // Decrease size tracker
 		E oldMax = backingArray[0]; // Store the deleted max
-		System.out.println("EXTRACTED VALUE: " + oldMax); // Test statement
+		
+		// Test statements
+		System.out.println("EXTRACTED VALUE: " + oldMax); 
+		System.out.println("PEEK: " + this.peek());
 		
 		//Swap the positions of the end leaf and the max item.
 		backingArray[0] = backingArray[size];
@@ -271,14 +276,14 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		
 		} else {
 			// Use natural ordering via Comparable if no Comparator is given.
-			if(cmp == null) {
+			if(cmp != null) {
 				
-				int naturalOrdering = ((Comparable<? super E>)(lhs)).compareTo(rhs );
-				return naturalOrdering;
+				// Finally use a comparator if one is given and neither item is null.
+				return cmp.compare(lhs, rhs);
 			}
 			
-			// Finally use a comparator if one is given and neither item is null.
-			return cmp.compare(lhs, rhs);
+			// Catch case for generic comparables
+			return ((Comparable<? super E>)(lhs)).compareTo(rhs );
 		}
 	}
 	
@@ -345,55 +350,52 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 	public void percolateDown(int index) {
 		
 		// Store value at the parameter
-		E givenData = backingArray[index];
+		E currentNode = backingArray[index];
 				
 		// Create variables for the left and right sides
 		int leftIndex = (2*index) + 1;
 		int rightIndex = (2*index) + 2;
-		E leftData; E rightData;
-				
-		// Check if left index is in bounds:
-		if(leftIndex < length) {
-					
+		int greaterChildIndex;
+		
+		E leftData = null; E rightData = null; 
+		E greaterChild = null;
+		
+		
+		try { // Check if the left child is in bounds
 			leftData = backingArray[leftIndex];
-					
-			// Check if right index is in bounds
-			if (rightIndex < length) {
-						
-				rightData = backingArray[rightIndex];
-				// Find if the left or right side is greater
-				boolean leftGreater = (innerCompare(leftData, rightData) > 0);
-						
-				// If the left side is greater and should be percolated:
-				if (leftGreater && innerCompare(givenData, leftData) < 0) {
-						
-					// Percolate down, repeat recursion
-					backingArray[index] = leftData;
-					backingArray[leftIndex] = givenData;
-					percolateDown(leftIndex);
-					return;
-						
-					// If the right side is greater and should be percolated:
-				} else if (!leftGreater && innerCompare(givenData, rightData) < 0) {
-							
-					// Percolate down, repeat recursion
-					backingArray[index] = rightData;
-					backingArray[rightIndex] = givenData;
-					percolateDown(rightIndex);
-				}
-					
-			// Only check the left if the right side doesn't exist
-			} else if (innerCompare(givenData, leftData) < 0) {
-						
-				// Percolate down, repeat recursion
-				backingArray[index] = leftData;
-				backingArray[leftIndex] = givenData;
-				percolateDown(leftIndex);
-				return;
-			}		
-		} 
-				
-		return; // Catch case for no left or right children
+		} catch(Exception e) {
+			//System.out.println("Left child is null"); // Test statement
+		}
+		
+		try { // Check if the right child is in bounds
+			rightData = backingArray[rightIndex];
+		} catch(Exception e) {
+			
+			//System.out.println("Right child is null"); // Test statement
+		}
+		
+		// Catch case if neither are within the backing array, done percolating
+		if(rightData == null && leftData == null) {
+			return;
+		}
+		
+		// Find which child is greater
+		boolean leftGreater = (innerCompare(backingArray[leftIndex], backingArray[rightIndex]) > 0);
+		
+		// Assign the greater child to the left or the right depending on the result of the comparison
+		if(leftGreater) {
+			greaterChildIndex = leftIndex;
+		} else {
+			greaterChildIndex = rightIndex;
+		}
+		
+		greaterChild = backingArray[greaterChildIndex];
+		
+		// Now that we have the greater child, percolate down with it.
+		backingArray[index] = greaterChild;
+		backingArray[greaterChildIndex] = currentNode;
+		percolateDown(greaterChildIndex);
+		return; // Remove call from call stack once operations are complete
 	}
 	
 	
