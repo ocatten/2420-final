@@ -20,7 +20,7 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 	E[] backingArray; // Stores the heap as a basic array.
 	int length = 0; // Stores the length of the backing array.
 	int size = 0; // Tracker for the number of items in the binary heap.
-	private Comparator<? super E> cmp; // Empty comparator to be replaced if a comparator is given.
+	private Comparator<? super E> cmp = null; // Empty comparator to be replaced if a comparator is given.
 
 	
 	/**
@@ -271,6 +271,7 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 			} else if(lhs == null && rhs != null) {
 				return -1; // The rhs is greater since this lhs is empty.
 			}
+			
 			// If they are both null return 0 since they are equal.
 			return 0;
 		
