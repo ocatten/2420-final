@@ -69,8 +69,8 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 	public BinaryMaxHeap (List<? extends E> elements, Comparator<? super E> cmp) {
 		
 		this();
-		buildHeap(elements);  // Uses helper method to create a new heap in O(N)
 		this.cmp = cmp; // Call the basic constructor and instantiate the comparator obj
+		buildHeap(elements);  // Uses helper method to create a new heap in O(N)
 	}
 	
 	
@@ -299,10 +299,12 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		// Creates a backing array with its size being a full last level of the tree representation.
 		@SuppressWarnings("unused")
 		int i = 1;
+		
+		// i represents each level, which will be 2 children for every parent above or 2^level
 		while(list.size() > length) {
-			length *= 2;
-			length ++;
-			i++;
+	
+			length += i;
+			i *= 2;
 		}
 		
 		backingArray = (E[]) new Object[length];
@@ -314,7 +316,7 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 	    }
 
 	    // Start from the last non-leaf node and percolate down to the root.
-	    for (int k = (size / 2) - 1; k >= 0; k--) {
+	    for (int k = size / 2; k >= 0; k--) {
 	        percolateDown(k);
 	    }
 	}
@@ -358,15 +360,17 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		
 		// Store value at the parameter
 		E currentNode = backingArray[index];
+		
+		System.out.println("PERCOLATING " + currentNode); // Test statement
 				
 		// Create variables for the left and right sides
 		int leftIndex = (2*index) + 1;
 		int rightIndex = (2*index) + 2;
 		int greaterChildIndex;
 		
-		E leftData = null; E rightData = null; 
+		E leftData = null; 
+		E rightData = null; 
 		E greaterChild = null;
-		
 		
 		try { // Check if the left child is in bounds
 			leftData = backingArray[leftIndex];
@@ -383,6 +387,8 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		
 		// Catch case if neither are within the backing array, done percolating
 		if(rightData == null && leftData == null) {
+			
+			System.out.println("NO CHILDREN FOUND"); // Test statement
 			return;
 		}
 		
@@ -392,28 +398,37 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		// Assign the greater child to the left or the right depending on the result of the comparison
 		if(leftGreater) {
 			
+			// If the left side is greater, assign the greater/lesser children to their respective sides
 			greaterChildIndex = leftIndex;
-			//System.out.println(backingArray[leftIndex] + " IS GREATER THAN " + backingArray[rightIndex]); // Test statement
+			greaterChild = backingArray[greaterChildIndex];
 			
 		} else {
 			
+			// If the left side is not greater, assign the greater/lesser children to their respective sides
 			greaterChildIndex = rightIndex;
-			//System.out.println(backingArray[leftIndex] + " IS NOT GREATER THAN " + backingArray[rightIndex]); // Test statement
+			greaterChild = backingArray[greaterChildIndex];
 		}
 		
-		greaterChild = backingArray[greaterChildIndex];
-		//System.out.println("GREATER CHILD IS " + backingArray[greaterChildIndex] + " AND WILL BE COMPARED TO " + currentNode); // Test statement
+		// Check if percolate down is supposed to swap with the lesser child
 		
-		// Check if percolate down is supposed to swap, if not, percolation done
-		if(innerCompare(greaterChild, currentNode) > 0) {
-		
-			// Now that we have the greater child, percolate down with it.
+		if(innerCompare(currentNode, greaterChild) < 0) {
+			
+			System.out.println("SWAPPING " + currentNode + " WITH " + greaterChild); // Test statement
+			
+			// Swap the greaterChild and the currentNode and complete percolation
 			backingArray[index] = greaterChild;
 			backingArray[greaterChildIndex] = currentNode;
 		
+			// Print new heap
+			System.out.print("NEW HEAP: ");
+			for(int i = 0; i < backingArray.length; i++) {
+				
+				System.out.print(backingArray[i] + " ");
+				
+			} System.out.println();
+			
 			percolateDown(greaterChildIndex);
 			return; // Remove call from call stack once operations are complete
-		
 		}
 	}	
 	
