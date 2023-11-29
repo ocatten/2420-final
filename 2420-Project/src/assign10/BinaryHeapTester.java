@@ -4,7 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
+
 import org.junit.Test;
 
 /**
@@ -15,7 +18,7 @@ import org.junit.Test;
  */
 public class BinaryHeapTester {
 	
-	// Fields
+	
 	private BinaryMaxHeap<Integer> intMaxHeap;
 	
 /*========================================================= PERCOLATE_UP() + ADD() ========================================================================*/
@@ -118,7 +121,7 @@ public class BinaryHeapTester {
 		// Print out resulting heap
 		Object[] heapArray = intMaxHeap.toArray();
 		for(int i = 0; i < heapArray.length; i++) {
-			System.out.print(heapArray[i] + " ");
+			//System.out.print(heapArray[i] + " ");
 		}
 		System.out.println();
 		
@@ -478,5 +481,24 @@ public class BinaryHeapTester {
 		}
 	}
 
+	
+	@Test
+	public void buildHeap() {
+		List<Integer> intList = new ArrayList<Integer>();
+		
+		intList.add(10);
+		intList.add(40);
+		intList.add(20);
+		intList.add(50);
+		intList.add(30);
+		
+		intMaxHeap = new BinaryMaxHeap<Integer>();
+		intMaxHeap.buildHeap(intList);
+		
+		assertEquals(5,intMaxHeap.size());
+		
+		Integer expected = 50;
+		assertEquals(expected,intMaxHeap.extractMax());
+	}
 }
 

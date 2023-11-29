@@ -137,7 +137,7 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 	 */
 	public E peek () throws NoSuchElementException {
 		
-		System.out.println("PEEK CALLED: ");
+		
 		
 		// Empty heap catch case
 		if (this.isEmpty()) {
@@ -166,9 +166,7 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		size--; // Decrease size tracker
 		E oldMax = backingArray[0]; // Store the deleted max
 		
-		// Test statements
-		System.out.println("EXTRACTED VALUE: " + oldMax); 
-		System.out.println("PEEK: " + this.peek());
+		
 		
 		//Swap the positions of the end leaf and the max item.
 		backingArray[0] = backingArray[size];
@@ -296,21 +294,34 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 	 */
 	@SuppressWarnings("unchecked")
 	public void buildHeap(List<? extends E> list) {
+		clear();//Resets the heap to its default state.
 		
 		// Creates a backing array with its size being a full last level of the tree representation.
 		int i = 1;
 		while(list.size() > length) {
-			length += 2^i;
+			length *= 2;
+			length ++;
 			i++;
 		}
 		
 		backingArray = (E[]) new Object[length];
 		
 		// Add each element from the list to the binary heap.
-		for(int j = 0; j < list.size(); j++) {		
-			
-			add(list.get(j));
-		}
+	    for (int j = 0; j < list.size(); j++) {
+	        backingArray[j] = list.get(j);
+	        size++;
+	    }
+
+	    // Start from the last non-leaf node and percolate down to the root.
+	    for (int k = (size / 2) - 1; k >= 0; k--) {
+	        percolateDown(k);
+	    }
+//		
+//		// Add each element from the list to the binary heap.
+//		for(int j = 0; j < list.size(); j++) {		
+//			
+//			add(list.get(j));
+//		}
 	}
 	
 	
@@ -365,14 +376,14 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		try { // Check if the left child is in bounds
 			leftData = backingArray[leftIndex];
 		} catch(Exception e) {
-			//System.out.println("Left child is null"); // Test statement
+			
 		}
 		
 		try { // Check if the right child is in bounds
 			rightData = backingArray[rightIndex];
 		} catch(Exception e) {
 			
-			//System.out.println("Right child is null"); // Test statement
+			
 		}
 		
 		// Catch case if neither are within the backing array, done percolating
