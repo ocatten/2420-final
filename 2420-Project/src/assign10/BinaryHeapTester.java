@@ -108,7 +108,7 @@ public class BinaryHeapTester {
 	
 	
 	
-/*========================================================= PERCOLATE_DOWN ==========================================================================*/
+/*========================================================= PERCOLATE_DOWN ================================================================================*/
 	
 	
 	@Test
@@ -129,7 +129,7 @@ public class BinaryHeapTester {
 	
 	
 	
-/*========================================================= IS_EMPTY() + CLEAR() ==========================================================================*/
+/*========================================================= IS_EMPTY() + CLEAR() =======================================================================*/
 	
 	
 	@Test
@@ -191,7 +191,7 @@ public class BinaryHeapTester {
 	
 	
 	
-/*========================================================= INNER_COMPARE() =============================================================================*/
+/*========================================================= INNER_COMPARE() ==============================================================================*/
 	
 	
 	@Test
@@ -334,7 +334,7 @@ public class BinaryHeapTester {
 	
 	
 	
-/*=========================================================== EXTRACT_MAX() =========================================================================*/
+/*=========================================================== EXTRACT_MAX() ==========================================================================*/
 	
 	
 	@Test
@@ -484,6 +484,20 @@ public class BinaryHeapTester {
 	
 	@Test
 	public void buildHeap() {
+		
+		Comparator<Integer> cmp = new Comparator<Integer>() {
+			public int compare(Integer lhs, Integer rhs) {
+				
+				if(lhs < rhs) {
+					
+					return 1;
+				} else if (lhs > rhs) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		};
 		List<Integer> intList = new ArrayList<Integer>();
 		
 		intList.add(10);
@@ -492,12 +506,22 @@ public class BinaryHeapTester {
 		intList.add(50);
 		intList.add(30);
 		
-		intMaxHeap = new BinaryMaxHeap<Integer>();
+		intMaxHeap = new BinaryMaxHeap<Integer>(cmp);
+		
+		/*
+		System.out.print("BEGINNING HEAP: ");
+		for(int i = 0; i < intList.size(); i++) {
+			
+			System.out.print(intList.get(i) + " ");
+			
+		} System.out.println();
+		*/
 		intMaxHeap.buildHeap(intList);
 		
 		assertEquals(5,intMaxHeap.size());
 		
-		Integer expected = 50;
+		Integer expected = 10;
+		
 		assertEquals(expected,intMaxHeap.extractMax());
 	}
 }

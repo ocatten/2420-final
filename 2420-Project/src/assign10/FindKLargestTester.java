@@ -9,9 +9,15 @@ import java.util.List;
 
 import org.junit.Test;
 
-
+/**
+ * Tester class for the FindKLargest class, testing its various methods and operations
+ * 
+ * @author: Everett Oglesby & Parker Catten
+ * @version: 11:28:23 FA-23 2420_020
+ */
 public class FindKLargestTester<E> {
 	
+	// Fields
 	private Comparator<Integer> cmp;
 	
 	List<Integer> emptyList;
@@ -20,6 +26,7 @@ public class FindKLargestTester<E> {
 	
 	FindKLargest findKLargest;
 
+	
 	public void setup() {
 		findKLargest = new FindKLargest();
 		
@@ -36,32 +43,50 @@ public class FindKLargestTester<E> {
 		}
 	} 
 	
-	//------------k Largest Heap Tests--------------------------------------------------------------------------------------//
+	
+	
+/*========================================================= K_LARGEST_HEAP() ========================================================================*/
+	
+	
+	
 	@Test
+	@SuppressWarnings("static-access")
 	public void emptyListWithPositiveNumber() {
 		assertThrows(IllegalArgumentException.class, () -> { findKLargest.findKLargestHeap(emptyList, 1); });
 	}
 	
+	
+	
 	@Test
+	@SuppressWarnings("static-access")
 	public void negativeKGiven() {
 		assertThrows(IllegalArgumentException.class, () -> { findKLargest.findKLargestHeap(smallList, -1); });
 	}
 	
+	
+	
 	@Test
+	@SuppressWarnings("static-access")
 	public void OutofBoundsK() {
 		assertThrows(IllegalArgumentException.class, () -> { findKLargest.findKLargestHeap(smallList, 100); });
 	}
+	
+	
 	
 	@Test
 	public void emptyListWithKEqualsZero() {
 		setup();
 		
+		@SuppressWarnings("static-access")
 		List<Integer> kLargest = findKLargest.findKLargestHeap(emptyList, 0);
 		
 		assertEquals(0,kLargest.size());
 	}
 	
+	
+	
 	@Test
+	@SuppressWarnings("static-access")
 	public void kEqualsZeroOnSmallList() {
 		setup();
 		
@@ -70,7 +95,10 @@ public class FindKLargestTester<E> {
 		assertEquals(0,kLargest.size());
 	}
 	
+	
+	
 	@Test
+	@SuppressWarnings("static-access")
 	public void kLargestComparable() {
 		setup();
 		
@@ -83,7 +111,10 @@ public class FindKLargestTester<E> {
 		}
 	}
 	
+	
+	
 	@Test
+	@SuppressWarnings("static-access")
 	public void kLargestComparator() {
 		setup();
 		
@@ -96,7 +127,10 @@ public class FindKLargestTester<E> {
 		}
 	}
 	
+	
+	
 	@Test
+	@SuppressWarnings("static-access")
 	public void kLargestOnLargeList() {
 		setup();
 		
@@ -109,9 +143,14 @@ public class FindKLargestTester<E> {
 		}
 	}
 	
-	//------------k Largest With Java Sort Tests--------------------------------------------------------------------------------------//
-
+	
+	
+/*=========================================================== K_LARGEST_SORT =========================================================================*/
+	
+	
+	
 	@Test
+	@SuppressWarnings("static-access")
 	public void kLargestWithComparableJavaSort() {
 		setup();
 		
@@ -124,7 +163,10 @@ public class FindKLargestTester<E> {
 		}
 	}
 
+	
+	
 	@Test
+	@SuppressWarnings("static-access")
 	public void kLargestWithComparatorJavaSort() {
 		setup();
 		

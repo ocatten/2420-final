@@ -297,6 +297,7 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		clear();//Resets the heap to its default state.
 		
 		// Creates a backing array with its size being a full last level of the tree representation.
+		@SuppressWarnings("unused")
 		int i = 1;
 		while(list.size() > length) {
 			length *= 2;
@@ -316,12 +317,6 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 	    for (int k = (size / 2) - 1; k >= 0; k--) {
 	        percolateDown(k);
 	    }
-//		
-//		// Add each element from the list to the binary heap.
-//		for(int j = 0; j < list.size(); j++) {		
-//			
-//			add(list.get(j));
-//		}
 	}
 	
 	
@@ -396,19 +391,31 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		
 		// Assign the greater child to the left or the right depending on the result of the comparison
 		if(leftGreater) {
+			
 			greaterChildIndex = leftIndex;
+			//System.out.println(backingArray[leftIndex] + " IS GREATER THAN " + backingArray[rightIndex]); // Test statement
+			
 		} else {
+			
 			greaterChildIndex = rightIndex;
+			//System.out.println(backingArray[leftIndex] + " IS NOT GREATER THAN " + backingArray[rightIndex]); // Test statement
 		}
 		
 		greaterChild = backingArray[greaterChildIndex];
+		//System.out.println("GREATER CHILD IS " + backingArray[greaterChildIndex] + " AND WILL BE COMPARED TO " + currentNode); // Test statement
 		
-		// Now that we have the greater child, percolate down with it.
-		backingArray[index] = greaterChild;
-		backingArray[greaterChildIndex] = currentNode;
-		percolateDown(greaterChildIndex);
-		return; // Remove call from call stack once operations are complete
-	}
+		// Check if percolate down is supposed to swap, if not, percolation done
+		if(innerCompare(greaterChild, currentNode) > 0) {
+		
+			// Now that we have the greater child, percolate down with it.
+			backingArray[index] = greaterChild;
+			backingArray[greaterChildIndex] = currentNode;
+		
+			percolateDown(greaterChildIndex);
+			return; // Remove call from call stack once operations are complete
+		
+		}
+	}	
 	
 	
 	
