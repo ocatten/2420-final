@@ -1,13 +1,18 @@
 package assign10;
  
-import static org.junit.Assert.assertEquals; 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Comparator;
 import org.junit.Test;
 
-
+/**
+ * Tester class for the BinaryMaxHeap class, testing its various methods and operations
+ * 
+ * @author: Everett Oglesby & Parker Catten
+ * @version: 11:28:23 FA-23 2420_020
+ */
 public class BinaryHeapTester {
 	
 	// Fields
@@ -104,7 +109,7 @@ public class BinaryHeapTester {
 	
 	
 	@Test
-	public void percolateDownOnSmallTest () {
+	public void percolateDownTest () {
 		createSmallHeap();
 		
 		intMaxHeap.replaceMax(-1);
@@ -351,22 +356,6 @@ public class BinaryHeapTester {
 	@SuppressWarnings("removal")
 	public void extractMaxOnSmallTest () {
 		createSmallHeap();
-		
-		// Print out resulting heap
-		System.out.println(intMaxHeap.extractMax());
-		Object[] heapArray = intMaxHeap.toArray();
-		for(int i = 0; i < heapArray.length; i++) {
-			System.out.print(heapArray[i] + " ");
-		}
-		System.out.println();
-		
-		// Print out resulting heap
-		System.out.println(intMaxHeap.extractMax());
-		Object[] newHeapArray = intMaxHeap.toArray();
-		for(int i = 0; i < newHeapArray.length; i++) {
-			System.out.print(newHeapArray[i] + " ");
-		}
-		System.out.println();
 		
 		for (int i = 6; 0 < i; i--) {
 			

@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
  * nodes below are smaller.
  * 
  * @author: Everett Oglesby & Parker Catten
- * @version: 10:30:23 FA-23 2420_020
+ * @version: 11:28:23 FA-23 2420_020
  */
 public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 	
@@ -264,7 +264,7 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 				return 1; // The lhs is greater since this rhs is empty.
 			
 			} else if(lhs == null && rhs != null) {
-				return 1; // The rhs is greater since this lhs is empty.
+				return -1; // The rhs is greater since this lhs is empty.
 			}
 			// If they are both null return 0 since they are equal.
 			return 0;
@@ -278,7 +278,7 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 			}
 			
 			// Finally use a comparator if one is given and neither item is null.
-			return cmp.compare(lhs,rhs);
+			return cmp.compare(lhs, rhs);
 		}
 	}
 	
@@ -290,10 +290,6 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 	 */
 	@SuppressWarnings("unchecked")
 	public void buildHeap(List<? extends E> list) {
-		
-
-
-		
 		
 		// Creates a backing array with its size being a full last level of the tree representation.
 		int i = 1;
