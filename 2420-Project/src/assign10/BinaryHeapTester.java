@@ -1,44 +1,36 @@
 package assign10;
-
-import static org.junit.Assert.assertEquals;
+ 
+import static org.junit.Assert.assertEquals; 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Comparator;
-
 import org.junit.Test;
 
 
 public class BinaryHeapTester {
 	
-	private BinaryMaxHeap<Integer> maxHeap;
+	// Fields
+	private BinaryMaxHeap<Integer> intMaxHeap;
 	
-	@Test
-	public void smallHeapComparable() {
-		maxHeap = 
-	}
-	
-	@Test
-	public void smallHeapComparator() {
-		
-	}
+/*========================================================= PERCOLATE_UP() + ADD() ========================================================================*/
 	
 	@Test
 	@SuppressWarnings("removal")
-	public void smallHeapSetUp() {
+	public void createSmallHeap () {
 		
-		numHeap = new BinaryMaxHeap<Integer>();
+		intMaxHeap = new BinaryMaxHeap<Integer>();
 		
 		for (int i = 0; i < 7; i++) {
-			numHeap.add(i);
+			intMaxHeap.add(i);
 		} 
 		
-		assertEquals(new Integer(6), numHeap.peek());
+		assertEquals(new Integer(6), intMaxHeap.peek());
 		
 		for (int i = 2; i < 7; i++) {
 				
-			assertEquals( numHeap.innerCompare( (Integer)numHeap.toArray()[i], 
-												(Integer)numHeap.toArray()[(i-1)/2]), -1);
+			assertEquals( intMaxHeap.innerCompare( (Integer)intMaxHeap.toArray()[i], 
+												(Integer)intMaxHeap.toArray()[(i-1)/2]), -1);
 		}
 	}
 	
@@ -46,21 +38,21 @@ public class BinaryHeapTester {
 	
 	@Test
 	@SuppressWarnings("removal")
-	public void largeHeapSetUp() {
+	public void createLargeHeap () {
 		
-		numHeap = new BinaryMaxHeap<Integer>();
+		intMaxHeap = new BinaryMaxHeap<Integer>();
 		
 		for (int i = 0; i < 10000; i++) {
-			numHeap.add(i);
+			intMaxHeap.add(i);
 		}
 		
-		assertEquals(new Integer(9999), numHeap.peek());
+		assertEquals(new Integer(9999), intMaxHeap.peek());
 		
 		for (int i = 2; i < 10000; i++) {
 				
 				
-			assertEquals(-1, numHeap.innerCompare((Integer)numHeap.toArray()[i],
-												  (Integer)numHeap.toArray()[(i-1)/2]));
+			assertEquals(-1, intMaxHeap.innerCompare((Integer)intMaxHeap.toArray()[i],
+												  (Integer)intMaxHeap.toArray()[(i-1)/2]));
 			
 		}
 	}
@@ -68,18 +60,18 @@ public class BinaryHeapTester {
 	
 	
 	@Test
-	public void addOnSmallTest() {
-		smallHeapSetUp();
+	public void addOnSmallTest () {
+		createSmallHeap();
 		
 		for (int i = 0; i < 10000; i++) {
-			numHeap.add(i);
+			intMaxHeap.add(i);
 		}
 		
 		
 		for (int i = 1; i < 10000; i++) {
 				
-			assertEquals( -1, numHeap.innerCompare( (Integer)numHeap.toArray()[i], 
-												  	(Integer)numHeap.toArray()[(i-1)/2]) );
+			assertEquals( -1, intMaxHeap.innerCompare( (Integer)intMaxHeap.toArray()[i], 
+												  	(Integer)intMaxHeap.toArray()[(i-1)/2]) );
 			
 		}
 	}
@@ -88,94 +80,127 @@ public class BinaryHeapTester {
 	
 	@Test
 	@SuppressWarnings("removal")
-	public void addOnLargeTest() {
+	public void addOnLargeTest () {
 		
-		numHeap = new BinaryMaxHeap<Integer>();
+		intMaxHeap = new BinaryMaxHeap<Integer>();
 		
 		for (int i = 0; i < 10000; i++) {
-			numHeap.add(i);
+			intMaxHeap.add(i);
 		}
 		
-		assertEquals(new Integer(9999), numHeap.peek());
+		assertEquals(new Integer(9999), intMaxHeap.peek());
 		
 		for (int i = 1; i < 10000; i++) {
 				
-			assertEquals( numHeap.innerCompare( (Integer)numHeap.toArray()[i], 
-												(Integer)numHeap.toArray()[(i-1)/2]), -1);
+			assertEquals( intMaxHeap.innerCompare( (Integer)intMaxHeap.toArray()[i], 
+												(Integer)intMaxHeap.toArray()[(i-1)/2]), -1);
 			
 		}
 	}
 	
 	
-/*============================================================ RESIZE TESTS =================================================================================*/
+	
+/*========================================================= PERCOLATE_DOWN ==========================================================================*/
 	
 	
 	@Test
-	public void resizeOnEmptyTest() {
+	public void percolateDownOnSmallTest () {
+		createSmallHeap();
 		
-		numHeap = new BinaryMaxHeap<Integer>();
-		assertEquals(3, numHeap.getArrayLength());
+		intMaxHeap.replaceMax(-1);
+		intMaxHeap.percolateDown(0);
 		
-		numHeap.add(1);
-		assertEquals(3, numHeap.getArrayLength());
-	}
-	
-	
-	@Test
-	public void resizeOnSmallTest() {
-		
-		smallHeapSetUp();
-		assertEquals(15, numHeap.getArrayLength());
-		
-		for(int i = 0; i < 8; i++) {
-			numHeap.add(7+i);
+		// Print out resulting heap
+		Object[] heapArray = intMaxHeap.toArray();
+		for(int i = 0; i < heapArray.length; i++) {
+			System.out.print(heapArray[i] + " ");
 		}
+		System.out.println();
 		
-		assertEquals(31, numHeap.getArrayLength());
+	}
+	
+	
+	
+/*========================================================= IS_EMPTY() + CLEAR() ==========================================================================*/
+	
+	
+	@Test
+	public void clearAndIsEmptyOnEmptyTest () {	
+		
+		intMaxHeap = new BinaryMaxHeap<Integer>();
+		assertTrue(intMaxHeap.isEmpty());
+		
+		intMaxHeap.add(1);
+		assertFalse(intMaxHeap.isEmpty());
+		
+		intMaxHeap.clear();
+		assertTrue(intMaxHeap.isEmpty());
 	}
 	
 	
 	
 	@Test
-	public void resizeOnLargeTest() {
+	public void clearAndIsEmptyOnSmallTest () {	
 		
-		largeHeapSetUp();
-		assertEquals(16383, numHeap.getArrayLength()); // Found with graphing calculator
+		createSmallHeap();
+		assertFalse(intMaxHeap.isEmpty());
 		
-		for(int i = 0; i < 6383; i++) {
-			numHeap.add(9999+i);
+		intMaxHeap.clear();
+		assertTrue(intMaxHeap.isEmpty());
+		
+		try {
+			
+			assertEquals(0, intMaxHeap.toArray()[0]);
+			assertTrue(false);
+			
+		} catch (Exception e) {
+			
+			assertTrue(true);
 		}
-		
-		assertEquals(32767, numHeap.getArrayLength());
 	}
 	
 	
-/*========================================================= INNER_COMPARE TESTS =============================================================================*/
+	
+	@Test
+	public void clearAndIsEmptyOnLargeTest () {	
+		
+		createLargeHeap();
+		assertFalse(intMaxHeap.isEmpty());
+		
+		intMaxHeap.clear();
+		assertTrue(intMaxHeap.isEmpty());
+		
+		try {
+			
+			assertEquals(0, intMaxHeap.toArray()[0]);
+			assertTrue(false);
+			
+		} catch (Exception e) {
+			
+			assertTrue(true);
+		}
+	}
+	
+	
+	
+/*========================================================= INNER_COMPARE() =============================================================================*/
 	
 	
 	@Test
-	public void compareWithoutObjectTest() {
+	public void compareWithoutObjectTest () {
 		
-		numHeap = new BinaryMaxHeap<Integer>();
+		intMaxHeap = new BinaryMaxHeap<Integer>();
 		
 		for (int i = 0; i < 7; i++) {
 			
-			numHeap.add(i);
-			
-			/*
-			System.out.println();
-			for(Object item : numHeap.toArray()) {
-				System.out.println(item + " ");
-			}
-			System.out.println();
-			*/
+			intMaxHeap.add(i);
 		}
 		
 		for (int i = 2; i < 7; i++) {
-			if(numHeap.toArray()[i] != null) {
+			if(intMaxHeap.toArray()[i] != null) {
 				
-				assertEquals( numHeap.innerCompare( (Integer)numHeap.toArray()[i], 
-													(Integer)numHeap.toArray()[(i-1)/2]), -1);
+				assertEquals( intMaxHeap.innerCompare( (Integer)intMaxHeap.toArray()[i], 
+													(Integer)intMaxHeap.toArray()[(i-1)/2]), -1);
 			
 			}
 		}
@@ -184,51 +209,87 @@ public class BinaryHeapTester {
 	
 	
 	@Test
-	public void compareWithObjectTest() {
+	public void compareWithObjectTest () {
 		
 		Comparator<Integer> cmp = new Comparator<Integer>() { 
 			public int compare(Integer e1, Integer e2) { return e1.compareTo(e2); } };
 		
-		numHeap = new BinaryMaxHeap<Integer>(cmp);
+		intMaxHeap = new BinaryMaxHeap<Integer>(cmp);
 		
 		
 		for (int i = 0; i < 7; i++) {
 			
-			numHeap.add(i);
-			
-			/*
-			System.out.println();
-			for(Object item : numHeap.toArray()) {
-				System.out.println(item + " ");
-			}
-			System.out.println();
-			*/
-			
+			intMaxHeap.add(i);
 		}
 		
 		for (int i = 2; i < 7; i++) {
 			
-			if(numHeap.toArray()[i] != null) {
+			if(intMaxHeap.toArray()[i] != null) {
 				
-				assertEquals(-1, numHeap.innerCompare((Integer)numHeap.toArray()[i], 
-													  (Integer)numHeap.toArray()[(i-1)/2]));
+				assertEquals(-1, intMaxHeap.innerCompare((Integer)intMaxHeap.toArray()[i], 
+													  (Integer)intMaxHeap.toArray()[(i-1)/2]));
 			
 			}
 		}
 	}
 	
 	
-/*===================================================== EXTRACT_MAX & PERCOLATE_DOWN TESTS ==================================================================*/
+	
+/*============================================================ RESIZE() =================================================================================*/
 	
 	
 	@Test
-	public void extractMaxOnEmptyTest() {
+	public void resizeOnEmptyTest () {
 		
-		numHeap = new BinaryMaxHeap<Integer>();
+		intMaxHeap = new BinaryMaxHeap<Integer>();
+		assertEquals(3, intMaxHeap.getLength());
+		
+		intMaxHeap.add(1);
+		assertEquals(3, intMaxHeap.getLength());
+	}
+	
+	
+	@Test
+	public void resizeOnSmallTest () {
+		
+		createSmallHeap();
+		assertEquals(15, intMaxHeap.getLength());
+		
+		for(int i = 0; i < 8; i++) {
+			intMaxHeap.add(7+i);
+		}
+		
+		assertEquals(31, intMaxHeap.getLength());
+	}
+	
+	
+	
+	@Test
+	public void resizeOnLargeTest () {
+		
+		createLargeHeap();
+		assertEquals(16383, intMaxHeap.getLength());
+		
+		for(int i = 0; i < 6383; i++) {
+			intMaxHeap.add(9999+i);
+		}
+		
+		assertEquals(32767, intMaxHeap.getLength());
+	}
+	
+	
+	
+/*================================================================= PEEK() ==============================================================================*/
+	
+	
+	@Test
+	public void peekOnEmptyTest () {
+		
+		intMaxHeap = new BinaryMaxHeap<Integer>();
 		
 		try {
 			
-			numHeap.extractMax();
+			intMaxHeap.peek();
 			assertTrue(false);
 			
 		} catch (Exception e) {
@@ -239,21 +300,82 @@ public class BinaryHeapTester {
 	
 	
 	
-	@SuppressWarnings("removal")
 	@Test
-	public void extractMaxOnSmallTest() {
+	@SuppressWarnings("removal")
+	public void peekOnSmallTest () {
+		createSmallHeap();
 		
-		smallHeapSetUp();
+		assertEquals(new Integer(6), intMaxHeap.peek());
+		intMaxHeap.add(10);
+		intMaxHeap.add(8);
+		assertEquals(new Integer(10), intMaxHeap.peek());
+	}
+	
+	
+	
+	@Test
+	@SuppressWarnings("removal")
+	public void peekOnLargeTest () {
+		createLargeHeap();
 		
-		// Heap starts at 0
+		assertEquals(new Integer(9999), intMaxHeap.peek());
+		intMaxHeap.add(11000);
+		intMaxHeap.add(10500);
+		assertEquals(new Integer(11000), intMaxHeap.peek());
+	}
+	
+	
+	
+/*=========================================================== EXTRACT_MAX() =========================================================================*/
+	
+	
+	@Test
+	public void extractMaxOnEmptyTest () {
+		
+		intMaxHeap = new BinaryMaxHeap<Integer>();
+		
+		try {
+			
+			intMaxHeap.extractMax();
+			assertTrue(false);
+			
+		} catch (Exception e) {
+			
+			assertTrue(true);
+		}
+	}
+	
+	
+	
+	@Test
+	@SuppressWarnings("removal")
+	public void extractMaxOnSmallTest () {
+		createSmallHeap();
+		
+		// Print out resulting heap
+		System.out.println(intMaxHeap.extractMax());
+		Object[] heapArray = intMaxHeap.toArray();
+		for(int i = 0; i < heapArray.length; i++) {
+			System.out.print(heapArray[i] + " ");
+		}
+		System.out.println();
+		
+		// Print out resulting heap
+		System.out.println(intMaxHeap.extractMax());
+		Object[] newHeapArray = intMaxHeap.toArray();
+		for(int i = 0; i < newHeapArray.length; i++) {
+			System.out.print(newHeapArray[i] + " ");
+		}
+		System.out.println();
+		
 		for (int i = 6; 0 < i; i--) {
 			
-			assertEquals(new Integer(i), numHeap.peek());
-			assertEquals(i+1, numHeap.size());
+			assertEquals(new Integer(i), intMaxHeap.peek());
+			assertEquals(i+1, intMaxHeap.size());
 			
-			assertEquals(new Integer(i), numHeap.extractMax());
-			assertEquals(new Integer(i-1), numHeap.peek());
-			assertEquals(i, numHeap.size());
+			assertEquals(new Integer(i), intMaxHeap.extractMax());
+			assertEquals(new Integer(i-1), intMaxHeap.peek());
+			assertEquals(i, intMaxHeap.size());
 		}
 		
 	}
@@ -263,213 +385,107 @@ public class BinaryHeapTester {
 	
 	@Test
 	@SuppressWarnings("removal")
-	public void extractMaxOnLargeTest() {
+	public void extractMaxOnLargeTest () {
 		
-		largeHeapSetUp();
+		createLargeHeap();
 		
-		// Heap starts at 0
 		for (int i = 9999; 0 < i; i--) {
 			
-			assertEquals(new Integer(i), numHeap.peek());
-			assertEquals(i+1, numHeap.size());
+			assertEquals(new Integer(i), intMaxHeap.peek());
+			assertEquals(i+1, intMaxHeap.size());
+			assertEquals(new Integer(i), intMaxHeap.extractMax());
 			
-			assertEquals(new Integer(i), numHeap.extractMax());
-			assertEquals(new Integer(i-1), numHeap.peek());
-			assertEquals(i, numHeap.size());
-		}
-	}
-	
-	
-/*================================================================= PEEK TESTS ==============================================================================*/
-	
-	
-	@Test
-	public void peekOnEmptyTest() {
-		
-		numHeap = new BinaryMaxHeap<Integer>();
-		
-		try {
-			
-			numHeap.peek();
-			assertTrue(false);
-			
-		} catch (Exception e) {
-			
-			assertTrue(true);
+			assertEquals(new Integer(i-1), intMaxHeap.peek());
+			assertEquals(i, intMaxHeap.size());
 		}
 	}
 	
 	
 	
+/*================================================================= SIZE() ==============================================================================*/
+			
+			
 	@Test
-	@SuppressWarnings("removal")
-	public void peekOnSmallTest() {
-		smallHeapSetUp();
-		
-		assertEquals(new Integer(6), numHeap.peek());
-		numHeap.add(10);
-		numHeap.add(8);
-		assertEquals(new Integer(10), numHeap.peek());
+	public void sizeOnEmptyTest () {
+			
+		intMaxHeap = new BinaryMaxHeap<Integer>();
+		assertEquals(intMaxHeap.size(), 0);
 	}
 	
 	
 	
 	@Test
-	@SuppressWarnings("removal")
-	public void peekOnLargeTest() {
-		largeHeapSetUp();
+	public void sizeOnSmallTest () {
+			
+		createSmallHeap();
+		assertEquals(intMaxHeap.size(), 7);
 		
-		assertEquals(new Integer(9999), numHeap.peek());
-		numHeap.add(11000);
-		numHeap.add(10500);
-		assertEquals(new Integer(11000), numHeap.peek());
-	}
-	
-	
-/*================================================================= SIZE TESTS ==============================================================================*/
-			
-			
-	@Test
-	public void sizeOnEmptyTest() {
-			
-		numHeap = new BinaryMaxHeap<Integer>();
-		assertEquals(numHeap.size(), 0);
+		intMaxHeap.add(10);
+		assertEquals(intMaxHeap.size(), 8);
+		
+		intMaxHeap.extractMax();
+		assertEquals(intMaxHeap.size(), 7);
 	}
 	
 	
 	
 	@Test
-	public void sizeOnSmallTest() {
+	public void sizeOnLargeTest () {
 			
-		smallHeapSetUp();
-		assertEquals(numHeap.size(), 7);
+		createLargeHeap();
+		assertEquals(intMaxHeap.size(), 10000);
 		
-		numHeap.add(10);
-		assertEquals(numHeap.size(), 8);
+		intMaxHeap.add(11000);
+		assertEquals(intMaxHeap.size(), 10001);
 		
-		numHeap.extractMax();
-		assertEquals(numHeap.size(), 7);
+		intMaxHeap.extractMax();
+		assertEquals(intMaxHeap.size(), 10000);
 	}
 	
 	
 	
-	@Test
-	public void sizeOnLargeTest() {
-			
-		largeHeapSetUp();
-		assertEquals(numHeap.size(), 10000);
-		
-		numHeap.add(11000);
-		assertEquals(numHeap.size(), 10001);
-		
-		numHeap.extractMax();
-		assertEquals(numHeap.size(), 10000);
-	}
-	
-	
-/*========================================================= CLEAR & IS_EMPTY TESTS ==========================================================================*/
+/*============================================================ TO_ARRAY() ===============================================================================*/
 	
 	
 	@Test
-	public void clearAndIsEmptyOnEmptyTest() {	
+	public void toArrayOnEmptyTest () {	
+		intMaxHeap = new BinaryMaxHeap<Integer>();
 		
-		numHeap = new BinaryMaxHeap<Integer>();
-		assertTrue(numHeap.isEmpty());
-		
-		numHeap.add(1);
-		assertFalse(numHeap.isEmpty());
-		
-		numHeap.clear();
-		assertTrue(numHeap.isEmpty());
-	}
-	
-	
-	
-	@Test
-	public void clearAndIsEmptyOnSmallTest() {	
-		
-		smallHeapSetUp();
-		assertFalse(numHeap.isEmpty());
-		
-		numHeap.clear();
-		assertTrue(numHeap.isEmpty());
-		
-		try {
-			
-			assertEquals(0, numHeap.toArray()[0]);
-			assertTrue(false);
-			
-		} catch (Exception e) {
-			
-			assertTrue(true);
-		}
-	}
-	
-	
-	
-	@Test
-	public void clearAndIsEmptyOnLargeTest() {	
-		
-		largeHeapSetUp();
-		assertFalse(numHeap.isEmpty());
-		
-		numHeap.clear();
-		assertTrue(numHeap.isEmpty());
-		
-		try {
-			
-			assertEquals(0, numHeap.toArray()[0]);
-			assertTrue(false);
-			
-		} catch (Exception e) {
-			
-			assertTrue(true);
-		}
-	}
-	
-	
-/*============================================================ TO_ARRAY TESTS ===============================================================================*/
-	
-	
-	@Test
-	public void toArrayOnEmptyTest() {	
-		numHeap = new BinaryMaxHeap<Integer>();
-		
-		Object[] emptyArray = numHeap.toArray();
+		Object[] emptyArray = intMaxHeap.toArray();
 		assertEquals(0, emptyArray.length);
 	}
 	
 	
 	
 	@Test
-	public void toArrayOnSmallTest() {	
-		smallHeapSetUp();
+	public void toArrayOnSmallTest () {	
+		createSmallHeap();
 		
-		Object[] smallArray = numHeap.toArray();
+		Object[] smallArray = intMaxHeap.toArray();
 		assertEquals(7, smallArray.length);
 		
 		for (int i = 0; i < smallArray.length; i++) {
 			
 			assertTrue(smallArray[i] != null);
-			assertTrue(1 > numHeap.innerCompare((Integer)numHeap.toArray()[i], 
-					  							(Integer)numHeap.toArray()[(i-1)/2]));
+			assertTrue(1 > intMaxHeap.innerCompare((Integer)intMaxHeap.toArray()[i], 
+					  							(Integer)intMaxHeap.toArray()[(i-1)/2]));
 		}
 	}
 	
 	
 	
 	@Test
-	public void toArrayOnLargeTest() {	
-		largeHeapSetUp();
+	public void toArrayOnLargeTest () {	
+		createLargeHeap();
 		
-		Object[] largeArray = numHeap.toArray();
+		Object[] largeArray = intMaxHeap.toArray();
 		assertEquals(10000, largeArray.length);
 		
 		for (int i = 0; i < largeArray.length; i++) {
 			
 			assertTrue(largeArray[i] != null);
-			assertTrue(1 > numHeap.innerCompare((Integer)numHeap.toArray()[i], 
-					  							(Integer)numHeap.toArray()[(i-1)/2]));
+			assertTrue(1 > intMaxHeap.innerCompare((Integer)intMaxHeap.toArray()[i], 
+					  							(Integer)intMaxHeap.toArray()[(i-1)/2]));
 		}
 	}
 

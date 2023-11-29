@@ -162,6 +162,7 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		
 		size--; // Update size
 		E oldMax = backingArray[0]; // Store the deleted max
+		System.out.println("EXTRACTED VALUE: " + oldMax); // Test statement
 		
 		// Find the first leaf node by halving the length and subtracting 1.
 		int leafIndex = (length/2)-1;
@@ -407,6 +408,27 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		} 
 				
 		return; // Catch case for no left or right children
+	}
+	
+	
+	
+	/**
+	 * @return the length of the backing array
+	 */
+	public int getLength () {
+		return length;
+	}
+	
+	
+	
+	/**
+	 * Helper method to replace the max value with the parameter for testing
+	 * 
+	 * @param item: Item to replace max with
+	 */
+	public void replaceMax (E item) {
+		
+		backingArray[0] = item;
 	}
 	
 }

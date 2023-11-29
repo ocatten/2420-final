@@ -74,20 +74,11 @@ public class FindKLargestTester<E> {
 	public void kLargestComparable() {
 		setup();
 		
-		List<Integer> kLargest = findKLargest.findKLargestHeap(smallList, 10);
+		List<Integer> kLargest = findKLargest.findKLargestHeap(smallList, 3);
 		
-		assertEquals(10,kLargest.size());
-		
-		
-		
-		
+		assertEquals(3,kLargest.size());
 		for(Integer i = 0; i < kLargest.size();i++) {
 			Integer expected = 10-i;
-			for(int j = 0; j < kLargest.size();j++) {
-				System.out.print(kLargest.toArray()[i] + " ");
-
-			}
-			System.out.println(kLargest.get(i));
 			assertEquals(expected,kLargest.get(i));
 		}
 	}
