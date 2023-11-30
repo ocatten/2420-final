@@ -20,7 +20,7 @@ public class BinaryHeapTimer {
 
 		//Uncomment to test findKLargest heap vs. sort
 		//findLargestHeap(timesToLoop*20);
-		//findLargestSort(timesToLoop*20);
+		findLargestSort(timesToLoop*20);
 		
 	}
 	
@@ -107,9 +107,7 @@ public class BinaryHeapTimer {
 			
 			startTime = System.currentTimeMillis();
 					
-			for(Integer i = 0; i < loopTime;i++) {
-				maxHeap.peek();
-			}
+			maxHeap.peek();
 			
 			double stopTime = System.currentTimeMillis();
 			double averageTime = stopTime - startTime;
@@ -139,7 +137,8 @@ public class BinaryHeapTimer {
 			
 			startTime = System.currentTimeMillis();
 					
-			List<Integer> kLargest = findLargest.findKLargestHeap(intArray, 1000*n);
+			int curr = (int) Math.pow(2, n);
+			List<Integer> kLargest = findLargest.findKLargestHeap(intArray, curr);
 			
 			double stopTime = System.currentTimeMillis();
 			double averageTime = stopTime - startTime;
