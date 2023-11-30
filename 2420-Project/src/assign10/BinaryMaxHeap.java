@@ -361,7 +361,6 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		// Store value at the parameter
 		E currentNode = backingArray[index];
 		
-		System.out.println("PERCOLATING " + currentNode); // Test statement
 				
 		// Create variables for the left and right sides
 		int leftIndex = (2*index) + 1;
@@ -387,8 +386,6 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		
 		// Catch case if neither are within the backing array, done percolating
 		if(rightData == null && leftData == null) {
-			
-			System.out.println("NO CHILDREN FOUND"); // Test statement
 			return;
 		}
 		
@@ -413,19 +410,11 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		
 		if(innerCompare(currentNode, greaterChild) < 0) {
 			
-			System.out.println("SWAPPING " + currentNode + " WITH " + greaterChild); // Test statement
+			
 			
 			// Swap the greaterChild and the currentNode and complete percolation
 			backingArray[index] = greaterChild;
 			backingArray[greaterChildIndex] = currentNode;
-		
-			// Print new heap
-			System.out.print("NEW HEAP: ");
-			for(int i = 0; i < backingArray.length; i++) {
-				
-				System.out.print(backingArray[i] + " ");
-				
-			} System.out.println();
 			
 			percolateDown(greaterChildIndex);
 			return; // Remove call from call stack once operations are complete

@@ -108,7 +108,7 @@ public class BinaryHeapTester {
 	
 	
 	
-/*========================================================= PERCOLATE_DOWN ================================================================================
+/*========================================================= PERCOLATE_DOWN ================================================================================*/
 	
 	
 	@Test
@@ -120,10 +120,8 @@ public class BinaryHeapTester {
 		
 		// Print out resulting heap
 		Object[] heapArray = intMaxHeap.toArray();
-		for(int i = 0; i < heapArray.length; i++) {
-			//System.out.print(heapArray[i] + " ");
-		}
-		System.out.println();
+
+
 		
 	}
 	
@@ -507,14 +505,6 @@ public class BinaryHeapTester {
 		intList.add(30);
 		
 		intMaxHeap = new BinaryMaxHeap<Integer>(cmp);
-		
-		
-		System.out.print("BEGINNING HEAP: ");
-		for(int i = 0; i < intList.size(); i++) {
-			
-			System.out.print(intList.get(i) + " ");
-			
-		} System.out.println();
 		
 		intMaxHeap.buildHeap(intList);
 		
