@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -34,9 +36,11 @@ public class RandomPhraseGenerator {
 	public RandomPhraseGenerator(String file, int numOfPhrases) {
 		startingPhrase = null;//Set the startingPhrase to null.
 		
-		readFile(file);//Fill the HashMap 
+		readFile(file);//Fills the HashMap.
 		
+		//Generates the list of random phrases.
 		List<String> randomPhrases = generateRandomPhrases(numOfPhrases);
+		
 		
 		System.out.println("Printing random phrases: ");
 		//Print the phrases
@@ -67,42 +71,28 @@ public class RandomPhraseGenerator {
                 //Check each line for its content
                 if(nextLine.startsWith("{")){//Check if the line has a "{" to signal the start of the next non-terminal.
                 	//Since an angle bracket is given, a non-terminal is expected next.
-                	nextLine = in.nextLine();//Skips the current line to find the next non-terminal.
-                	currNonTerminal = nextLine.trim();
-                	//System.out.println(currNonTerminal);
-                	if(currNonTerminal.equals("<start>")) {
-                		if(startingPhrase != null) {
-                			//Throw error
-                			System.out.println("Error!");
-                		}
-                		
-                		startingPhrase = in.nextLine();//Sets the starting phrase as the next line.
-                		System.out.println("Starting Line Found. Starting phrase is: " + startingPhrase);
-                		//Either use break or return, I forgot which one tbh
-                		break;  		
-                	}
+                	nextLine = in.nextLine().trim();
+                	grammerPhrases.put(nextLine,new ArrayList<String>());
                 	
-                	//This creates an ArrayList to hold all the terminals associated with the current non-terminal.
-                	grammerPhrases.put(currNonTerminal, new ArrayList<>());
                 	withinNonTerminal = true;
+                	currNonTerminal = nextLine;
                 	
                 }else if(nextLine.startsWith("}")) {//Closes the current non-terminal.
-                	//Set the function to outside of a terminal and set the current terminal and non-terminal to null.
+                	//Set the function to outside of a non-terminal and set the current terminal and non-terminal to null.
                 	withinNonTerminal = false;
                 	currTerminal = null;
                 	currNonTerminal = null;
                 	
                 }else if(withinNonTerminal) {//If nonterminal or phrase given, it means non-terminal incorrectly started.
+                	
                 	currTerminal = nextLine.trim();
                 	
                 	//Add the current terminal to its nonterminal ArrayList
                 	grammerPhrases.get(currNonTerminal).add(currTerminal);
+                }else {
+                	//Do nothing here.
                 }
-                
-                else {//For testing, delete this line later.
-                	//System.out.println("File contains line not applicable: ");
-                }
-                //System.out.println(nextLine);
+
             }
         } catch (FileNotFoundException e) {
             //Handles file not found exception
@@ -116,11 +106,12 @@ public class RandomPhraseGenerator {
 	 */
 	public List<String> generateRandomPhrases(int numOfPhrases) {
 		ArrayList<String> returnStrings = new ArrayList<String>();
+		
+		//Creates a random phrase and adds it to the ArrayList of random phrases.
 		for(int i = 0; i < numOfPhrases; i++) {
-			//S
 			returnStrings.add(constructPhrase());
 		}
-		//
+		
 		return returnStrings;
 	}
 	
@@ -129,6 +120,7 @@ public class RandomPhraseGenerator {
 	 */
 	public String constructPhrase() {
 
+		Random rng = new Random();
 
 		//List to store the parts of the generated phrase to be later constructed from.
 		List<String> parts = new ArrayList<String>();
@@ -136,24 +128,43 @@ public class RandomPhraseGenerator {
 		//Create a stack to track the new Strings to add to the parts
 		Stack<String> nextPhrases = new Stack<String>();
 		
-		nextPhrases.push(startingPhrase);
+		LinkedList<String> phrases = new LinkedList<String>();
 		
-		System.out.println(startingPhrase);
+		//Push <start> to the stack to began creating the random phrase.
+		phrases.addFirst("<start>");
 		
-		while(!nextPhrases.isEmpty()) {
-			String currString = nextPhrases.pop();
-			//System.out.println(currString);
+		while(!phrases.isEmpty()) {
+			String currString = phrases.removeFirst();
+
+			
+			//Checks if a non-terminal is contained within the current string.
 			if(currString.contains("<") && currString.contains(">")) {
-				//Break up the String and push each of the sections
-				List<String> segments = new ArrayList<String>();
-				
-				
-            } else {
+				//Checks that the current String contains only a non-terminal.
+				if(currString.charAt(0) == '<' && currString.charAt(currString.length()-1) == '>') {
+					//Choose a random phrase from the current non-terminal and push it to the Stack.
+					List<String> currList = grammerPhrases.get(currString);
+					phrases.addFirst(currList.get(rng.nextInt(currList.size())));
+				}
+				//If the String isn't just a non-terminal, then split the non-terminals from the rest of String and push each of the sections to the Stack.
+				else {
+
+					String[] segments = currString.split("(?=<)|(?<=>)");
+					for(int i = 0; i < segments.length;i++) {
+						phrases.add(i,segments[i]);
+					}
+				}				
+            } 
+			//If the currString doesn't contain a non-terminal, then add it to the ArrayList.
+			else {
                 parts.add(currString);
             }
        }
 
-
+		//For testing
+//		System.out.println("Parts: ");
+//		for(String part:parts) {
+//			System.out.println(part);
+//		}
 		
         String result = "";
 		
@@ -163,11 +174,69 @@ public class RandomPhraseGenerator {
         }
          
 		
-		return result;// 
+		return result;//Finally return the current random phrase generated.
 	}
 	
     public static void main(String[] args) {
         RandomPhraseGenerator generator = new RandomPhraseGenerator("src/comprehensive/poetic_sentence.g", 5);
     }
 }
-	
+
+///*
+// * Generates each phrase starting from the given Start phrase.
+// */
+//public String constructPhrase() {
+//
+//	Random rng = new Random();
+//
+//	//List to store the parts of the generated phrase to be later constructed from.
+//	List<String> parts = new ArrayList<String>();
+//	
+//	//Create a stack to track the new Strings to add to the parts
+//	Stack<String> nextPhrases = new Stack<String>();
+//	
+//	nextPhrases.push("<start>");//Push <start> to the stack to began creating the random phrase.
+//	
+//	while(!nextPhrases.isEmpty()) {
+//		String currString = nextPhrases.pop();
+//		//System.out.println(currString);
+//		
+//		//Checks if a non-terminal is contained within the current string.
+//		if(currString.contains("<") && currString.contains(">")) {
+//			//Checks that the current String contains only a non-terminal.
+//			if(currString.charAt(0) == '<' && currString.charAt(currString.length()-1) == '>') {
+//				//Choose a random phrase from the current non-terminal and push it to the Stack.
+//				List<String> currList = grammerPhrases.get(currString);
+//				nextPhrases.push(currList.get(rng.nextInt(currList.size())));
+//			}
+//			//If the String isn't just a non-terminal, then split the non-terminals from the rest of String and push each of the sections to the Stack.
+//			else {
+//				//List<String> segments = new ArrayList<String>();
+//				String[] segments = currString.split("(?=<)|(?<=>)");
+//				for(String segment:segments) {
+//						nextPhrases.push(segment);
+//				}
+//			}				
+//        } 
+//		//If the currString doesn't contain a non-terminal, then add it to the ArrayList.
+//		else {
+//            parts.add(currString);
+//        }
+//   }
+//
+//	//For testing
+////	System.out.println("Parts: ");
+////	for(String part:parts) {
+////		System.out.println(part);
+////	}
+//	
+//    String result = "";
+//	
+//    //Add each of the items in the String to the rest of the String
+//    for(String part: parts) {
+//    	result += part;
+//    }
+//     
+//	
+//	return result;//Finally return the current random phrase generated.
+//}
