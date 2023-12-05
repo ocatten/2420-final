@@ -152,6 +152,7 @@ public class RandomPhraseGenerator {
 				if(currString.charAt(0) == '<' && currString.charAt(currString.length()-1) == '>' && !currString.contains(" ")) {
 					//Choose a random phrase from the current non-terminal ArrayList and add it to the front of the LinkedList.
 					List<String> currList = grammerPhrases.get(currString);
+					
 					phrases.addFirst(currList.get(rng.nextInt(currList.size())));
 				}
 				//If the String isn't just a non-terminal, then split the non-terminals from the rest of the String sections and add each part to the LinkedList.
