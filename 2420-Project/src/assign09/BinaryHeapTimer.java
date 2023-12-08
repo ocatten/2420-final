@@ -1,8 +1,11 @@
-package assign10;
+package assign09;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import assign10.BinaryMaxHeap;
+import assign10.FindKLargest;
 
 
 
@@ -19,9 +22,8 @@ public class BinaryHeapTimer {
 		//peekTest(timesToLoop*25);
 
 		//Uncomment to test findKLargest heap vs. sort
-		//findLargestHeap(timesToLoop*20);
-		findLargestSort(timesToLoop*20);
-		
+		findLargestHeap(timesToLoop*20);
+		//findLargestSort(timesToLoop*20);
 	}
 	
 	
@@ -34,13 +36,14 @@ public class BinaryHeapTimer {
 			BinaryMaxHeap<Integer> maxHeap = new BinaryMaxHeap<Integer>();
 			
 
-			//Random rng = new Random();
+			@SuppressWarnings("unused")
+			Random rng = new Random();
 			double startTime = System.currentTimeMillis();
 			while(System.currentTimeMillis() - startTime < 100) {} // empty block
-					
+			
 			int loopTime = timesToLoop * n;
 			startTime = System.currentTimeMillis();
-					
+			
 			for(Integer i = 0; i < loopTime;i++) {
 				maxHeap.add(i);
 			}
@@ -48,8 +51,9 @@ public class BinaryHeapTimer {
 			double stopTime = System.currentTimeMillis();
 			double averageTime = stopTime - startTime;
 			
-			averageTime = averageTime / 1000;
-			System.out.println(n + "\t" + averageTime);
+			averageTime = averageTime / (1000*n);
+			//System.out.println(n + "\t" + averageTime);
+			System.out.println(averageTime);
 		}
 	}
 	
@@ -67,7 +71,7 @@ public class BinaryHeapTimer {
 					
 			int loopTime = timesToLoop * n;
 			List<Integer> intArray = new ArrayList<Integer>();
-			for(int i = 0; i < loopTime;i++) {
+			for(int i = 0; i < loopTime; i++) {
 				intArray.add(rng.nextInt());
 			}
 			maxHeap.buildHeap(intArray);
@@ -81,8 +85,8 @@ public class BinaryHeapTimer {
 			double stopTime = System.currentTimeMillis();
 			double averageTime = stopTime - startTime;
 			
-			averageTime = averageTime / 1000;
-			System.out.println(n + "\t" + averageTime);
+			averageTime = averageTime / 1000*n;
+			System.out.println(averageTime);
 		}
 	}
 	
@@ -112,18 +116,19 @@ public class BinaryHeapTimer {
 			double stopTime = System.currentTimeMillis();
 			double averageTime = stopTime - startTime;
 			
-			averageTime = averageTime / 1000;
-			System.out.println(n + "\t" + averageTime);
+			averageTime = averageTime / 1000*n;
+			System.out.println(averageTime);
 		}
 	}
 	
+	@SuppressWarnings({ "unused", "static-access" })
 	public static void findLargestHeap(int timesToLoop) {
 		
 		// For each problem size n . . .
 		for(int n = 1; n < 21; n ++) {
 			
-			//BinaryMaxHeap<Integer> maxHeap = new BinaryMaxHeap<Integer>();
-			//FindKLargest findLargest = new FindKLargest();
+			BinaryMaxHeap<Integer> maxHeap = new BinaryMaxHeap<Integer>();
+			FindKLargest findLargest = new FindKLargest();
 
 			Random rng = new Random(timesToLoop);
 			double startTime = System.currentTimeMillis();
@@ -137,24 +142,25 @@ public class BinaryHeapTimer {
 			
 			startTime = System.currentTimeMillis();
 					
-			//int curr = (int) Math.pow(2, n);
-			//List<Integer> kLargest = findLargest.findKLargestHeap(intArray, curr);
+			int curr = (int) Math.pow(2, n);
+			List<Integer> kLargest = findLargest.findKLargestHeap(intArray, curr);
 			
 			double stopTime = System.currentTimeMillis();
 			double averageTime = stopTime - startTime;
 			
-			averageTime = averageTime / 1000;
-			System.out.println(n + "\t" + averageTime);
+			averageTime = averageTime / 1000*n;
+			System.out.println(averageTime);
 		}
 	}
 	
+@SuppressWarnings({ "unused", "static-access" })
 public static void findLargestSort(int timesToLoop) {
 		
 		// For each problem size n . . .
 		for(int n = 1; n < 21; n ++) {
 			
-			//BinaryMaxHeap<Integer> maxHeap = new BinaryMaxHeap<Integer>();
-			//FindKLargest findLargest = new FindKLargest();
+			BinaryMaxHeap<Integer> maxHeap = new BinaryMaxHeap<Integer>();
+			FindKLargest findLargest = new FindKLargest();
 
 			Random rng = new Random(timesToLoop);
 			double startTime = System.currentTimeMillis();
@@ -169,13 +175,13 @@ public static void findLargestSort(int timesToLoop) {
 			startTime = System.currentTimeMillis();
 			
 			
-			//int curr = (int) Math.pow(2, n);		
-			//List<Integer> kLargest = findLargest.findKLargestSort(intArray, curr);
+			int curr = (int) Math.pow(2, n);		
+			List<Integer> kLargest = findLargest.findKLargestSort(intArray, curr);
 			
 			double stopTime = System.currentTimeMillis();
 			double averageTime = stopTime - startTime;
 			
-			averageTime = averageTime / 1000;
+			averageTime = averageTime / 1000*n;
 			System.out.println(n + "\t" + averageTime);
 		}
 	}
