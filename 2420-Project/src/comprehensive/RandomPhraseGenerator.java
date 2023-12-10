@@ -15,7 +15,8 @@ import java.util.Stack;
  * Creates a random phrase from the given critia in the input file and returns the number of 
  * specified phrases. Each random phrase is made from terminals and non-terminals. Non-terminals 
  * act as the certain from what category to pick from and the terminals are the options within the
- * category.
+ * category. To create random phrases we used a LinkedList and added <start> to the head, then continuely 
+ * used the HashTable about to create a random phrase.
  * 
  * @Authors Everett Oglesby and Parker Catten
  * @Version December 2, 2023
@@ -52,10 +53,10 @@ public class RandomPhraseGenerator {
 		List<String> randomPhrases = generateRandomPhrases(numOfPhrases);
 		
 		
-		System.out.println("Printing random phrases: ");
+		//System.out.println("Printing random phrases: ");
 		//Print the phrases
 		for(int i = 0; i < numOfPhrases; i++) {
-			System.out.println(randomPhrases.get(i));
+			//System.out.println(randomPhrases.get(i));
 		}
 	}
 	
@@ -112,7 +113,9 @@ public class RandomPhraseGenerator {
 	}
 	
 	/*
-	 * Generates random phrases using HashMap, grammerPhrases.
+	 * Generates random phrases using HashMap, grammerPhrases. This method creates an 
+	 * ArrayList of Strings and adds the number of specified random phrases to the ArrayList
+	 * by continuously calling constructPhrase. Finally, it returns the ArrayList of Strings.
 	 */
 	public List<String> generateRandomPhrases(int numOfPhrases) {
 		ArrayList<String> returnStrings = new ArrayList<String>();
@@ -126,7 +129,11 @@ public class RandomPhraseGenerator {
 	}
 	
 	/*
-	 * Generates each phrase starting from the given Start phrase.
+	 * This method constructs a random phrase based on the grammer rules specified in the
+	 * grammerPhrases HashMap. It utilizes a LinkedList and starts by pushing <start> to
+	 * the LinkedList. While the LinkedList isn't empty, it goes through the process of
+	 * constructing the phrase by replacing non-terminals with randomly selected phrases.
+	 * It forms the random phrase to return by combining the generated parts together.
 	 */
 	public String constructPhrase() {
 
@@ -148,12 +155,16 @@ public class RandomPhraseGenerator {
 			
 			//Checks if a non-terminal is contained within the current string.
 			if(currString.contains("<") && currString.contains(">")) {
+				
+				//Splits up the currString to assure that the current String isn't exclusively made of non-terminals.
+				String subString = currString.substring(1);
+				
 				//Checks that the current String contains only a non-terminal.
-				if(currString.charAt(0) == '<' && currString.charAt(currString.length()-1) == '>' && !currString.contains(" ")) {
+				if(currString.charAt(0) == '<' && currString.charAt(currString.length()-1) == '>' && !currString.contains(" ") &&! subString.contains("<")) {
 					//Choose a random phrase from the current non-terminal ArrayList and add it to the front of the LinkedList.
 					List<String> currList = grammerPhrases.get(currString);
-					
-					phrases.addFirst(currList.get(rng.nextInt(currList.size())));
+					String stringTest = currList.get(rng.nextInt(currList.size()));
+					phrases.addFirst(stringTest);
 				}
 				//If the String isn't just a non-terminal, then split the non-terminals from the rest of the String sections and add each part to the LinkedList.
 				else {
