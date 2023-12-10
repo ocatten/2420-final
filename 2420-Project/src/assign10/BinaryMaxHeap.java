@@ -360,15 +360,14 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		
 		// Store value at the parameter
 		E currentNode = backingArray[index];
-		
 				
 		// Create variables for the left and right sides
 		int leftIndex = (2*index) + 1;
 		int rightIndex = (2*index) + 2;
 		int greaterChildIndex;
 		
-		E leftData = null; 
-		E rightData = null; 
+		E leftData = null;
+		E rightData = null;
 		E greaterChild = null;
 		
 		try { // Check if the left child is in bounds
@@ -380,7 +379,6 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E>{
 		try { // Check if the right child is in bounds
 			rightData = backingArray[rightIndex];
 		} catch(Exception e) {
-			
 			
 		}
 		

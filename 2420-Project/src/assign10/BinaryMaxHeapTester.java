@@ -16,7 +16,7 @@ import org.junit.Test;
  * @author: Everett Oglesby & Parker Catten
  * @version: 11:28:23 FA-23 2420_020
  */
-public class BinaryHeapTester {
+public class BinaryMaxHeapTester {
 	
 	
 	private BinaryMaxHeap<Integer> intMaxHeap;
@@ -119,6 +119,7 @@ public class BinaryHeapTester {
 		intMaxHeap.percolateDown(0);
 		
 		// Print out resulting heap
+		@SuppressWarnings("unused")
 		Object[] heapArray = intMaxHeap.toArray();
 
 

@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Stack;
 
 /*
  * Creates a random phrase from the given critia in the input file and returns the number of 
@@ -35,10 +34,10 @@ public class RandomPhraseGenerator {
     public static void main(String[] args) {
     	
     	//Fields to hold given args.
-    	String fileToRun = args[0];
-    	int numOfPhrases = Integer.parseInt(args[1]);
+    	//String fileToRun = args[0];
+    	//int numOfPhrases = Integer.parseInt(args[1]);
     	
-    	RandomPhraseGenerator generator = new RandomPhraseGenerator(fileToRun, numOfPhrases);
+    	//RandomPhraseGenerator generator = new RandomPhraseGenerator(fileToRun, numOfPhrases);
     }
 
 	/*
@@ -88,7 +87,7 @@ public class RandomPhraseGenerator {
                 	withinNonTerminal = true;
                 	currNonTerminal = nextLine;
                 	
-                }else if(nextLine.startsWith("}")) {//Closes the current non-terminal.
+                } else if(nextLine.startsWith("}")) {//Closes the current non-terminal.
                 	//Set the function to outside of a non-terminal and set the current terminal and non-terminal to null.
                 	withinNonTerminal = false;
                 	currTerminal = null;
