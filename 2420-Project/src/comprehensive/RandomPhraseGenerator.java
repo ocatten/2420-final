@@ -24,6 +24,8 @@ public class RandomPhraseGenerator {
 	
 	//Map to hold all the phrases and their respective sources. Strings represent non-terminals and the List<String> is a list of terminals.
 	Map<String, List<String>> grammerPhrases = new HashMap<>();
+	@SuppressWarnings("unused")
+	private static RandomPhraseGenerator generator;
 	
 	
 	
@@ -34,10 +36,10 @@ public class RandomPhraseGenerator {
     public static void main(String[] args) {
     	
     	//Fields to hold given args.
-    	//String fileToRun = args[0];
-    	//int numOfPhrases = Integer.parseInt(args[1]);
+    	String fileToRun = args[0];
+    	int numOfPhrases = Integer.parseInt(args[1]);
     	
-    	//RandomPhraseGenerator generator = new RandomPhraseGenerator(fileToRun, numOfPhrases);
+    	generator = new RandomPhraseGenerator(fileToRun, numOfPhrases);
     }
 
 	/*
@@ -49,7 +51,7 @@ public class RandomPhraseGenerator {
 		readFile(file);//Fills the HashMap.
 		
 		//Generates the list of random phrases.
-		List<String> randomPhrases = generateRandomPhrases(numOfPhrases);
+		//List<String> randomPhrases = generateRandomPhrases(numOfPhrases);
 		
 		
 		//System.out.println("Printing random phrases: ");

@@ -1,9 +1,5 @@
 package comprehensive;
 
-import java.util.Random;
-
-import assign10.BinaryMaxHeap;
-
 public class RandomPhraseTester {
 	
 	
@@ -30,20 +26,20 @@ public class RandomPhraseTester {
 
 			
 
-			Random rng = new Random();
+			//Random rng = new Random();
 			double startTime = System.currentTimeMillis();
 			while(System.currentTimeMillis() - startTime < 100) {} // empty block
 					
-			int loopTime = timesToLoop * n;
+			//int loopTime = timesToLoop * n;
 			startTime = System.currentTimeMillis();
 					
-			RandomPhraseGenerator phraseGenerator = new RandomPhraseGenerator("src/comprehensive/poetic_sentence.g",loopTime);
+			//RandomPhraseGenerator phraseGenerator = new RandomPhraseGenerator("src/comprehensive/poetic_sentence.g",loopTime);
 			
 			double stopTime = System.currentTimeMillis();
 			double averageTime = stopTime - startTime;
 			
-			averageTime = averageTime / (1000);
-			System.out.println(n + "\t" + averageTime);
+			averageTime = averageTime / (10000*n);
+			System.out.println(averageTime);
 		}
 	}
 	
@@ -56,7 +52,7 @@ public class RandomPhraseTester {
 			while(System.currentTimeMillis() - startTime < 100) {} // empty block
 				
 			startTime = System.currentTimeMillis();
-					
+			/*		
 			if(n==1) {
 				RandomPhraseGenerator phraseGenerator = new RandomPhraseGenerator("src/comprehensive/1.g",1000000);
 			}else if(n==2) {
@@ -78,6 +74,7 @@ public class RandomPhraseTester {
 			}else if(n==10) {
 				RandomPhraseGenerator phraseGenerator = new RandomPhraseGenerator("src/comprehensive/10.g",1000000);
 			}
+			*/
 			
 			double stopTime = System.currentTimeMillis();
 			double averageTime = stopTime - startTime;
